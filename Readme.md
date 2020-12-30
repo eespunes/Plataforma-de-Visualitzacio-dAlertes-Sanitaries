@@ -1,4 +1,4 @@
-# TFG INFORMÀTICA
+# PLATAFORMA DE VISUALITZACIÓ D'ALERTES SANITÀRIES - TREBALL DE FINAL DE GRAU
 ## AVANTPROJECTE
 ### 28/12/2020 - 2h
  - S'ha llegit els temes 1 i 2 del llibre "Health Information Systems - Architecture and Strategies"
