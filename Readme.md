@@ -15,7 +15,13 @@
 
 ### 02/01/2021 - 2:00h
 - S'ha començat a escriure la secció 3 "Objectius i Abast" del document "Avantprojecte_ErikEspunesJubero"
+
 - S'ha començat a escriure la secció 4 "Metodologia" del document "Avantprojecte_ErikEspunesJubero"
+
+### 03/01/2021 - 4:00h
+
+  - S'ha acabat d'escriure la secció 2.1.1 "L’era del paper" fins a la secció 2.1.2 "L’era digital" del document "Avantprojecte_ErikEspunesJubero"
+
 
 
 
