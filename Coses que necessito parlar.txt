@@ -1,0 +1,2 @@
+- El servidor web, junt amb la base de dades, que és el que configura les alertes que es rep per departament, 
+que només estigui disponible amb la xarxa local de l'hospital.
