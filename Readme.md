@@ -30,9 +30,13 @@
 
 - S'han fet les taules de la planificació inicial i el pressupost  de l'Avantprojecte.
 
-### 20/01/2021 - 4h
+### 21/01/2021 - 4h
 
 - S'ha acabat l'apartat del pressupost i s'han afegit totes les tasques a la planificació inicial, només queda posar la descripció. 
+
+### 26/01/2021 - 3h
+
+- S'ha fet aspectes
 
 
 ## PRODUCTE
