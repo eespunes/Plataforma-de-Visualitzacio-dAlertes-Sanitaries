@@ -1,0 +1,34 @@
+# INSTALACIÓ
+S'instala el programa IRISHealth_Community-2020.1.0.217.1-win_x64.
+	Es segueixen els passos d'instalació que venen per defecte:
+		Tipus d'instalació: Development
+		Unicode
+		Normal
+		Run InterSystems IRIS under default SYSTEM account
+		Contrasenya pot ser qualsevol que es vulgui posar
+# EXECUCIÓ
+A continuació s'executa el programa Management Portal i es redirigirá a una pàgina web que es el localhost:52773.
+El nom d'usuari és Admin i la contrasenya la que s'ha posat a l'instalar el programa.
+
+## Namespace
+Després s'ha de definir un nou Namespace, per a fer aixó anirem a System Administration -> Configuration -> System Configuration -> Namespaces i es fa click a GO.
+Una vegada a Namespaces es fara click a Create New Namespace
+	Allà li posarem:	
+		Nom: TFG
+		Copy from:  es deixa en blanc.
+		Local database
+		Create New Database
+			(abans de fer aixó haurem de crear una carpeta (amb el nom TFG) nova dintre de \InterSystems\IRISHealth\mgr\)
+			Li posem el nom de TFG
+			i assignem el directori dessitjat
+			Li donem a Finish
+		A continuació tornem a posar Local database
+		a "Select an existing database for Routines" obrim el desplegable i assignem la base de dades de TFG
+	I li donem a Guardar
+
+## API
+Amb el namespace creat executem el programa Studio. Abans de continuar amb el programa Studio, s'ha de activar un valor en el Management Portal, per tant es torna a executar.
+Anirem a System Administration -> Security -> System Security -> Authentication/Web Session i es fa click a GO.
+	Una vegada allà activem la opció "Allow Unauthenticated access" i li donem a Save.
+
+Una vegada fet allò anirem al programa Studio

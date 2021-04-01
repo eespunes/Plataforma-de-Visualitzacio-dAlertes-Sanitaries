@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2020.1 (Build 217.1U)" ts="2021-04-01 11:19:24">
+<Class name="TFG.HIS">
+<DdlAllowed>1</DdlAllowed>
+<Super>%Persistent,%JSON.Adaptor</Super>
+<TimeChanged>65833,44526.539885</TimeChanged>
+<TimeCreated>65832,49714.757319</TimeCreated>
+
+<Property name="hisCovidBedsPercentage">
+<Type>%Float</Type>
+</Property>
+
+<Property name="hisPfizerVaccineInStorage">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="hisAmbulancesWaiting">
+<Type>%Integer</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^TFG.HISD</DataLocation>
+<DefaultData>HISDefaultData</DefaultData>
+<IdLocation>^TFG.HISD</IdLocation>
+<IndexLocation>^TFG.HISI</IndexLocation>
+<StreamLocation>^TFG.HISS</StreamLocation>
+<Data name="HISDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>hisCovidBedsPercentage</Value>
+</Value>
+<Value name="3">
+<Value>hisPfizerVaccineInStorage</Value>
+</Value>
+<Value name="4">
+<Value>hisAmbulancesWaiting</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="TFG.impl">
+<Description><![CDATA[
+Business logic class defined by OpenAPI in TFG.spec<br/>
+Updated Mar 31, 2021 12:32:30]]></Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%REST.Impl</Super>
+<TimeChanged>65835,40732.549757</TimeChanged>
+<TimeCreated>65833,44454.989675</TimeCreated>
+
+<Parameter name="ExposeServerExceptions">
+<Description>
+If ExposeServerExceptions is true, then details of internal errors will be exposed.</Description>
+<Default>0</Default>
+</Parameter>
+
+<Method name="GetCovidBeds">
+<Description>
+(provide functional description here)</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec/>
+<ReturnType>%DynamicObject</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set id=$RANDOM(100000)+1
+	
+		set cm = ##class(TFG.HIS).%OpenId(id)
+		
+		do ..%SetStatusCode("200")
+		return {"value": (cm.hisCovidBedsPercentage)}
+		
+	} catch(ex) {
+		do ..%SetStatusCode("500")
+		return {"errormessage": "Server error"}
+	}
+]]></Implementation>
+</Method>
+
+<Method name="GetPfizerVaccineInStorage">
+<Description>
+(provide functional description here)</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%DynamicObject</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set id=$RANDOM(100000)+1
+	
+		set cm = ##class(TFG.HIS).%OpenId(id)
+		
+		do ..%SetStatusCode("200")
+		return {"value": (cm.hisPfizerVaccineInStorage)}
+		
+	} catch(ex) {
+		do ..%SetStatusCode("500")
+		return {"errormessage": "Server error"}
+	}
+]]></Implementation>
+</Method>
+
+<Method name="GetAmbulancesWaiting">
+<Description>
+(provide functional description here)</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%DynamicObject</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set id=$RANDOM(100000)+1
+	
+		set cm = ##class(TFG.HIS).%OpenId(id)
+		
+		do ..%SetStatusCode("200")
+		return {"value": (cm.hisAmbulancesWaiting)}
+		
+	} catch(ex) {
+		do ..%SetStatusCode("500")
+		return {"errormessage": "Server error"}
+	}
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Package name="TFG" sqlname="TFG"/>
+
+
+<Class name="TFG.spec">
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%REST.Spec</Super>
+<TimeChanged>65834,45149.566183</TimeChanged>
+<TimeCreated>65833,44455.07172</TimeCreated>
+
+<XData name="OpenAPI">
+<MimeType>application/json</MimeType>
+<Data><![CDATA[
+{
+  "swagger":"2.0",
+  "info":{
+    "description":"",
+    "version":"1.0.0",
+    "title":"TFG API",
+    "license":{
+      "name":"Apache 2.0",
+      "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes":[
+    "https"
+  ],
+  "paths":{
+    "/covidBed":{
+      "get":{
+        "operationId":"GetCovidBeds",
+        "produces":[
+          "application/json"
+        ],
+        "responses":{
+          "200":{
+            "description":"Success"
+          },
+          "404":{
+            "description":"Not Found"
+          },
+          "500":{
+            "description":"Server error"
+          }
+        }
+      }
+    },"/pfizerStorage":{
+      "get":{
+        "operationId":"GetPfizerVaccineInStorage",
+        "produces":[
+          "application/json"
+        ],
+        "responses":{
+          "200":{
+            "description":"Success"
+          },
+          "404":{
+            "description":"Not Found"
+          },
+          "500":{
+            "description":"Server error"
+          }
+        }
+      }
+    },"/ambulancesWaiting":{
+      "get":{
+        "operationId":"GetAmbulancesWaiting",
+        "produces":[
+          "application/json"
+        ],
+        "responses":{
+          "200":{
+            "description":"Success"
+          },
+          "404":{
+            "description":"Not Found"
+          },
+          "500":{
+            "description":"Server error"
+          }
+        }
+      }
+    }
+    },
+  "definitions":{
+    "HIS":{
+      "type":"object",
+      "properties":{
+        "hisCovidBedsPercentage":{
+          "type":"number"
+        },
+        "hisPfizerVaccineInStorage":{
+          "type":"integer"
+        },
+        "hisAmbulancesWaiting":{
+          "type":"integer"
+        }
+      }
+    }
+  }
+}
+]]></Data>
+</XData>
+</Class>
+</Export>
