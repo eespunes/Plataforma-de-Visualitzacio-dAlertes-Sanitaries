@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Crear Institució Mèdica</title>
+</head>
+<body style="background-color: #e3f2fd">
+<div th:replace="fragment/header :: header"></div>
+<form class="needs-validation" novalidate method="post" th:object="${createHealthcareInstitution}">
+    <h1>Crear Institució Mèdica</h1>
+    <p>Name</p>
+    <input type="text" required th:field="*{name}"/>
+    <p>URL</p>
+    <input type="text" required th:field="*{URL}"/>
+    <p>Username</p>
+    <input type="text" required th:field="*{username}"/>
+    <p>Password</p>
+    <input type="text" required th:field="*{password}"/>
+    <p>Country</p>
+    <input type="text" required th:field="*{countryID}"/>
+    <p></p>
+    <button class="btn btn-primary" type="submit" value="createUser">Submit form</button>
+</form>
+</body>
+</html>

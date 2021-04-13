@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Inicia Sesión</title>
+</head>
+
+<body>
+<form class="needs-validation" novalidate th:action="@{/login}" method="post">
+    <h1>INICIA SESIÓN</h1>
+    <form>
+        <div class="form-group">
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+        </div>
+        <button type="submit">Login</button>
+        <br>
+    </form>
+</form>
+</body>
+</html>

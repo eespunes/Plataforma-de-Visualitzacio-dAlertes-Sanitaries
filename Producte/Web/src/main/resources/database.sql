@@ -39,24 +39,22 @@ CREATE TABLE Roles
 DROP TABLE IF EXISTS Employees CASCADE;
 CREATE TABLE Employees
 (
-    emp_id                INTEGER,
-    emp_roleName          VARCHAR(16),
-    emp_roleInstitutionID INTEGER,
-    emp_roleCountryID     VARCHAR(3),
+    emp_id                SERIAL,
     emp_username          VARCHAR(32) NOT NULL,
     emp_password          VARCHAR(32) NOT NULL,
     emp_name              VARCHAR(32) NOT NULL,
     emp_surname           VARCHAR(64) NOT NULL,
-    PRIMARY KEY (emp_id, emp_roleName, emp_roleInstitutionID, emp_roleCountryID),
+    emp_roleName          VARCHAR(16),
+    emp_roleInstitutionID INTEGER,
+    emp_roleCountryID     VARCHAR(3),
+    emp_enabled           BIT         NOT NULL DEFAULT B'1',
+    PRIMARY KEY (emp_id),
     FOREIGN KEY (emp_roleName, emp_roleInstitutionID, emp_roleCountryID) REFERENCES Roles (rol_name, rol_institutionID, rol_countryID)
 );
 DROP TABLE IF EXISTS Warnings CASCADE;
 CREATE TABLE Warnings
 (
-    war_id                  INTEGER,
-    war_roleName            VARCHAR(16),
-    war_roleInstitutionID   INTEGER,
-    war_roleCountryID       VARCHAR(3),
+    war_id                  SERIAL UNIQUE,
     war_name                VARCHAR(64)  NOT NULL,
     war_shortName           VARCHAR(32)  NOT NULL,
     war_description         VARCHAR(512) NOT NULL,
@@ -67,13 +65,16 @@ CREATE TABLE Warnings
     war_redValue            FLOAT        NOT NULL,
     war_lastValue           FLOAT        NOT NULL,
     war_refreshRate         FLOAT        NOT NULL,
-    PRIMARY KEY (war_id, war_roleName, war_roleInstitutionID, war_roleCountryID),
+    war_roleName            VARCHAR(16),
+    war_roleInstitutionID   INTEGER,
+    war_roleCountryID       VARCHAR(3),
+    PRIMARY KEY (war_id),
     FOREIGN KEY (war_roleName, war_roleInstitutionID, war_roleCountryID) REFERENCES Roles (rol_name, rol_institutionID, rol_countryID)
 );
 DROP TABLE IF EXISTS LogWarnings CASCADE;
 CREATE TABLE LogWarnings
 (
-    log_warningID INTEGER,
+    log_warningID SERIAL,
     log_date      DATE,
     log_value     FLOAT        NOT NULL,
     log_state     VARCHAR(1)   NOT NULL,
@@ -590,7 +591,7 @@ VALUES ('ZMB', 'Republic of Zambia', 'AF');
 INSERT INTO Countries
 VALUES ('ZWE', 'Republic of Zimbabwe', 'AF');
 
-INSERT INTO HealthcareInstitutions
+INSERT INTO HealthcareInstitutions (ins_id, ins_countryID, ins_name, ins_URL, ins_username, ins_password)
 VALUES (1, 'ESP', 'TEST', 'https://localhost:8080/', 'admin', 'admin');
 INSERT INTO HealthcareInstitutions
 VALUES (1, 'ARG', 'TEST', 'https://localhost:8080/', 'admin', 'admin');
@@ -601,4 +602,4 @@ INSERT INTO Roles
 VALUES ('ADMIN', 1, 'ESP', 'TEST ADMIN ROLE');
 
 INSERT INTO Employees
-VALUES ('1', 'ADMIN',1,'ESP', 'admin', 'admin', 'admin', 'admin');
+VALUES ('1', 'admin', 'admin', 'admin', 'admin', 'ADMIN', 1, 'ESP');
