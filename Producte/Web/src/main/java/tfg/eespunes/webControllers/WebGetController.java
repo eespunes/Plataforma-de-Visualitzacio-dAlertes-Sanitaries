@@ -2,11 +2,17 @@ package tfg.eespunes.webControllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import tfg.eespunes.domain.Employee;
 import tfg.eespunes.domain.HealthcareInstitution;
 import tfg.eespunes.domain.Role;
+import tfg.eespunes.domain.Warning;
 import tfg.eespunes.persistance.DatabaseController;
+
+import javax.validation.Valid;
 
 @Controller
 public class WebGetController {
@@ -33,5 +39,19 @@ public class WebGetController {
         model.addAttribute("createRole", new Role());
         model.addAttribute("healthcareInstitutions", databaseController.getAllHealthcareInstitutions());
         return "role/createRole";
+    }
+
+    @GetMapping("/user/create")
+    public String createUser(Model model) {
+        model.addAttribute("createEmployee", new Employee());
+        model.addAttribute("roles", databaseController.getAllRoles());
+        return "employee/createEmployee";
+    }
+
+    @GetMapping("/warning/create")
+    public String createWarning(Model model) {
+        model.addAttribute("createWarning", new Warning());
+        model.addAttribute("roles", databaseController.getAllRoles());
+        return "warning/createWarning";
     }
 }

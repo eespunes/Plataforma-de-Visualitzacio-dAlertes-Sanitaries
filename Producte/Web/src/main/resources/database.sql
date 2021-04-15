@@ -39,7 +39,7 @@ CREATE TABLE Roles
 DROP TABLE IF EXISTS Employees CASCADE;
 CREATE TABLE Employees
 (
-    emp_id                SERIAL,
+    emp_id                INTEGER,
     emp_username          VARCHAR(32) NOT NULL,
     emp_password          VARCHAR(32) NOT NULL,
     emp_name              VARCHAR(32) NOT NULL,
@@ -590,16 +590,3 @@ INSERT INTO Countries
 VALUES ('ZMB', 'Republic of Zambia', 'AF');
 INSERT INTO Countries
 VALUES ('ZWE', 'Republic of Zimbabwe', 'AF');
-
-INSERT INTO HealthcareInstitutions (ins_id, ins_countryID, ins_name, ins_URL, ins_username, ins_password)
-VALUES (1, 'ESP', 'TEST', 'https://localhost:8080/', 'admin', 'admin');
-INSERT INTO HealthcareInstitutions
-VALUES (1, 'ARG', 'TEST', 'https://localhost:8080/', 'admin', 'admin');
-INSERT INTO HealthcareInstitutions
-VALUES (1, 'USA', 'TEST', 'https://localhost:8080/', 'admin', 'admin');
-
-INSERT INTO Roles
-VALUES ('ADMIN', 1, 'ESP', 'TEST ADMIN ROLE');
-
-INSERT INTO Employees
-VALUES ('1', 'admin', 'admin', 'admin', 'admin', 'ADMIN', 1, 'ESP');

@@ -9,28 +9,28 @@
     <title>Crear Institució Mèdica</title>
 </head>
 <body>
-<form class="needs-validation" novalidate method="post" th:object="${createHealthcareInstitution}">
-    <h1>Crear Institució Mèdica</h1>
+<form class="needs-validation" novalidate method="post" th:object="${createEmployee}">
+    <h1>Crear Usuari</h1>
     <table>
         <tr>
             <td>
                 <p>Nom</p>
-                <input type="text" maxlength="64" required th:field="*{name}"/>
+                <input type="text" maxlength="32" required th:field="*{name}"/>
             </td>
             <td>
-                <p>País</p>
-                <select class="form-control" required th:field="*{countryID}">
-                    <option value="">Selecciona el país</option>
-                    <option th:each="country : ${countries}"
-                            th:value="${country.id}"
-                            th:text="${country.id}+' : '+${country.name}"></option>
+                <p>Rol</p>
+                <select class="form-control" required th:field="*{roleName}">
+                    <option value="">Selecciona el rol</option>
+                    <option th:each="role : ${roles}"
+                            th:value="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"
+                            th:text="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"></option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>
-                <p>URL</p>
-                <input type="text" maxlength="256" required th:field="*{url}"/>
+                <p>Cognoms</p>
+                <input type="text" maxlength="32" required th:field="*{surname}"/>
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
         </tr>
     </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createUser">Crear Institució Mèdica</button>
+    <button class="btn btn-primary" type="submit" value="createUser">Crear Usuari</button>
 </form>
 </body>
 </html>

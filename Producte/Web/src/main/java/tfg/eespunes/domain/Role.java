@@ -1,5 +1,8 @@
 package tfg.eespunes.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Role {
     private String name;
     private String description;
@@ -46,5 +49,14 @@ public class Role {
 
     public void setCountryID(String countryID) {
         this.countryID = countryID;
+    }
+
+    public void setCountryIDFromHealthcareInstitution() {
+        String[] splitted = healthcareInstitutionID.split("-");
+
+        if (splitted.length == 2) {
+            this.healthcareInstitutionID = splitted[1];
+            this.countryID = splitted[0];
+        }
     }
 }

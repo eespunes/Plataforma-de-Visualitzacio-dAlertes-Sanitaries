@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Crear Alerta</title>
+</head>
+<body>
+<form class="needs-validation" novalidate method="post" th:object="${createWarning}">
+    <h1>Crear Alerta</h1>
+
+    <table>
+        <tr>
+            <td>
+                <p>Nom</p>
+                <input type="text" maxlength="64" required th:field="*{name}"/>
+            </td>
+            <td>
+                <p>URI</p>
+                <input type="text" maxlength="256" required th:field="*{uri}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <p>Nom Curt</p>
+                            <input type="text" maxlength="32" required th:field="*{shortName}"/>
+                        </td>
+                        <td>
+                            <p>Rol</p>
+                            <select class="form-control" required th:field="*{roleName}">
+                                <option value="">Selecciona el rol</option>
+                                <option th:each="role : ${roles}"
+                                        th:value="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"
+                                        th:text="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <p>Valor Verd</p>
+                            <input type="number" required th:field="*{greenValue}"/>
+                        </td>
+                        <td>
+                            <p>Valor Groc</p>
+                            <input type="number" required th:field="*{yellowValue}"/>
+                        </td>
+                        <td>
+                            <p>Valor Vermell</p>
+                            <input type="number" required th:field="*{redValue}"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Descripció</p>
+                <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
+            </td>
+            <td>
+                <p>Actualització</p>
+                <input type="number" required th:field="*{refreshRate}"/>
+                <p>Notificació</p>
+                <textarea type="text" maxlength="256" required th:field="*{notificationMessage}"></textarea>
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <button class="btn btn-primary" type="submit" value="createUser">Crear Alerta</button>
+</form>
+</body>
+</html>

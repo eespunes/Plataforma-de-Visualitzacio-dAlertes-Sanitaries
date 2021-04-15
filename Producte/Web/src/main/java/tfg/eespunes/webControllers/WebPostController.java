@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import tfg.eespunes.domain.Employee;
 import tfg.eespunes.domain.HealthcareInstitution;
 import tfg.eespunes.domain.Role;
+import tfg.eespunes.domain.Warning;
 import tfg.eespunes.persistance.DatabaseController;
 
 import javax.validation.Valid;
@@ -39,9 +41,33 @@ public class WebPostController {
             model.addAttribute("errors", errors);
             return "role/createRole";
         }
-        role.setCountryID(databaseController.getHealthcareInstitutionByID(role.getHealthcareInstitutionID()).getCountryID());
+        role.setCountryIDFromHealthcareInstitution();
 //        model.addAttribute("username", user.getUsername());
         databaseController.addRole(role);
+        return "redirect:/";
+    }
+
+    @PostMapping("/user/create")
+    public String createUser(@Valid Employee employee, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return "employee/createEmployee";
+        }
+        employee.setCountryIDAndHealthcareInstitutionIDFromRoleName();
+//        model.addAttribute("username", user.getUsername());
+        databaseController.addEmployee(employee);
+        return "redirect:/";
+    }
+
+    @PostMapping("/warning/create")
+    public String createWarning(@Valid Warning warning, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return "warning/createWarning";
+        }
+        warning.setCountryIDAndHealthcareInstitutionIDFromRoleName();
+//        model.addAttribute("username", user.getUsername());
+        databaseController.addWarning(warning);
         return "redirect:/";
     }
 }

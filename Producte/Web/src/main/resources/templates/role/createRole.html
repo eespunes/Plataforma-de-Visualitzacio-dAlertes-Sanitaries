@@ -6,24 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Crear Institució Mèdica</title>
+    <title>Crear Rol</title>
 </head>
 <body>
 <form class="needs-validation" novalidate method="post" th:object="${createRole}">
-    <h1>Crear Institució Mèdica</h1>
-    <p>Nom</p>
-    <input type="text" required th:field="*{name}"/>
-    <p>Descripció</p>
-    <textarea type="text" required th:field="*{description}"/>
-    <p>Country</p>
-    <select class="form-control" required th:field="*{healthcareInstitutionID}">
-        <option value="">Selecciona el país</option>
-        <option th:each="healthcareInstitution : ${healthcareInstitutions}"
-                th:value="${healthcareInstitution.id}"
-                th:text="${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
-    </select>
+    <h1>Crear Rol</h1>
+    <table>
+        <tr>
+            <td>
+                <p>Nom</p>
+                <input type="text" maxlength="16" required th:field="*{name}"/>
+            </td>
+            <td>
+                <p>Institució Mèdica</p>
+                <select class="form-control" required th:field="*{healthcareInstitutionID}">
+                    <option value="">Selecciona la institució mèdica</option>
+                    <option th:each="healthcareInstitution : ${healthcareInstitutions}"
+                            th:value="${healthcareInstitution.countryID}+'-'+${healthcareInstitution.id}"
+                            th:text="${healthcareInstitution.countryID}+'-'+${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Descripció</p>
+                <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
+            </td>
+        </tr>
+    </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createUser">Submit form</button>
+    <button class="btn btn-primary" type="submit" value="createUser">Crear Rol</button>
 </form>
 </body>
 </html>

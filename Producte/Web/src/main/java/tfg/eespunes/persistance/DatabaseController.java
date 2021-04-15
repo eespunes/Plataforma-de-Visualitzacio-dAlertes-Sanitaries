@@ -1,9 +1,7 @@
 package tfg.eespunes.persistance;
 
 import org.springframework.stereotype.Service;
-import tfg.eespunes.domain.Country;
-import tfg.eespunes.domain.HealthcareInstitution;
-import tfg.eespunes.domain.Role;
+import tfg.eespunes.domain.*;
 import tfg.eespunes.persistance.controllers.DatabaseDAO;
 
 import java.util.List;
@@ -33,7 +31,15 @@ public class DatabaseController {
         return databaseDAO.insertRole(role);
     }
 
-    public HealthcareInstitution getHealthcareInstitutionByID(String healthcareInstitutionID) {
-        return databaseDAO.findHealthcareInstitutionByID(healthcareInstitutionID);
+    public int addEmployee(Employee employee) {
+        return databaseDAO.insertEmployee(employee);
+    }
+
+    public List<Role> getAllRoles() {
+        return databaseDAO.findAllRoles();
+    }
+
+    public int addWarning(Warning warning) {
+        return databaseDAO.insertWarning(warning);
     }
 }
