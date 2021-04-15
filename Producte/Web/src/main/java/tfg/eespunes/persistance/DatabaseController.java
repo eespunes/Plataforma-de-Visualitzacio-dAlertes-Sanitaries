@@ -14,32 +14,34 @@ public class DatabaseController {
     public DatabaseController(DatabaseDAO databaseDAO) {
         this.databaseDAO = databaseDAO;
     }
+        public void addHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+            databaseDAO.insertHealthcareInstitution(healthcareInstitution);
+        }
+    public void addRole(Role role) {
+        databaseDAO.insertRole(role);
+    }
+    public void addEmployee(Employee employee) {
+        databaseDAO.insertEmployee(employee);
+    }
+    public void addWarning(Warning warning) {
+        databaseDAO.insertWarning(warning);
+    }
 
     public List<Country> getAllCountries() {
         return databaseDAO.findAllCountries();
     }
-
-    public int addHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        return databaseDAO.insertHealthcareInstitution(healthcareInstitution);
-    }
-
     public List<HealthcareInstitution> getAllHealthcareInstitutions() {
         return databaseDAO.findAllHealthcareInstitutions();
     }
-
-    public int addRole(Role role) {
-        return databaseDAO.insertRole(role);
-    }
-
-    public int addEmployee(Employee employee) {
-        return databaseDAO.insertEmployee(employee);
-    }
-
     public List<Role> getAllRoles() {
         return databaseDAO.findAllRoles();
     }
 
-    public int addWarning(Warning warning) {
-        return databaseDAO.insertWarning(warning);
+    public List<Employee> getAllEmployees() {
+        return databaseDAO.findAllEmployees();
+    }
+
+    public List<Warning> getAllWarnings() {
+        return databaseDAO.findAllWarnings();
     }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>LLISTA DE ROLS</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <style th:replace="fragment/header :: headerStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<h1 align="center">LLISTA DE ROLS</h1>
+<table>
+    <tr>
+        <th>
+            <p>Nom</p>
+        </th>
+        <th>
+            <p>Institució Mèdica</p>
+        </th>
+        <th>
+            <p>País</p>
+        </th>
+        <th>
+            <p></p>
+        </th>
+    </tr>
+    <tr class="row jumbotron shadow p-3 mb-5" style=" background-color: #ffffff"
+        th:each="role : ${roles}">
+        <td>
+            <h4 th:text="${role.name}" th:id="${role.name}">Nom</h4>
+        </td>
+        <td>
+            <h4 th:text="${role.healthcareInstitutionID}" th:id="${role.healthcareInstitutionID}">Institució Mèdica</h4>
+        </td>
+        <td>
+            <h4 th:text="${role.countryID}" th:id="${role.countryID}">País</h4>
+        </td>
+        <td class="col-md-2">
+            <a th:href="@{'/role/' + ${role.name}+'/'+${role.healthcareInstitutionID}+'/'+${role.countryID}}">Editar</a>
+        </td>
+    </tr>
+</table>
+<h3 th:if="${roles.size()==0}">No s'ha trobat cap rol.</h3>
+</body>
+</html>

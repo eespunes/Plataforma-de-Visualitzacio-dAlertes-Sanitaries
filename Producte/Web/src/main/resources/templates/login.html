@@ -7,9 +7,10 @@
     <meta name="author" content="">
 
     <title>Inicia Sesión</title>
+    <style th:replace="fragment/header :: headerStyle"></style>
 </head>
-
 <body>
+<div th:replace="fragment/header :: header"></div>
 <form class="needs-validation" novalidate th:action="@{/login}" method="post">
     <h1>INICIA SESIÓN</h1>
     <form>

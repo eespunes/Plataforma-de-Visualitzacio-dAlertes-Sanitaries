@@ -7,8 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Crear Alerta</title>
+    <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
+<div th:replace="fragment/header :: header"></div>
 <form class="needs-validation" novalidate method="post" th:object="${createWarning}">
     <h1>Crear Alerta</h1>
 
@@ -76,7 +78,7 @@
         </tr>
     </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createUser">Crear Alerta</button>
+    <button class="btn btn-primary" type="submit" value="createWarning">Crear Alerta</button>
 </form>
 </body>
 </html>

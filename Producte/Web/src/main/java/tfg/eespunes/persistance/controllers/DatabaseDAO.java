@@ -16,9 +16,13 @@ public class DatabaseDAO {
     private final String INSERT_ROLE = "INSERT INTO Roles VALUES (?,?,?,?);";
     private final String INSERT_EMPLOYEE = "INSERT INTO Employees VALUES (?,?,?,?,?,?,?,?);";
     private final String INSERT_WARNING = "INSERT INTO Warnings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+
     private final String FIND_ALL_COUNTRIES = "SELECT * FROM Countries";
     private final String FIND_ALL_HEALTHCARE_INSTITUTIONS = "SELECT * FROM HealthcareInstitutions";
     private final String FIND_ALL_ROLES = "SELECT * FROM Roles";
+    private final String FIND_ALL_EMPLOYEES = "SELECT * FROM Employees";
+    private final String FIND_ALL_WARNINGS = "SELECT * FROM Warnings";
+
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
     private final String COUNT_EMPLOYEES = "SELECT COUNT(emp_id) FROM Employees";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
@@ -62,20 +66,42 @@ public class DatabaseDAO {
         return role;
     };
 
-    public List<Country> findAllCountries() {
-        return jdbcTemplate.query(FIND_ALL_COUNTRIES, new Object[]{}, countryMapperList);
-    }
+    private RowMapper<Employee> employeesMapperList = (resultSet, i) -> {
+        Employee employee = new Employee(
+                resultSet.getInt("emp_id"),
+                resultSet.getString("emp_username"),
+                resultSet.getString("emp_password"),
+                resultSet.getString("emp_name"),
+                resultSet.getString("emp_surname"),
+                resultSet.getString("emp_rolename"),
+                resultSet.getInt("emp_roleinstitutionid"),
+                resultSet.getString("emp_rolecountryid")
+        );
+        return employee;
+    };
+
+    private RowMapper<Warning> warningsMapperList = (resultSet, i) -> {
+        Warning warning = new Warning(
+                resultSet.getInt("war_id"),
+                resultSet.getString("war_name"),
+                resultSet.getString("war_shortname"),
+                resultSet.getString("war_description"),
+                resultSet.getString("war_uri"),
+                resultSet.getString("war_notificationmessage"),
+                resultSet.getFloat("war_greenvalue"),
+                resultSet.getFloat("war_yellowvalue"),
+                resultSet.getFloat("war_redvalue"),
+                resultSet.getFloat("war_lastvalue"),
+                resultSet.getInt("war_refreshrate"),
+                resultSet.getString("war_rolename"),
+                resultSet.getInt("war_roleinstitutionid"),
+                resultSet.getString("war_rolecountryid")
+        );
+        return warning;
+    };
 
     public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
         return jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountryID()), healthcareInstitution.getCountryID(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
-    }
-
-    private int getHealthcareInstitutionCountByCountry(String countryID) {
-        return jdbcTemplate.queryForObject(COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY, new Object[]{countryID}, Integer.class);
-    }
-
-    public List<HealthcareInstitution> findAllHealthcareInstitutions() {
-        return jdbcTemplate.query(FIND_ALL_HEALTHCARE_INSTITUTIONS, new Object[]{}, healthcareInstitutionsMapperList);
     }
 
     public int insertRole(Role role) {
@@ -87,13 +113,32 @@ public class DatabaseDAO {
         return jdbcTemplate.update(INSERT_EMPLOYEE, id, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRoleName(), employee.getRoleInstitutionID(), employee.getRoleCountryID());
     }
 
-    public List<Role> findAllRoles() {
-        return jdbcTemplate.query(FIND_ALL_ROLES, new Object[]{}, rolesMapperList);
+    private int getHealthcareInstitutionCountByCountry(String countryID) {
+        return jdbcTemplate.queryForObject(COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY, new Object[]{countryID}, Integer.class);
     }
 
     public int insertWarning(Warning warning) {
         int id = jdbcTemplate.queryForObject(COUNT_WARNINGS, new Object[]{}, Integer.class);
         return jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRoleName(), warning.getRoleInstitutionID(), warning.getRoleCountryID());
+    }
 
+    public List<Country> findAllCountries() {
+        return jdbcTemplate.query(FIND_ALL_COUNTRIES, new Object[]{}, countryMapperList);
+    }
+
+    public List<HealthcareInstitution> findAllHealthcareInstitutions() {
+        return jdbcTemplate.query(FIND_ALL_HEALTHCARE_INSTITUTIONS, new Object[]{}, healthcareInstitutionsMapperList);
+    }
+
+    public List<Role> findAllRoles() {
+        return jdbcTemplate.query(FIND_ALL_ROLES, new Object[]{}, rolesMapperList);
+    }
+
+    public List<Employee> findAllEmployees() {
+        return jdbcTemplate.query(FIND_ALL_EMPLOYEES, new Object[]{}, employeesMapperList);
+    }
+
+    public List<Warning> findAllWarnings() {
+        return jdbcTemplate.query(FIND_ALL_WARNINGS, new Object[]{}, warningsMapperList);
     }
 }

@@ -27,6 +27,7 @@ public class WebGetController {
         return "login";
     }
 
+    //CREAR
     @GetMapping("/institution/create")
     public String createInstitution(Model model) {
         model.addAttribute("createHealthcareInstitution", new HealthcareInstitution());
@@ -53,5 +54,30 @@ public class WebGetController {
         model.addAttribute("createWarning", new Warning());
         model.addAttribute("roles", databaseController.getAllRoles());
         return "warning/createWarning";
+    }
+
+    //GET ALL
+    @GetMapping("/institution/all")
+    public String getAllInstitutions(Model model) {
+        model.addAttribute("healthcareInstitutions", databaseController.getAllHealthcareInstitutions());
+        return "healthcareInstitution/showHealthcareInstitutions";
+    }
+
+    @GetMapping("/role/all")
+    public String getAllRoles(Model model) {
+        model.addAttribute("roles", databaseController.getAllRoles());
+        return "role/showRoles";
+    }
+
+    @GetMapping("/user/all")
+    public String getAllEployeess(Model model) {
+        model.addAttribute("employees", databaseController.getAllEmployees());
+        return "employee/showEmployees";
+    }
+
+    @GetMapping("/warning/all")
+    public String getAllWarningss(Model model) {
+        model.addAttribute("warnings", databaseController.getAllWarnings());
+        return "warning/showWarnings";
     }
 }

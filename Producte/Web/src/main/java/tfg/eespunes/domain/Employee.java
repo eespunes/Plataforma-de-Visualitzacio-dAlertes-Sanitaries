@@ -1,7 +1,7 @@
 package tfg.eespunes.domain;
 
 public class Employee {
-    private Long id;
+    private int id;
     private String username;
     private String password;
     private String name;
@@ -10,7 +10,8 @@ public class Employee {
     private int roleInstitutionID;
     private String roleCountryID;
 
-    public Employee(String username, String password, String name, String surname, String roleName, int roleInstitutionID, String roleCountryID) {
+    public Employee(int id, String username, String password, String name, String surname, String roleName, int roleInstitutionID, String roleCountryID) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -23,11 +24,11 @@ public class Employee {
     public Employee() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

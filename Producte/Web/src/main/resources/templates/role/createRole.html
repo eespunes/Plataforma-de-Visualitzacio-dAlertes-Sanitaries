@@ -7,8 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Crear Rol</title>
+    <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
+<div th:replace="fragment/header :: header"></div>
 <form class="needs-validation" novalidate method="post" th:object="${createRole}">
     <h1>Crear Rol</h1>
     <table>
@@ -35,7 +37,7 @@
         </tr>
     </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createUser">Crear Rol</button>
+    <button class="btn btn-primary" type="submit" value="createRole">Crear Rol</button>
 </form>
 </body>
 </html>
