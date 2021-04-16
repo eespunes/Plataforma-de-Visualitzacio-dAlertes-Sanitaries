@@ -3,23 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>LLISTA D'ALERTES</title>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
@@ -28,34 +12,34 @@
 <table>
     <tr>
         <th>
-            <p>ID</p>
+            <p align="center">ID</p>
         </th>
         <th>
-            <p>Nom Curt</p>
+            <p align="center">Nom Curt</p>
         </th>
         <th>
-            <p>Rol</p>
+            <p align="center">Rol</p>
         </th>
         <th>
-            <p></p>
+            <p align="center"></p>
         </th>
     </tr>
     <tr
         th:each="warning : ${warnings}">
         <td>
-            <h4 th:text="${warning.id}" th:id="${warning.id}">ID</h4>
+            <p align="center" th:text="${warning.id}" th:id="${warning.id}">ID</p>
         </td>
         <td>
-            <h4 th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</h4>
+            <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
         </td>
         <td>
-            <h4 th:text="${warning.roleName}" th:id="${warning.roleName}">Rol</h4>
+            <p align="center" th:text="${warning.roleName}" th:id="${warning.roleName}">Rol</p>
         </td>
         <td>
-            <a th:href="@{'/warning/' + ${warning.id}}">Editar</a>
+            <a th:href="@{'/warning/' + ${warning.id}}">VEURE</a>
         </td>
     </tr>
 </table>
-<h3 th:if="${warnings.size()==0}">No s'ha trobat cap alerta.</h3>
+<h3 align="center" th:if="${warnings.size()==0}">No s'ha trobat cap alerta.</h3>
 </body>
 </html>

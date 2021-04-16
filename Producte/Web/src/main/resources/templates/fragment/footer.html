@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <style th:fragment="footerStyle">
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #00f8ff;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="footer" class="footer">
+    <h4>TREBALL DE FINAL DE GRAU</h4>
+    <h5>AUTOR: ERIK ESPUÑES JUBERÓ</h5>
+    <h6>TUTOR: EUGENI FERNANDEZ GONZALEZ
+        | CURS 2020/2021 | GRAU EN ENGINYERIA INFORMÀTICA DE GESTIÓ I SISTEMES D’INFORMACIÓ</h6>
+</div>
+</body>
+</html>

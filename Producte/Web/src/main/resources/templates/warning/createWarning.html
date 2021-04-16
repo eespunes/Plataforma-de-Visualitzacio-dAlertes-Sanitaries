@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Crear Alerta</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
@@ -17,12 +18,12 @@
     <table>
         <tr>
             <td>
-                <p>Nom</p>
-                <input type="text" maxlength="64" required th:field="*{name}"/>
+                <p align="center">Nom</p>
+                <input align="center" type="text" maxlength="64" required th:field="*{name}"/>
             </td>
             <td>
-                <p>URI</p>
-                <input type="text" maxlength="256" required th:field="*{uri}"/>
+                <p align="center">URI</p>
+                <input align="center" type="text" maxlength="256" required th:field="*{uri}"/>
             </td>
         </tr>
         <tr>
@@ -30,11 +31,11 @@
                 <table>
                     <tr>
                         <td>
-                            <p>Nom Curt</p>
+                            <p align="center">Nom Curt</p>
                             <input type="text" maxlength="32" required th:field="*{shortName}"/>
                         </td>
                         <td>
-                            <p>Rol</p>
+                            <p align="center">Rol</p>
                             <select class="form-control" required th:field="*{roleName}">
                                 <option value="">Selecciona el rol</option>
                                 <option th:each="role : ${roles}"
@@ -49,15 +50,15 @@
                 <table>
                     <tr>
                         <td>
-                            <p>Valor Verd</p>
+                            <p align="center">Valor Verd</p>
                             <input type="number" required th:field="*{greenValue}"/>
                         </td>
                         <td>
-                            <p>Valor Groc</p>
+                            <p align="center">Valor Groc</p>
                             <input type="number" required th:field="*{yellowValue}"/>
                         </td>
                         <td>
-                            <p>Valor Vermell</p>
+                            <p align="center">Valor Vermell</p>
                             <input type="number" required th:field="*{redValue}"/>
                         </td>
                     </tr>
@@ -66,14 +67,14 @@
         </tr>
         <tr>
             <td>
-                <p>Descripció</p>
-                <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
+                <p align="center">Descripció</p>
+                <textarea align="center" type="text" maxlength="512" required th:field="*{description}"></textarea>
             </td>
             <td>
-                <p>Actualització</p>
-                <input type="number" required th:field="*{refreshRate}"/>
-                <p>Notificació</p>
-                <textarea type="text" maxlength="256" required th:field="*{notificationMessage}"></textarea>
+                <p align="center">Actualització</p>
+                <input align="center" type="number" required th:field="*{refreshRate}"/>
+                <p align="center">Notificació</p>
+                <textarea align="center" type="text" maxlength="256" required th:field="*{notificationMessage}"></textarea>
             </td>
         </tr>
     </table>

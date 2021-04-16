@@ -7,20 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Crear Institució Mèdica</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <form class="needs-validation" novalidate method="post" th:object="${createHealthcareInstitution}">
-    <h1>Crear Institució Mèdica</h1>
+    <h1 align="center">Crear Institució Mèdica</h1>
     <table>
         <tr>
             <td>
-                <p>Nom</p>
+                <p align="center">Nom</p>
                 <input type="text" maxlength="64" required th:field="*{name}"/>
             </td>
             <td>
-                <p>País</p>
+                <p align="center">País</p>
                 <select class="form-control" required th:field="*{countryID}">
                     <option value="">Selecciona el país</option>
                     <option th:each="country : ${countries}"
@@ -31,19 +32,19 @@
         </tr>
         <tr>
             <td>
-                <p>URL</p>
+                <p align="center">URL</p>
                 <input type="text" maxlength="256" required th:field="*{url}"/>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Nom d'usuari</p>
+                <p align="center">Nom d'usuari</p>
                 <input type="text" maxlength="32" required th:field="*{username}"/>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Contrasenya</p>
+                <p align="center">Contrasenya</p>
                 <input type="password" maxlength="32" required th:field="*{password}"/>
             </td>
         </tr>

@@ -2,50 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>LLISTA D'USUARIS</title>
+    <title>USUARI</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<h1 align="center">LLISTA D'USUARIS</h1>
+<h1 align="center">USUARI</h1>
 <table>
     <tr>
         <th>
             <p align="center">Nom</p>
         </th>
-        <th>
-            <p align="center">Cognoms</p>
-        </th>
-        <th>
-            <p align="center">Usuari</p>
-        </th>
-        <th>
-            <p align="center">Rol</p>
-        </th>
-        <th>
-            <p align="center"></p>
-        </th>
     </tr>
-    <tr
-        th:each="employee : ${employees}">
+    <tr>
         <td>
             <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>
         </td>
+    </tr>
+    <tr>
+        <th>
+            <p align="center">Cognoms</p>
+        </th>
+    </tr>
+    <tr>
         <td>
             <p align="center" th:text="${employee.surname}" th:id="${employee.surname}">Cognoms</p>
         </td>
+    </tr>
+    <tr>
+        <th>
+            <p align="center">Usuari</p>
+        </th>
+    </tr>
+    <tr>
         <td>
             <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
         </td>
+    </tr>
+    <tr>
+        <th>
+            <p align="center">Rol</p>
+        </th>
+    </tr>
+    <tr>
         <td>
             <p  align="center"th:text="${employee.roleName}" th:id="${employee.roleName}">Rol</p>
         </td>
-        <td>
-            <a align="center" th:href="@{'/user/' + ${employee.id}}">VEURE</a>
-        </td>
     </tr>
 </table>
-<h3 align="center" th:if="${employees.size()==0}">No s'ha trobat cap usuari.</h3>
 </body>
 </html>

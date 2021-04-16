@@ -7,20 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Crear Rol</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <form class="needs-validation" novalidate method="post" th:object="${createRole}">
-    <h1>Crear Rol</h1>
+    <h1 align="center">Crear Rol</h1>
     <table>
         <tr>
             <td>
-                <p>Nom</p>
+                <p align="center">Nom</p>
                 <input type="text" maxlength="16" required th:field="*{name}"/>
             </td>
             <td>
-                <p>Institució Mèdica</p>
+                <p align="center">Institució Mèdica</p>
                 <select class="form-control" required th:field="*{healthcareInstitutionID}">
                     <option value="">Selecciona la institució mèdica</option>
                     <option th:each="healthcareInstitution : ${healthcareInstitutions}"
@@ -31,7 +32,7 @@
         </tr>
         <tr>
             <td>
-                <p>Descripció</p>
+                <p align="center">Descripció</p>
                 <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
             </td>
         </tr>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>INSTITUCIÓ MÈDICA</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <style th:replace="fragment/header :: headerStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<h1 align="center">INSTITUCIÓ MÈDICA</h1>
+<table>
+    <tr>
+        <td>
+            <h4 align="center">Nom</h4>
+            <p align="center" th:text="${healthcareInstitution.name}" th:id="${healthcareInstitution.name}">Nom</p>
+            <h4 align="center">URL</h4>
+            <p align="center" th:text="${healthcareInstitution.url}" th:id="${healthcareInstitution.url}">URL</p>
+            <h4 align="center">Nom d'Usuari</h4>
+            <p align="center" th:text="${healthcareInstitution.username}" th:id="${healthcareInstitution.username}">Nom
+                d'Usuari</p>
+            <h4 align="center">Contrasenya</h4>
+            <p align="center" th:text="${healthcareInstitution.password}" th:id="${healthcareInstitution.password}">
+                Contrasenya</p>
+            <h4 align="center">País</h4>
+            <p align="center" th:text="${healthcareInstitution.countryID}" th:id="${healthcareInstitution.countryID}">
+                País</p>
+        </td>
+        <td>
+            <h3 align="center">Rols</h3>
+            <table>
+                <tr>
+                    <th>
+                        <p align="center">Nom</p>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                <tr
+                        th:each="role : ${roles}">
+                    <td>
+                        <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
+                    </td>
+                    <td>
+                        <a th:href="@{'/role/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">VEURE</a>
+                    </td>
+                    <td class="col-md-2">
+                        <a th:href="@{'/role/delete/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">ELIMINAR</a>
+                    </td>
+                </tr>
+            </table>
+            <p align="center" th:if="${roles.size()==0}">No s'ha trobat cap rol per aquesta institució mèdica.</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

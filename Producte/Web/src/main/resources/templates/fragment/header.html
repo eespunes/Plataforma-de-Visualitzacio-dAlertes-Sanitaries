@@ -3,21 +3,25 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:fragment="headerStyle">
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            font-family: 'Acme';
         }
 
-        .navbar {
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
             overflow: hidden;
-            background-color: #ffffff;
+            background-color: #00f8ff;
         }
 
-        .navbar a {
+        #navbar a {
             float: left;
             font-size: 16px;
-            color: black;
+            color: white;
             text-align: center;
             padding: 14px 16px;
             text-decoration: none;
@@ -27,44 +31,43 @@
         .dropdown {
             float: left;
             overflow: hidden;
-            width: 23%;
         }
 
         .dropdown .dropbtn {
             font-size: 16px;
             border: none;
             outline: none;
-            color: black;
+            color: white;
             padding: 14px 16px;
             background-color: inherit;
             font-family: inherit;
             margin: 0;
         }
 
-        .navbar a:hover, .dropdown:hover .dropbtn {
+        #navbar a:hover, .dropdown:hover .dropbtn {
             background-color: white;
+            color: #00f8ff;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background-color: #00f8ff;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
         .dropdown-content a {
             float: none;
-            color: black;
-            padding: 12px 16px;
+            color: white;
+            /*padding: 12px 16px;*/
             text-decoration: none;
             display: block;
             text-align: left;
         }
 
         .dropdown-content a:hover {
-            background-color: #ddd;
+            background-color: white;
         }
 
         .dropdown:hover .dropdown-content {
@@ -73,8 +76,7 @@
     </style>
 </head>
 <body>
-<div th:fragment="header">
-    <div class="navbar">
+<div th:fragment="header" id="navbar">
         <a href="/">TAULELL</a>
         <div class="dropdown">
             <button class="dropbtn">LLISTES
@@ -107,7 +109,6 @@
                 <a href="/logout">Tancar Sessió</a>
             </div>
         </div>
-    </div>
 </div>
 </body>
 </html>

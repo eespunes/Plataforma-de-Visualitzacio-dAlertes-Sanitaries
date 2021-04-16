@@ -23,6 +23,14 @@ public class DatabaseDAO {
     private final String FIND_ALL_EMPLOYEES = "SELECT * FROM Employees";
     private final String FIND_ALL_WARNINGS = "SELECT * FROM Warnings";
 
+    private final String FIND_HEALTHCARE_INSTITUTION_BY_ID = "SELECT * FROM HealthcareInstitutions WHERE ins_id=? and ins_countryid=?";
+    private final String FIND_ROLE_BY_ID = "SELECT * FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
+    private final String FIND_EMPLOYEE_BY_ID = "SELECT * FROM Employees WHERE emp_id=?";
+    private final String FIND_WARNING_BY_ID = "SELECT * FROM Warnings WHERE war_id=?";
+
+    private final String FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS = "SELECT * FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
+    private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_name=? and war_roleinstitutionid=? and war_rolecountryid=?";
+
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
     private final String COUNT_EMPLOYEES = "SELECT COUNT(emp_id) FROM Employees";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
@@ -33,12 +41,8 @@ public class DatabaseDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private Country countryMapper(ResultSet resultSet) throws SQLException {
-        Country country = new Country(resultSet.getString(0), resultSet.getString(1), resultSet.getString(2));
-        return country;
-    }
-
-    private RowMapper<Country> countryMapperList = (resultSet, i) -> {
+    //MAPPERS
+    private RowMapper<Country> countryMapper = (resultSet, i) -> {
         Country country = new Country(
                 resultSet.getString("cou_continentID"),
                 resultSet.getString("cou_id"),
@@ -46,7 +50,7 @@ public class DatabaseDAO {
         return country;
     };
 
-    private RowMapper<HealthcareInstitution> healthcareInstitutionsMapperList = (resultSet, i) -> {
+    private RowMapper<HealthcareInstitution> healthcareInstitutionMapper = (resultSet, i) -> {
         HealthcareInstitution healthcareInstitution = new HealthcareInstitution(
                 resultSet.getInt("ins_id"),
                 resultSet.getString("ins_countryid"),
@@ -57,7 +61,7 @@ public class DatabaseDAO {
         return healthcareInstitution;
     };
 
-    private RowMapper<Role> rolesMapperList = (resultSet, i) -> {
+    private RowMapper<Role> roleMapper = (resultSet, i) -> {
         Role role = new Role(
                 resultSet.getString("rol_name"),
                 resultSet.getString("rol_description"),
@@ -66,7 +70,7 @@ public class DatabaseDAO {
         return role;
     };
 
-    private RowMapper<Employee> employeesMapperList = (resultSet, i) -> {
+    private RowMapper<Employee> employeeMapper = (resultSet, i) -> {
         Employee employee = new Employee(
                 resultSet.getInt("emp_id"),
                 resultSet.getString("emp_username"),
@@ -80,7 +84,7 @@ public class DatabaseDAO {
         return employee;
     };
 
-    private RowMapper<Warning> warningsMapperList = (resultSet, i) -> {
+    private RowMapper<Warning> warningMapper = (resultSet, i) -> {
         Warning warning = new Warning(
                 resultSet.getInt("war_id"),
                 resultSet.getString("war_name"),
@@ -100,6 +104,7 @@ public class DatabaseDAO {
         return warning;
     };
 
+    //CREATE
     public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
         return jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountryID()), healthcareInstitution.getCountryID(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
     }
@@ -122,23 +127,50 @@ public class DatabaseDAO {
         return jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRoleName(), warning.getRoleInstitutionID(), warning.getRoleCountryID());
     }
 
+    //FIND ALL
     public List<Country> findAllCountries() {
-        return jdbcTemplate.query(FIND_ALL_COUNTRIES, new Object[]{}, countryMapperList);
+        return jdbcTemplate.query(FIND_ALL_COUNTRIES, new Object[]{}, countryMapper);
     }
 
     public List<HealthcareInstitution> findAllHealthcareInstitutions() {
-        return jdbcTemplate.query(FIND_ALL_HEALTHCARE_INSTITUTIONS, new Object[]{}, healthcareInstitutionsMapperList);
+        return jdbcTemplate.query(FIND_ALL_HEALTHCARE_INSTITUTIONS, new Object[]{}, healthcareInstitutionMapper);
     }
 
     public List<Role> findAllRoles() {
-        return jdbcTemplate.query(FIND_ALL_ROLES, new Object[]{}, rolesMapperList);
+        return jdbcTemplate.query(FIND_ALL_ROLES, new Object[]{}, roleMapper);
     }
 
     public List<Employee> findAllEmployees() {
-        return jdbcTemplate.query(FIND_ALL_EMPLOYEES, new Object[]{}, employeesMapperList);
+        return jdbcTemplate.query(FIND_ALL_EMPLOYEES, new Object[]{}, employeeMapper);
     }
 
     public List<Warning> findAllWarnings() {
-        return jdbcTemplate.query(FIND_ALL_WARNINGS, new Object[]{}, warningsMapperList);
+        return jdbcTemplate.query(FIND_ALL_WARNINGS, new Object[]{}, warningMapper);
+    }
+
+    //FIND ONE
+    public HealthcareInstitution findHealthcareInstitution(int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.queryForObject(FIND_HEALTHCARE_INSTITUTION_BY_ID, new Object[]{healthcareInstitutionID, countryID}, healthcareInstitutionMapper);
+    }
+
+    public Role findRole(String roleName, int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.queryForObject(FIND_ROLE_BY_ID, new Object[]{roleName, healthcareInstitutionID, countryID}, roleMapper);
+    }
+
+    public Employee findEmployee(int id) {
+        return jdbcTemplate.queryForObject(FIND_EMPLOYEE_BY_ID, new Object[]{id}, employeeMapper);
+    }
+
+    public Warning findWarning(int id) {
+        return jdbcTemplate.queryForObject(FIND_WARNING_BY_ID, new Object[]{id}, warningMapper);
+    }
+
+    //FIND BY
+    public List<Role> findAllRolesOfHealthcareInstitution(int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.query(FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS, new Object[]{healthcareInstitutionID, countryID}, roleMapper);
+    }
+
+    public List<Warning> findAllWarningsOfRole(String roleName, int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.query(FIND_ALL_WARNINGS_OF_ROLE, new Object[]{roleName, healthcareInstitutionID, countryID}, warningMapper);
     }
 }
