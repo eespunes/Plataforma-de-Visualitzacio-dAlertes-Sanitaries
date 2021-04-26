@@ -39,16 +39,15 @@ CREATE TABLE Roles
 DROP TABLE IF EXISTS Employees CASCADE;
 CREATE TABLE Employees
 (
-    emp_id                INTEGER,
-    emp_username          VARCHAR(32) NOT NULL,
-    emp_password          VARCHAR(32) NOT NULL,
+    emp_username          VARCHAR(64) NOT NULL,
+    emp_password          VARCHAR(128) NOT NULL,
     emp_name              VARCHAR(32) NOT NULL,
     emp_surname           VARCHAR(64) NOT NULL,
     emp_roleName          VARCHAR(16),
     emp_roleInstitutionID INTEGER,
     emp_roleCountryID     VARCHAR(3),
     emp_enabled           BIT         NOT NULL DEFAULT B'1',
-    PRIMARY KEY (emp_id),
+    PRIMARY KEY (emp_username),
     FOREIGN KEY (emp_roleName, emp_roleInstitutionID, emp_roleCountryID) REFERENCES Roles (rol_name, rol_institutionID, rol_countryID)
 );
 DROP TABLE IF EXISTS Warnings CASCADE;

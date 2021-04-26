@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>USUARI</title>
+    <title>EMPLEAT</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<h1 align="center">USUARI</h1>
+<h1 align="center">EMPLEAT</h1>
 <table>
     <tr>
         <th>
@@ -51,7 +51,7 @@
         </td>
     </tr>
 </table>
-<a th:href="@{'/employee/delete/' + ${employee.id}}">ELIMINAR EMPLEAT</a>
-<a th:href="@{'/employee/edit/' + ${employee.id}}">EDITAR</a>
+<a th:href="@{'/employee/delete/' + ${employee.username}}">ELIMINAR EMPLEAT</a>
+<a th:href="@{'/employee/edit/' + ${employee.username}}">EDITAR</a>
 </body>
 </html>

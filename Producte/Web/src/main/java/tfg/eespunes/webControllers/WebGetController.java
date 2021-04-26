@@ -93,9 +93,9 @@ public class WebGetController {
         return "role/showRole";
     }
 
-    @GetMapping("/employee/{id}")
-    public String getEmployee(@PathVariable int id, Model model) {
-        model.addAttribute("employee", databaseController.getEmployee(id));
+    @GetMapping("/employee/{username}")
+    public String getEmployee(@PathVariable String username, Model model) {
+        model.addAttribute("employee", databaseController.getEmployee(username));
         return "employee/showEmployee";
     }
 
@@ -122,9 +122,9 @@ public class WebGetController {
         return "role/editRole";
     }
 
-    @GetMapping("/employee/edit/{id}")
-    public String editEmployee(@PathVariable int id, Model model) {
-        model.addAttribute("employee", databaseController.getEmployee(id));
+    @GetMapping("/employee/edit/{username}")
+    public String editEmployee(@PathVariable String username, Model model) {
+        model.addAttribute("employee", databaseController.getEmployee(username));
         return "employee/editEmployee";
     }
 
@@ -151,9 +151,9 @@ public class WebGetController {
         return "role/showRoles";
     }
 
-    @GetMapping("/employee/delete/{id}")
-    public String deleteEmployee(@PathVariable int id, Model model) {
-        databaseController.deleteEmployee(id);
+    @GetMapping("/employee/delete/{username}")
+    public String deleteEmployee(@PathVariable String username, Model model) {
+        databaseController.deleteEmployee(username);
 
         model.addAttribute("employees", databaseController.getAllEmployees());
         return "employee/showEmployees";

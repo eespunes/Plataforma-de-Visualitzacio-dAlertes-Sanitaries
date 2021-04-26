@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>LLISTA D'USUARIS</title>
+    <title>LLISTA D'EMPLEATS</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<h1 align="center">LLISTA D'USUARIS</h1>
+<h1 align="center">LLISTA D'EMPLEATS</h1>
 <table>
     <tr>
         <th>
@@ -42,7 +42,7 @@
             <p  align="center"th:text="${employee.roleName}" th:id="${employee.roleName}">Rol</p>
         </td>
         <td>
-            <a align="center" th:href="@{'/employee/' + ${employee.id}}">VEURE</a>
+            <a align="center" th:href="@{'/employee/' + ${employee.username}}">VEURE</a>
         </td>
     </tr>
 </table>

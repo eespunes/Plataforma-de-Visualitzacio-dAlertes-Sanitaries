@@ -1,7 +1,9 @@
 package tfg.eespunes.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 public class Employee {
-    private int id;
     private String username;
     private String password;
     private String name;
@@ -10,8 +12,7 @@ public class Employee {
     private int roleInstitutionID;
     private String roleCountryID;
 
-    public Employee(int id, String username, String password, String name, String surname, String roleName, int roleInstitutionID, String roleCountryID) {
-        this.id = id;
+    public Employee(String username, String password, String name, String surname, String roleName, int roleInstitutionID, String roleCountryID) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -22,14 +23,6 @@ public class Employee {
     }
 
     public Employee() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -45,7 +38,8 @@ public class Employee {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        System.out.println(password);
+        this.password =  password;
     }
 
     public String getName() {

@@ -1,5 +1,7 @@
 package tfg.eespunes.webControllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,13 +21,16 @@ import javax.validation.Valid;
 public class WebPostController {
     private DatabaseController databaseController;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public WebPostController(DatabaseController databaseController) {
         this.databaseController = databaseController;
     }
 
     @PostMapping("/institution/create")
     public String createInstitution(HealthcareInstitution healthcareInstitution, RedirectAttributes redirectAttributes) {
-        databaseController.addHealthcareInstitution(healthcareInstitution);
+        healthcareInstitution.setId(databaseController.addHealthcareInstitution(healthcareInstitution));
 
         redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());
         redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountryID());
@@ -46,16 +51,17 @@ public class WebPostController {
     @PostMapping("/employee/create")
     public String createEmployee(Employee employee, RedirectAttributes redirectAttributes) {
         employee.setCountryIDAndHealthcareInstitutionIDFromRoleName();
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         databaseController.addEmployee(employee);
 
-        redirectAttributes.addAttribute("id", employee.getId());
-        return "redirect:/employee/{id}";
+        redirectAttributes.addAttribute("username", employee.getUsername());
+        return "redirect:/employee/{username}";
     }
 
     @PostMapping("/warning/create")
     public String createWarning(Warning warning, RedirectAttributes redirectAttributes) {
         warning.setCountryIDAndHealthcareInstitutionIDFromRoleName();
-        databaseController.addWarning(warning);
+        warning.setId(databaseController.addWarning(warning));
 
         redirectAttributes.addAttribute("id", warning.getId());
         return "redirect:/warning/{id}";
@@ -83,12 +89,12 @@ public class WebPostController {
         return "redirect:/role/{roleName}/{healthcareInstitutionID}/{countryID}";
     }
 
-    @PostMapping("/employee/edit/{id}")
+    @PostMapping("/employee/edit/{username}")
     public String editEmployee(Employee employee, RedirectAttributes redirectAttributes) {
         databaseController.editEmployee(employee);
 
-        redirectAttributes.addAttribute("id", employee.getId());
-        return "redirect:/employee/{id}";
+        redirectAttributes.addAttribute("username", employee.getUsername());
+        return "redirect:/employee/{username}";
     }
 
     @PostMapping("/warning/edit/{id}")

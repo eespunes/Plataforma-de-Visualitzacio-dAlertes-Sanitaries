@@ -16,8 +16,8 @@ public class DatabaseController {
     }
 
     //CREATE
-    public void addHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        databaseDAO.insertHealthcareInstitution(healthcareInstitution);
+    public int addHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+       return databaseDAO.insertHealthcareInstitution(healthcareInstitution);
     }
 
     public void addRole(Role role) {
@@ -28,8 +28,8 @@ public class DatabaseController {
         databaseDAO.insertEmployee(employee);
     }
 
-    public void addWarning(Warning warning) {
-        databaseDAO.insertWarning(warning);
+    public int addWarning(Warning warning) {
+        return databaseDAO.insertWarning(warning);
     }
 
     //GET ALL
@@ -62,8 +62,8 @@ public class DatabaseController {
         return databaseDAO.findRole(roleName, healthcareInstitutionID, countryID);
     }
 
-    public Employee getEmployee(int id) {
-        return databaseDAO.findEmployee(id);
+    public Employee getEmployee(String username) {
+        return databaseDAO.findEmployee(username);
     }
 
     public Warning getWarning(int id) {
@@ -96,8 +96,8 @@ public class DatabaseController {
         databaseDAO.deleteRole(roleName, healthcareInstitutionID, countryID);
     }
 
-    public void deleteEmployee(int id) {
-        databaseDAO.deleteEmployee(id);
+    public void deleteEmployee(String username) {
+        databaseDAO.deleteEmployee(username);
     }
 
     public void deleteWarning(int id) {

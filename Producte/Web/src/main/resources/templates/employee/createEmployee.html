@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Crear Institució Mèdica</title>
+    <title>Crear EMPLEAT</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <form class="needs-validation" novalidate method="post" th:object="${createEmployee}">
-    <h1>Crear Usuari</h1>
+    <h1>Crear EMPLEAT</h1>
     <table>
         <tr>
             <td>
-                <p align="center">Nom</p>
+                <h4 align="center">Nom</h4>
                 <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
             </td>
             <td>
-                <p align="center">Rol</p>
+                <h4 align="center">Rol</h4>
                 <select class="form-control" required th:field="*{roleName}">
                     <option value="">Selecciona el rol</option>
                     <option th:each="role : ${roles}"
@@ -32,19 +32,19 @@
         </tr>
         <tr>
             <td>
-                <p align="center">Cognoms</p>
+                <h4 align="center">Cognoms</h4>
                 <input type="text" maxlength="32" required th:field="*{surname}"/>
             </td>
         </tr>
         <tr>
             <td>
-                <p align="center">Nom d'usuari</p>
+                <h4 align="center">Nom d'usuari</h4>
                 <input type="text" maxlength="32" required th:field="*{username}"/>
             </td>
         </tr>
         <tr>
             <td>
-                <p align="center">Contrasenya</p>
+                <h4 align="center">Contrasenya</h4>
                 <input type="password" maxlength="32" required th:field="*{password}"/>
             </td>
         </tr>

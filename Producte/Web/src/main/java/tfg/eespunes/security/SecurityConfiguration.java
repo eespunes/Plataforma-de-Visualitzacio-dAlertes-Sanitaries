@@ -11,12 +11,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.activation.DataSource;
 
-public class BaseSecurityConfiguration extends WebSecurityConfigurerAdapter  {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()

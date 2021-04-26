@@ -13,8 +13,10 @@ import javax.sql.DataSource;
 
 @Profile("security_jdbc")
 @EnableWebSecurity
-public class JDBCSecurityConfiguration extends BaseSecurityConfiguration {
+public class JDBCSecurityConfiguration extends SecurityConfiguration {
+
     final String USERS_QUERY = "SELECT emp_username, emp_password,emp_enabled FROM employees WHERE emp_username = ?";
+    final String AUTHORITIES_QUERY = "SELECT emp_username, emp_roleName FROM employees WHERE emp_username = ?";
 
     @Autowired
     private DataSource dataSource;
@@ -28,6 +30,8 @@ public class JDBCSecurityConfiguration extends BaseSecurityConfiguration {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery(USERS_QUERY);
+                .usersByUsernameQuery(USERS_QUERY)
+                .authoritiesByUsernameQuery(AUTHORITIES_QUERY)
+                .passwordEncoder(passEncoder());
     }
 }

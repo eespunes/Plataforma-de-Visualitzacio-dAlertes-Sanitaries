@@ -1,7 +1,9 @@
 package tfg.eespunes.persistance.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import tfg.eespunes.domain.*;
 
@@ -12,7 +14,7 @@ public class DatabaseDAO {
 
     private final String INSERT_HEALTHCARE_INSTITUTION = "INSERT INTO HealthcareInstitutions VALUES (?,?,?,?,?,?);";
     private final String INSERT_ROLE = "INSERT INTO Roles VALUES (?,?,?,?);";
-    private final String INSERT_EMPLOYEE = "INSERT INTO Employees VALUES (?,?,?,?,?,?,?,?);";
+    private final String INSERT_EMPLOYEE = "INSERT INTO Employees VALUES (?,?,?,?,?,?,?);";
     private final String INSERT_WARNING = "INSERT INTO Warnings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
     private final String FIND_ALL_COUNTRIES = "SELECT * FROM Countries";
@@ -23,27 +25,28 @@ public class DatabaseDAO {
 
     private final String FIND_HEALTHCARE_INSTITUTION_BY_ID = "SELECT * FROM HealthcareInstitutions WHERE ins_id=? and ins_countryid=?";
     private final String FIND_ROLE_BY_ID = "SELECT * FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
-    private final String FIND_EMPLOYEE_BY_ID = "SELECT * FROM Employees WHERE emp_id=?";
+    private final String FIND_EMPLOYEE_BY_USERNAME = "SELECT * FROM Employees WHERE emp_username=?";
     private final String FIND_WARNING_BY_ID = "SELECT * FROM Warnings WHERE war_id=?";
 
     private final String DELETE_HEALTHCARE_INSTITUTION = "DELETE FROM HealthcareInstitutions WHERE ins_id=? and ins_countryid=?";
     private final String DELETE_ROLE = "DELETE FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
-    private final String DELETE_EMPLOYEE = "DELETE FROM Employees WHERE emp_id=?";
+    private final String DELETE_EMPLOYEE = "DELETE FROM Employees WHERE emp_username=?";
     private final String DELETE_WARNING = "DELETE FROM Warnings WHERE war_id=?";
 
     private final String UPDATE_HEALTHCARE_INSTITUTION = "UPDATE HealthcareInstitutions SET ins_url=?, ins_username=?, ins_password=? WHERE ins_id=? and ins_countryid=?";
     private final String UPDATE_ROLE = "UPDATE Roles SET rol_description=? WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
-    private final String UPDATE_EMPLOYEE = "UPDATE Employees SET emp_name=?, emp_surname=?, emp_username=?  WHERE emp_id=?";
+    private final String UPDATE_EMPLOYEE = "UPDATE Employees SET emp_name=?, emp_surname=?  WHERE emp_username=?";
     private final String UPDATE_WARNING = "UPDATE Warnings SET war_description=?, war_uri=?, war_notificationmessage=?, war_greenvalue=?, war_yellowvalue=?, war_redvalue=?, war_refreshrate=? WHERE war_id=?";
 
     private final String FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS = "SELECT * FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
     private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_name=? and war_roleinstitutionid=? and war_rolecountryid=?";
 
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
-    private final String COUNT_EMPLOYEES = "SELECT COUNT(emp_id) FROM Employees";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
 
     private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public DatabaseDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -80,7 +83,6 @@ public class DatabaseDAO {
 
     private RowMapper<Employee> employeeMapper = (resultSet, i) -> {
         Employee employee = new Employee(
-                resultSet.getInt("emp_id"),
                 resultSet.getString("emp_username"),
                 resultSet.getString("emp_password"),
                 resultSet.getString("emp_name"),
@@ -113,10 +115,13 @@ public class DatabaseDAO {
     };
 
     //CREATE
-    public void insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+    public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
         int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountryID());
         jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountryID(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
         insertRole(new Role("WEB-ADMIN", "The web administrator of this healthcare institution", id + "", healthcareInstitution.getCountryID()));
+        insertEmployee(new Employee("ADMIN-" + id + "-" + healthcareInstitution.getCountryID(), passwordEncoder.encode("admin"), "admin", "admin", "WEB-ADMIN", id, healthcareInstitution.getCountryID()));
+
+        return id;
     }
 
     public void insertRole(Role role) {
@@ -124,17 +129,17 @@ public class DatabaseDAO {
     }
 
     public void insertEmployee(Employee employee) {
-        int id = jdbcTemplate.queryForObject(COUNT_EMPLOYEES, new Object[]{}, Integer.class);
-        jdbcTemplate.update(INSERT_EMPLOYEE, id, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRoleName(), employee.getRoleInstitutionID(), employee.getRoleCountryID());
+        jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRoleName(), employee.getRoleInstitutionID(), employee.getRoleCountryID());
     }
 
     private int getHealthcareInstitutionCountByCountry(String countryID) {
         return jdbcTemplate.queryForObject(COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY, new Object[]{countryID}, Integer.class);
     }
 
-    public void insertWarning(Warning warning) {
+    public int insertWarning(Warning warning) {
         int id = jdbcTemplate.queryForObject(COUNT_WARNINGS, new Object[]{}, Integer.class);
         jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRoleName(), warning.getRoleInstitutionID(), warning.getRoleCountryID());
+        return id;
     }
 
     //FIND ALL
@@ -167,8 +172,8 @@ public class DatabaseDAO {
         return jdbcTemplate.queryForObject(FIND_ROLE_BY_ID, new Object[]{roleName, healthcareInstitutionID, countryID}, roleMapper);
     }
 
-    public Employee findEmployee(int id) {
-        return jdbcTemplate.queryForObject(FIND_EMPLOYEE_BY_ID, new Object[]{id}, employeeMapper);
+    public Employee findEmployee(String username) {
+        return jdbcTemplate.queryForObject(FIND_EMPLOYEE_BY_USERNAME, new Object[]{username}, employeeMapper);
     }
 
     public Warning findWarning(int id) {
@@ -184,8 +189,8 @@ public class DatabaseDAO {
         jdbcTemplate.update(DELETE_ROLE, roleName, healthcareInstitutionID, countryID);
     }
 
-    public void deleteEmployee(int id) {
-        jdbcTemplate.update(DELETE_EMPLOYEE, id);
+    public void deleteEmployee(String username) {
+        jdbcTemplate.update(DELETE_EMPLOYEE, username);
     }
 
     public void deleteWarning(int id) {
@@ -202,7 +207,7 @@ public class DatabaseDAO {
     }
 
     public void updateEmployee(Employee employee) {
-        jdbcTemplate.update(UPDATE_EMPLOYEE, employee.getName(), employee.getSurname(), employee.getUsername(), employee.getId());
+        jdbcTemplate.update(UPDATE_EMPLOYEE, employee.getName(), employee.getSurname(), employee.getUsername());
     }
 
     public void updateWarning(Warning warning) {
