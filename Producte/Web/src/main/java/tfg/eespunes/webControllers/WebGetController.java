@@ -38,7 +38,7 @@ public class WebGetController {
         return "role/createRole";
     }
 
-    @GetMapping("/user/create")
+    @GetMapping("/employee/create")
     public String createUser(Model model) {
         model.addAttribute("createEmployee", new Employee());
         model.addAttribute("roles", databaseController.getAllRoles());
@@ -65,7 +65,7 @@ public class WebGetController {
         return "role/showRoles";
     }
 
-    @GetMapping("/user/all")
+    @GetMapping("/employee/all")
     public String getAllEployees(Model model) {
         model.addAttribute("employees", databaseController.getAllEmployees());
         return "employee/showEmployees";
@@ -93,8 +93,8 @@ public class WebGetController {
         return "role/showRole";
     }
 
-    @GetMapping("/user/{id}")
-    public String getEployee(@PathVariable int id, Model model) {
+    @GetMapping("/employee/{id}")
+    public String getEmployee(@PathVariable int id, Model model) {
         model.addAttribute("employee", databaseController.getEmployee(id));
         return "employee/showEmployee";
     }
@@ -103,5 +103,38 @@ public class WebGetController {
     public String getWarning(@PathVariable int id, Model model) {
         model.addAttribute("warning", databaseController.getWarning(id));
         return "warning/showWarning";
+    }
+
+    //DELETE
+    @GetMapping("/institution/delete/{healthcareInstitutionID}/{countryID}")
+    public String deleteInstitution(@PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
+        databaseController.deleteHealthcareInstitution(healthcareInstitutionID, countryID);
+
+        model.addAttribute("healthcareInstitutions", databaseController.getAllHealthcareInstitutions());
+        return "healthcareInstitution/showHealthcareInstitutions";
+    }
+
+    @GetMapping("/role/delete/{roleName}/{healthcareInstitutionID}/{countryID}")
+    public String deleteRole(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
+        databaseController.deleteRole(roleName, healthcareInstitutionID, countryID);
+
+        model.addAttribute("roles", databaseController.getAllRoles());
+        return "role/showRoles";
+    }
+
+    @GetMapping("/employee/delete/{id}")
+    public String deleteEmployee(@PathVariable int id, Model model) {
+        databaseController.deleteEmployee(id);
+
+        model.addAttribute("employees", databaseController.getAllEmployees());
+        return "employee/showEmployees";
+    }
+
+    @GetMapping("/warning/delete/{id}")
+    public String deleteWarning(@PathVariable int id, Model model) {
+        databaseController.deleteWarning(id);
+
+        model.addAttribute("warnings", databaseController.getAllWarnings());
+        return "warning/showWarnings";
     }
 }

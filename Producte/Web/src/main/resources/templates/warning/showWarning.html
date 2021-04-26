@@ -80,7 +80,7 @@
         </tr>
     </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createWarning">Crear Alerta</button>
+    <a th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR ALERTA</a>
 </form>
 </body>
 </html>

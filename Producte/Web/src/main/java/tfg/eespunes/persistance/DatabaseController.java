@@ -53,7 +53,7 @@ public class DatabaseController {
         return databaseDAO.findAllWarnings();
     }
 
-// GET ONE
+    // GET ONE
     public HealthcareInstitution getHealthcareInstitution(int healthcareInstitutionID, String countryID) {
         return databaseDAO.findHealthcareInstitution(healthcareInstitutionID, countryID);
     }
@@ -70,7 +70,24 @@ public class DatabaseController {
         return databaseDAO.findWarning(id);
     }
 
+    // DELETE
+    public void deleteHealthcareInstitution(int healthcareInstitutionID, String countryID) {
+        databaseDAO.deleteHealthcareInstitution(healthcareInstitutionID, countryID);
+    }
 
+    public void deleteRole(String roleName, int healthcareInstitutionID, String countryID) {
+        databaseDAO.deleteRole(roleName, healthcareInstitutionID, countryID);
+    }
+
+    public void deleteEmployee(int id) {
+        databaseDAO.deleteEmployee(id);
+    }
+
+    public void deleteWarning(int id) {
+        databaseDAO.deleteWarning(id);
+    }
+
+    //GET SOME
     public List<Role> getAllRolesOfHealthcareInstitution(int healthcareInstitutionID, String countryID) {
         return databaseDAO.findAllRolesOfHealthcareInstitution(healthcareInstitutionID, countryID);
     }

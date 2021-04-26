@@ -5,8 +5,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import tfg.eespunes.domain.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -27,6 +25,11 @@ public class DatabaseDAO {
     private final String FIND_ROLE_BY_ID = "SELECT * FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
     private final String FIND_EMPLOYEE_BY_ID = "SELECT * FROM Employees WHERE emp_id=?";
     private final String FIND_WARNING_BY_ID = "SELECT * FROM Warnings WHERE war_id=?";
+
+    private final String DELETE_HEALTHCARE_INSTITUTION = "DELETE FROM HealthcareInstitutions WHERE ins_id=? and ins_countryid=?";
+    private final String DELETE_ROLE = "DELETE FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
+    private final String DELETE_EMPLOYEE = "DELETE FROM Employees WHERE emp_id=?";
+    private final String DELETE_WARNING = "DELETE FROM Warnings WHERE war_id=?";
 
     private final String FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS = "SELECT * FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
     private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_name=? and war_roleinstitutionid=? and war_rolecountryid=?";
@@ -163,6 +166,23 @@ public class DatabaseDAO {
 
     public Warning findWarning(int id) {
         return jdbcTemplate.queryForObject(FIND_WARNING_BY_ID, new Object[]{id}, warningMapper);
+    }
+
+    //DELETE
+    public int deleteHealthcareInstitution(int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.update(DELETE_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
+    }
+
+    public int deleteRole(String roleName, int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.update(DELETE_ROLE, roleName, healthcareInstitutionID, countryID);
+    }
+
+    public int deleteEmployee(int id) {
+        return jdbcTemplate.update(DELETE_EMPLOYEE, id);
+    }
+
+    public int deleteWarning(int id) {
+        return jdbcTemplate.update(DELETE_WARNING, id);
     }
 
     //FIND BY

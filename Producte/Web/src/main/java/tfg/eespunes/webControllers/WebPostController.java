@@ -24,50 +24,40 @@ public class WebPostController {
     }
 
     @PostMapping("/institution/create")
-    public String createInstitution(@Valid HealthcareInstitution healthcareInstitution, Errors errors, Model model, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return "healthcareInstitution/createHealthcareInstitution";
-        }
-
-//        model.addAttribute("username", user.getUsername());
+    public String createInstitution(HealthcareInstitution healthcareInstitution, Model model, RedirectAttributes redirectAttributes) {
         databaseController.addHealthcareInstitution(healthcareInstitution);
-        return "redirect:/role/createRole";
+
+        redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());
+        redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountryID());
+        return "redirect:/institution/{healthcareInstitutionID}/{countryID}";
     }
 
     @PostMapping("/role/create")
-    public String createRole(@Valid Role role, Errors errors, Model model, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return "role/createRole";
-        }
+    public String createRole(Role role, Model model, RedirectAttributes redirectAttributes) {
         role.setCountryIDFromHealthcareInstitution();
-//        model.addAttribute("username", user.getUsername());
         databaseController.addRole(role);
-        return "redirect:/";
+
+        redirectAttributes.addAttribute("roleName", role.getName());
+        redirectAttributes.addAttribute("healthcareInstitutionID",role.getHealthcareInstitutionID() );
+        redirectAttributes.addAttribute("countryID", role.getCountryID());
+        return "redirect:/role/{roleName}/{healthcareInstitutionID}/{countryID}";
     }
 
-    @PostMapping("/user/create")
-    public String createUser(@Valid Employee employee, Errors errors, Model model, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return "employee/createEmployee";
-        }
+    @PostMapping("/employee/create")
+    public String createUser(Employee employee, Model model, RedirectAttributes redirectAttributes) {
         employee.setCountryIDAndHealthcareInstitutionIDFromRoleName();
-//        model.addAttribute("username", user.getUsername());
         databaseController.addEmployee(employee);
-        return "redirect:/";
+
+        redirectAttributes.addAttribute("id", employee.getId());
+        return "redirect:/employee/{id}";
     }
 
     @PostMapping("/warning/create")
-    public String createWarning(@Valid Warning warning, Errors errors, Model model, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return "warning/createWarning";
-        }
+    public String createWarning(Warning warning, Model model, RedirectAttributes redirectAttributes) {
         warning.setCountryIDAndHealthcareInstitutionIDFromRoleName();
-//        model.addAttribute("username", user.getUsername());
         databaseController.addWarning(warning);
-        return "redirect:/";
+
+        redirectAttributes.addAttribute("id", warning.getId());
+        return "redirect:/warning/{id}";
     }
 }
