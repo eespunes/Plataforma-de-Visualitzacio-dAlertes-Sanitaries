@@ -24,7 +24,7 @@ public class WebPostController {
     }
 
     @PostMapping("/institution/create")
-    public String createInstitution(HealthcareInstitution healthcareInstitution, Model model, RedirectAttributes redirectAttributes) {
+    public String createInstitution(HealthcareInstitution healthcareInstitution, RedirectAttributes redirectAttributes) {
         databaseController.addHealthcareInstitution(healthcareInstitution);
 
         redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());
@@ -33,18 +33,18 @@ public class WebPostController {
     }
 
     @PostMapping("/role/create")
-    public String createRole(Role role, Model model, RedirectAttributes redirectAttributes) {
+    public String createRole(Role role, RedirectAttributes redirectAttributes) {
         role.setCountryIDFromHealthcareInstitution();
         databaseController.addRole(role);
 
         redirectAttributes.addAttribute("roleName", role.getName());
-        redirectAttributes.addAttribute("healthcareInstitutionID",role.getHealthcareInstitutionID() );
+        redirectAttributes.addAttribute("healthcareInstitutionID", role.getHealthcareInstitutionID());
         redirectAttributes.addAttribute("countryID", role.getCountryID());
         return "redirect:/role/{roleName}/{healthcareInstitutionID}/{countryID}";
     }
 
     @PostMapping("/employee/create")
-    public String createUser(Employee employee, Model model, RedirectAttributes redirectAttributes) {
+    public String createEmployee(Employee employee, RedirectAttributes redirectAttributes) {
         employee.setCountryIDAndHealthcareInstitutionIDFromRoleName();
         databaseController.addEmployee(employee);
 
@@ -53,9 +53,47 @@ public class WebPostController {
     }
 
     @PostMapping("/warning/create")
-    public String createWarning(Warning warning, Model model, RedirectAttributes redirectAttributes) {
+    public String createWarning(Warning warning, RedirectAttributes redirectAttributes) {
         warning.setCountryIDAndHealthcareInstitutionIDFromRoleName();
         databaseController.addWarning(warning);
+
+        redirectAttributes.addAttribute("id", warning.getId());
+        return "redirect:/warning/{id}";
+    }
+
+    //EDIT
+    @PostMapping("/institution/edit/{healthcareInstitutionID}/{countryID}")
+    public String editInstitution(HealthcareInstitution healthcareInstitution, RedirectAttributes redirectAttributes) {
+        databaseController.editHealthcareInstitution(healthcareInstitution);
+
+        redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());
+        redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountryID());
+        return "redirect:/institution/{healthcareInstitutionID}/{countryID}";
+    }
+
+    @PostMapping("/role/edit/{roleName}/{healthcareInstitutionID}/{countryID}")
+    public String editRole(Role role, RedirectAttributes redirectAttributes, @PathVariable String roleName) {
+        role.setName(roleName);
+
+        databaseController.editRole(role);
+
+        redirectAttributes.addAttribute("roleName", role.getName());
+        redirectAttributes.addAttribute("healthcareInstitutionID", role.getHealthcareInstitutionID());
+        redirectAttributes.addAttribute("countryID", role.getCountryID());
+        return "redirect:/role/{roleName}/{healthcareInstitutionID}/{countryID}";
+    }
+
+    @PostMapping("/employee/edit/{id}")
+    public String editEmployee(Employee employee, RedirectAttributes redirectAttributes) {
+        databaseController.editEmployee(employee);
+
+        redirectAttributes.addAttribute("id", employee.getId());
+        return "redirect:/employee/{id}";
+    }
+
+    @PostMapping("/warning/edit/{id}")
+    public String editWarning(Warning warning, RedirectAttributes redirectAttributes) {
+        databaseController.editWarning(warning);
 
         redirectAttributes.addAttribute("id", warning.getId());
         return "redirect:/warning/{id}";

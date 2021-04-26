@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Editar Usuari</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <style th:replace="fragment/header :: headerStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<h1 align="center">Editar USUARI</h1>
+<form class="needs-validation" novalidate method="post" th:object="${employee}">
+    <table>
+        <tr>
+            <th>
+                <p align="center">Nom</p>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p align="center">Cognoms</p>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" maxlength="32" required th:field="*{surname}"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p align="center">Usuari</p>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" maxlength="32" required th:field="*{username}"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p align="center">Rol</p>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <p align="center" th:text="${employee.roleName}" th:id="${employee.roleName}">Rol</p>
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-primary" type="submit" value="employee">EDITAR EMPLEAT</button>
+</form>
+</body>
+</html>

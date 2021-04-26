@@ -105,6 +105,35 @@ public class WebGetController {
         return "warning/showWarning";
     }
 
+
+    //EDIT
+    @GetMapping("/institution/edit/{healthcareInstitutionID}/{countryID}")
+    public String editInstitution(@PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
+        model.addAttribute("healthcareInstitution", databaseController.getHealthcareInstitution(healthcareInstitutionID, countryID));
+        model.addAttribute("roles", databaseController.getAllRolesOfHealthcareInstitution(healthcareInstitutionID, countryID));
+        return "healthcareInstitution/editHealthcareInstitution";
+    }
+
+    @GetMapping("/role/edit/{roleName}/{healthcareInstitutionID}/{countryID}")
+    public String editRole(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
+        model.addAttribute("role", databaseController.getRole(roleName, healthcareInstitutionID, countryID));
+        model.addAttribute("healthcareInstitution", databaseController.getHealthcareInstitution(healthcareInstitutionID, countryID));
+        model.addAttribute("warnings", databaseController.getAllWarningsOfRole(roleName, healthcareInstitutionID, countryID));
+        return "role/editRole";
+    }
+
+    @GetMapping("/employee/edit/{id}")
+    public String editEmployee(@PathVariable int id, Model model) {
+        model.addAttribute("employee", databaseController.getEmployee(id));
+        return "employee/editEmployee";
+    }
+
+    @GetMapping("/warning/edit/{id}")
+    public String editWarning(@PathVariable int id, Model model) {
+        model.addAttribute("warning", databaseController.getWarning(id));
+        return "warning/editWarning";
+    }
+
     //DELETE
     @GetMapping("/institution/delete/{healthcareInstitutionID}/{countryID}")
     public String deleteInstitution(@PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {

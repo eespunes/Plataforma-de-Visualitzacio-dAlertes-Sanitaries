@@ -6,28 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Crear Rol</title>
+    <title>Editar Rol</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<form class="needs-validation" novalidate method="post" th:object="${createRole}">
-    <h1 align="center">Crear Rol</h1>
+<form class="needs-validation" novalidate method="post" th:object="${role}">
+    <h1 align="center">Editar Rol</h1>
     <table>
         <tr>
             <td>
                 <h4 align="center">Nom</h4>
-                <input type="text" maxlength="16" required th:field="*{name}"/>
+                <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
             </td>
             <td>
                 <h4 align="center">Institució Mèdica</h4>
-                <select class="form-control" required th:field="*{healthcareInstitutionID}">
-                    <option value="">Selecciona la institució mèdica</option>
-                    <option th:each="healthcareInstitution : ${healthcareInstitutions}"
-                            th:value="${healthcareInstitution.countryID}+'-'+${healthcareInstitution.id}"
-                            th:text="${healthcareInstitution.countryID}+'-'+${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
-                </select>
+                <p align="center" th:text="${healthcareInstitution.name}" th:id="${healthcareInstitution.name}">Institució
+                    mèdica</p>
             </td>
         </tr>
         <tr>
@@ -38,7 +34,7 @@
         </tr>
     </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createRole">Crear Rol</button>
+    <button class="btn btn-primary" type="submit" value="role">Editar Rol</button>
 </form>
 </body>
 </html>

@@ -31,6 +31,11 @@ public class DatabaseDAO {
     private final String DELETE_EMPLOYEE = "DELETE FROM Employees WHERE emp_id=?";
     private final String DELETE_WARNING = "DELETE FROM Warnings WHERE war_id=?";
 
+    private final String UPDATE_HEALTHCARE_INSTITUTION = "UPDATE HealthcareInstitutions SET ins_url=?, ins_username=?, ins_password=? WHERE ins_id=? and ins_countryid=?";
+    private final String UPDATE_ROLE = "UPDATE Roles SET rol_description=? WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
+    private final String UPDATE_EMPLOYEE = "UPDATE Employees SET emp_name=?, emp_surname=?, emp_username=?  WHERE emp_id=?";
+    private final String UPDATE_WARNING = "UPDATE Warnings SET war_description=?, war_uri=?, war_notificationmessage=?, war_greenvalue=?, war_yellowvalue=?, war_redvalue=?, war_refreshrate=? WHERE war_id=?";
+
     private final String FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS = "SELECT * FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
     private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_name=? and war_roleinstitutionid=? and war_rolecountryid=?";
 
@@ -108,26 +113,28 @@ public class DatabaseDAO {
     };
 
     //CREATE
-    public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        return jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountryID()), healthcareInstitution.getCountryID(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
+    public void insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+        int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountryID());
+        jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountryID(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
+        insertRole(new Role("WEB-ADMIN", "The web administrator of this healthcare institution", id + "", healthcareInstitution.getCountryID()));
     }
 
-    public int insertRole(Role role) {
-        return jdbcTemplate.update(INSERT_ROLE, role.getName(), Integer.parseInt(role.getHealthcareInstitutionID()), role.getCountryID(), role.getDescription());
+    public void insertRole(Role role) {
+        jdbcTemplate.update(INSERT_ROLE, role.getName(), Integer.parseInt(role.getHealthcareInstitutionID()), role.getCountryID(), role.getDescription());
     }
 
-    public int insertEmployee(Employee employee) {
+    public void insertEmployee(Employee employee) {
         int id = jdbcTemplate.queryForObject(COUNT_EMPLOYEES, new Object[]{}, Integer.class);
-        return jdbcTemplate.update(INSERT_EMPLOYEE, id, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRoleName(), employee.getRoleInstitutionID(), employee.getRoleCountryID());
+        jdbcTemplate.update(INSERT_EMPLOYEE, id, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRoleName(), employee.getRoleInstitutionID(), employee.getRoleCountryID());
     }
 
     private int getHealthcareInstitutionCountByCountry(String countryID) {
         return jdbcTemplate.queryForObject(COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY, new Object[]{countryID}, Integer.class);
     }
 
-    public int insertWarning(Warning warning) {
+    public void insertWarning(Warning warning) {
         int id = jdbcTemplate.queryForObject(COUNT_WARNINGS, new Object[]{}, Integer.class);
-        return jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRoleName(), warning.getRoleInstitutionID(), warning.getRoleCountryID());
+        jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRoleName(), warning.getRoleInstitutionID(), warning.getRoleCountryID());
     }
 
     //FIND ALL
@@ -169,20 +176,37 @@ public class DatabaseDAO {
     }
 
     //DELETE
-    public int deleteHealthcareInstitution(int healthcareInstitutionID, String countryID) {
-        return jdbcTemplate.update(DELETE_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
+    public void deleteHealthcareInstitution(int healthcareInstitutionID, String countryID) {
+        jdbcTemplate.update(DELETE_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
     }
 
-    public int deleteRole(String roleName, int healthcareInstitutionID, String countryID) {
-        return jdbcTemplate.update(DELETE_ROLE, roleName, healthcareInstitutionID, countryID);
+    public void deleteRole(String roleName, int healthcareInstitutionID, String countryID) {
+        jdbcTemplate.update(DELETE_ROLE, roleName, healthcareInstitutionID, countryID);
     }
 
-    public int deleteEmployee(int id) {
-        return jdbcTemplate.update(DELETE_EMPLOYEE, id);
+    public void deleteEmployee(int id) {
+        jdbcTemplate.update(DELETE_EMPLOYEE, id);
     }
 
-    public int deleteWarning(int id) {
-        return jdbcTemplate.update(DELETE_WARNING, id);
+    public void deleteWarning(int id) {
+        jdbcTemplate.update(DELETE_WARNING, id);
+    }
+
+    //UPDATE
+    public void updateHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+        jdbcTemplate.update(UPDATE_HEALTHCARE_INSTITUTION, healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword(), healthcareInstitution.getId(), healthcareInstitution.getCountryID());
+    }
+
+    public void updateRole(Role role) {
+        jdbcTemplate.update(UPDATE_ROLE, role.getDescription(), role.getName(), Integer.parseInt(role.getHealthcareInstitutionID()), role.getCountryID());
+    }
+
+    public void updateEmployee(Employee employee) {
+        jdbcTemplate.update(UPDATE_EMPLOYEE, employee.getName(), employee.getSurname(), employee.getUsername(), employee.getId());
+    }
+
+    public void updateWarning(Warning warning) {
+        jdbcTemplate.update(UPDATE_WARNING, warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), warning.getRefreshRate(), warning.getId());
     }
 
     //FIND BY

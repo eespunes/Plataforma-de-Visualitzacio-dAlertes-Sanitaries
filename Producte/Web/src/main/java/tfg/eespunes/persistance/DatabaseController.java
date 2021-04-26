@@ -70,6 +70,23 @@ public class DatabaseController {
         return databaseDAO.findWarning(id);
     }
 
+    //EDIT
+    public void editHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+        databaseDAO.updateHealthcareInstitution(healthcareInstitution);
+    }
+
+    public void editRole(Role role) {
+        databaseDAO.updateRole(role);
+    }
+
+    public void editEmployee(Employee employee) {
+        databaseDAO.updateEmployee(employee);
+    }
+
+    public void editWarning(Warning warning) {
+        databaseDAO.updateWarning(warning);
+    }
+
     // DELETE
     public void deleteHealthcareInstitution(int healthcareInstitutionID, String countryID) {
         databaseDAO.deleteHealthcareInstitution(healthcareInstitutionID, countryID);

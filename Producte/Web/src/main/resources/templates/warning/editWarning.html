@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Crear Alerta</title>
+    <title>Editar Alerta</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<form class="needs-validation" novalidate method="post" th:object="${createWarning}">
-    <h1>Crear Alerta</h1>
+<form class="needs-validation" novalidate method="post" th:object="${warning}">
+    <h1>Editar Alerta</h1>
 
     <table>
         <tr>
             <td>
                 <h4 align="center">Nom</h4>
-                <input align="center" type="text" maxlength="64" required th:field="*{name}"/>
+                <p align="center" th:text="${warning.name}" th:id="${warning.name}">NAME</p>
             </td>
             <td>
                 <h4 align="center">URI</h4>
@@ -32,16 +32,11 @@
                     <tr>
                         <td>
                             <h4 align="center">Nom Curt</h4>
-                            <input type="text" maxlength="32" required th:field="*{shortName}"/>
+                            <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
                         </td>
                         <td>
                             <h4 align="center">Rol</h4>
-                            <select class="form-control" required th:field="*{roleName}">
-                                <option value="">Selecciona el rol</option>
-                                <option th:each="role : ${roles}"
-                                        th:value="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"
-                                        th:text="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"></option>
-                            </select>
+                            <p align="center" th:text="${warning.roleName}" th:id="${warning.roleName}">Rol</p>
                         </td>
                     </tr>
                 </table>
@@ -79,7 +74,7 @@
         </tr>
     </table>
     <p></p>
-    <button class="btn btn-primary" type="submit" value="createWarning">Crear Alerta</button>
+    <button class="btn btn-primary" type="submit" value="warning">Editar Alerta</button>
 </form>
 </body>
 </html>
