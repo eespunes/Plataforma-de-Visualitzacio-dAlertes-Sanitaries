@@ -5,40 +5,46 @@
     <title>LLISTA DE ROLS</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<h1 align="center">LLISTA DE ROLS</h1>
-<table>
-    <tr>
-        <th>
-            <p align="center">Nom</p>
-        </th>
-        <th>
-            <p align="center">Institució Mèdica</p>
-        </th>
-        <th>
-            <p align="center">País</p>
-        </th>
-        <th>
-        </th>
-    </tr>
-    <tr
-        th:each="role : ${roles}">
-        <td>
-            <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
-        </td>
-        <td>
-            <p align="center" th:text="${role.healthcareInstitution.name}" th:id="${role.healthcareInstitution.id}">Institució Mèdica</p>
-        </td>
-        <td>
-            <p align="center" th:text="${role.healthcareInstitution.country.id}" th:id="${role.healthcareInstitution.country.id}">País</p>
-        </td>
-        <td class="col-md-2">
-            <a th:href="@{'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">VEURE</a>
-        </td>
-    </tr>
-</table>
-<h3 align="center" th:if="${roles.size()==0}">No s'ha trobat cap rol.</h3>
+<div class="main">
+    <h1 align="center">LLISTA DE ROLS</h1>
+    <table>
+        <tr>
+            <th>
+                <p align="center">Nom</p>
+            </th>
+            <th>
+                <p align="center">Institució Mèdica</p>
+            </th>
+            <th>
+                <p align="center">País</p>
+            </th>
+            <th>
+            </th>
+        </tr>
+        <tr
+                th:each="role : ${roles}">
+            <td>
+                <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
+            </td>
+            <td>
+                <p align="center" th:text="${role.healthcareInstitution.name}" th:id="${role.healthcareInstitution.id}">
+                    Institució Mèdica</p>
+            </td>
+            <td>
+                <p align="center" th:text="${role.healthcareInstitution.country.id}"
+                   th:id="${role.healthcareInstitution.country.id}">País</p>
+            </td>
+            <td class="col-md-2">
+                <a th:href="@{'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">VEURE</a>
+            </td>
+        </tr>
+    </table>
+    <h3 align="center" th:if="${roles.size()==0}">No s'ha trobat cap rol.</h3>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>

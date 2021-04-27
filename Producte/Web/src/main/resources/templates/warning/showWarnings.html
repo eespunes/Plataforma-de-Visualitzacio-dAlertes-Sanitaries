@@ -5,41 +5,45 @@
     <title>LLISTA D'ALERTES</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<h1 align="center">LLISTA D'ALERTES</h1>
-<table>
-    <tr>
-        <th>
-            <p align="center">ID</p>
-        </th>
-        <th>
-            <p align="center">Nom Curt</p>
-        </th>
-        <th>
-            <p align="center">Rol</p>
-        </th>
-        <th>
-            <p align="center"></p>
-        </th>
-    </tr>
-    <tr
-        th:each="warning : ${warnings}">
-        <td>
-            <p align="center" th:text="${warning.id}" th:id="${warning.id}">ID</p>
-        </td>
-        <td>
-            <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
-        </td>
-        <td>
-            <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
-        </td>
-        <td>
-            <a th:href="@{'/warning/' + ${warning.id}}">VEURE</a>
-        </td>
-    </tr>
-</table>
-<h3 align="center" th:if="${warnings.size()==0}">No s'ha trobat cap alerta.</h3>
+<div class="main">
+    <h1 align="center">LLISTA D'ALERTES</h1>
+    <table>
+        <tr>
+            <th>
+                <p align="center">ID</p>
+            </th>
+            <th>
+                <p align="center">Nom Curt</p>
+            </th>
+            <th>
+                <p align="center">Rol</p>
+            </th>
+            <th>
+                <p align="center"></p>
+            </th>
+        </tr>
+        <tr
+                th:each="warning : ${warnings}">
+            <td>
+                <p align="center" th:text="${warning.id}" th:id="${warning.id}">ID</p>
+            </td>
+            <td>
+                <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
+            </td>
+            <td>
+                <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
+            </td>
+            <td>
+                <a th:href="@{'/warning/' + ${warning.id}}">VEURE</a>
+            </td>
+        </tr>
+    </table>
+    <h3 align="center" th:if="${warnings.size()==0}">No s'ha trobat cap alerta.</h3>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>

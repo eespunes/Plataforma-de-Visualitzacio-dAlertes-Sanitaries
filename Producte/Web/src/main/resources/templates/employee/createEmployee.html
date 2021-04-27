@@ -9,48 +9,52 @@
     <title>Crear EMPLEAT</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<form class="needs-validation" novalidate method="post" th:object="${createEmployee}">
-    <h1>Crear EMPLEAT</h1>
-    <table>
-        <tr>
-            <td>
-                <h4 align="center">Nom</h4>
-                <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
-            </td>
-            <td>
-                <h4 align="center">Rol</h4>
-                <select class="form-control" required th:field="*{tempRoleName}">
-                    <option value="">Selecciona el rol</option>
-                    <option th:each="role : ${roles}"
-                            th:value="${role.healthcareInstitution.country.id}+'-'+${role.healthcareInstitution.id}+'-'+${role.name}"
-                            th:text="${role.healthcareInstitution.country.id}+'-'+${role.healthcareInstitution.id}+'-'+${role.name}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">Cognoms</h4>
-                <input type="text" maxlength="32" required th:field="*{surname}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">Nom d'usuari</h4>
-                <input type="text" maxlength="32" required th:field="*{username}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">Contrasenya</h4>
-                <input type="password" maxlength="32" required th:field="*{password}"/>
-            </td>
-        </tr>
-    </table>
-    <p></p>
-    <button class="btn btn-primary" type="submit" value="createEmployee">Crear Usuari</button>
-</form>
+<div class="main">
+    <form class="needs-validation" novalidate method="post" th:object="${createEmployee}">
+        <h1>Crear EMPLEAT</h1>
+        <table>
+            <tr>
+                <td>
+                    <h4 align="center">Nom</h4>
+                    <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
+                </td>
+                <td>
+                    <h4 align="center">Rol</h4>
+                    <select class="form-control" required th:field="*{tempRoleName}">
+                        <option value="">Selecciona el rol</option>
+                        <option th:each="role : ${roles}"
+                                th:value="${role.healthcareInstitution.country.id}+'-'+${role.healthcareInstitution.id}+'-'+${role.name}"
+                                th:text="${role.healthcareInstitution.country.id}+'-'+${role.healthcareInstitution.id}+'-'+${role.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">Cognoms</h4>
+                    <input type="text" maxlength="32" required th:field="*{surname}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">Nom d'usuari</h4>
+                    <input type="text" maxlength="32" required th:field="*{username}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">Contrasenya</h4>
+                    <input type="password" maxlength="32" required th:field="*{password}"/>
+                </td>
+            </tr>
+        </table>
+        <p></p>
+        <button class="btn btn-primary" type="submit" value="createEmployee">Crear Usuari</button>
+    </form>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>

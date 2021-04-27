@@ -9,16 +9,18 @@
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<H2>LLISTES</H2>
-<a href="/role/all">ROLS</a>
-<a href="/warning/all">ALERTES</a>
-<a href="/employee/all">USUARIS</a>
-<a href="/institution/all">INSTITUCIONS</a>
-<H2>CREAR</H2>
-<a href="/role/create">ROLS</a>
-<a href="/warning/create">ALERTES</a>
-<a href="/employee/create">USUARIS</a>
-<a href="/institution/create">INSTITUCIONS</a>
+<div class="main">
+    <H2>LLISTES</H2>
+    <a href="/role/all">ROLS</a>
+    <a href="/warning/all">ALERTES</a>
+    <a href="/employee/all">USUARIS</a>
+    <a href="/institution/all">INSTITUCIONS</a>
+    <H2>CREAR</H2>
+    <a href="/role/create">ROLS</a>
+    <a href="/warning/create">ALERTES</a>
+    <a href="/employee/create">USUARIS</a>
+    <a href="/institution/create">INSTITUCIONS</a>
+</div>
 <div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>

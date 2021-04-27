@@ -5,53 +5,59 @@
     <title>ROL</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<h1 align="center">ROL</h1>
-<table>
-    <tr>
-        <td>
-            <h4 align="center">Nom</h4>
-            <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
-            <h4 align="center">Institució mèdica</h4>
-            <p align="center" th:text="${role.healthcareInstitution.name}" th:id="${role.healthcareInstitution.name}">Institució
-                mèdica</p>
-            <h4 align="center">Descripció</h4>
-            <p align="center" th:text="${role.description}" th:id="${role.description}">Descripció</p>
-        </td>
-        <td>
-            <h3 align="center">Alertes</h3>
-            <table>
-                <tr>
-                    <th>
-                        <p align="center">Nom</p>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-                <tr
-                        th:each="warning : ${warnings}">
-                    <td>
-                        <p align="center" th:text="${warning.name}" th:id="${warning.name}">Nom</p>
-                    </td>
-                    <td>
-                        <a th:href="@{'/warning/' + ${warning.id}}">VEURE</a>
-                    </td>
-                    <td class="col-md-2">
-                        <a th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR</a>
-                    </td>
-                </tr>
-            </table>
-            <p align="center" th:if="${warnings.size()==0}">No s'ha trobat cap alerta per aquest rol.</p>
-            <a th:href="@{'/warning/create/'}">AFEGIR ALERTA</a>
+<div class="main">
+    <h1 align="center">ROL</h1>
+    <table>
+        <tr>
+            <td>
+                <h4 align="center">Nom</h4>
+                <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
+                <h4 align="center">Institució mèdica</h4>
+                <p align="center" th:text="${role.healthcareInstitution.name}"
+                   th:id="${role.healthcareInstitution.name}">Institució
+                    mèdica</p>
+                <h4 align="center">Descripció</h4>
+                <p align="center" th:text="${role.description}" th:id="${role.description}">Descripció</p>
+            </td>
+            <td>
+                <h3 align="center">Alertes</h3>
+                <table>
+                    <tr>
+                        <th>
+                            <p align="center">Nom</p>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    <tr
+                            th:each="warning : ${warnings}">
+                        <td>
+                            <p align="center" th:text="${warning.name}" th:id="${warning.name}">Nom</p>
+                        </td>
+                        <td>
+                            <a th:href="@{'/warning/' + ${warning.id}}">VEURE</a>
+                        </td>
+                        <td class="col-md-2">
+                            <a th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR</a>
+                        </td>
+                    </tr>
+                </table>
+                <p align="center" th:if="${warnings.size()==0}">No s'ha trobat cap alerta per aquest rol.</p>
+                <a th:href="@{'/warning/create/'}">AFEGIR ALERTA</a>
 
-        </td>
-    </tr>
-</table>
-<a th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">ELIMINAR ROL</a>
-<a th:href="@{'/role/edit/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">EDITAR</a>
+            </td>
+        </tr>
+    </table>
+    <a th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">ELIMINAR
+        ROL</a>
+    <a th:href="@{'/role/edit/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">EDITAR</a>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>

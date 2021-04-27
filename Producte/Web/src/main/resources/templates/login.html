@@ -9,21 +9,25 @@
     <title>Inicia Sesión</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<form class="needs-validation" novalidate th:action="@{/login}" method="post">
-    <h1>INICIA SESIÓN</h1>
-    <form>
-        <div class="form-group">
-            <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username">
-        </div>
-        <div class="form-group">
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-        </div>
-        <button type="submit">Login</button>
-        <br>
+<div class="main">
+    <form class="needs-validation" novalidate th:action="@{/login}" method="post">
+        <h1>INICIA SESIÓN</h1>
+        <form>
+            <div class="form-group">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            <button type="submit">Login</button>
+            <br>
+        </form>
     </form>
-</form>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>

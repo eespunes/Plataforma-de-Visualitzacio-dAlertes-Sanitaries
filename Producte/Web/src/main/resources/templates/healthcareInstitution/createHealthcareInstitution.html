@@ -9,48 +9,53 @@
     <title>Crear Institució Mèdica</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<form class="needs-validation" novalidate method="post" th:object="${createHealthcareInstitution}">
-    <h1 align="center">Crear Institució Mèdica</h1>
-    <table>
-        <tr>
-            <td>
-                <h4 align="center">Nom</h4>
-                <input type="text" maxlength="64" required th:field="*{name}"/>
-            </td>
-            <td>
-                <h4 align="center">País</h4>
-                <select class="form-control" required th:field="*{tempCountry}">
-                    <option value="">Selecciona el país</option>
-                    <option th:each="country : ${countries}"
-                            th:value="${country.id}"
-                            th:text="${country.id}+' : '+${country.name}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">URL</h4>
-                <input type="text" maxlength="256" required th:field="*{url}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">Nom d'usuari</h4>
-                <input type="text" maxlength="32" required th:field="*{username}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">Contrasenya</h4>
-                <input type="password" maxlength="32" required th:field="*{password}"/>
-            </td>
-        </tr>
-    </table>
-    <p></p>
-    <button class="btn btn-primary" type="submit" value="createHealthcareInstitution">Crear Institució Mèdica</button>
-</form>
+<div class="main">
+    <form class="needs-validation" novalidate method="post" th:object="${createHealthcareInstitution}">
+        <h1 align="center">Crear Institució Mèdica</h1>
+        <table>
+            <tr>
+                <td>
+                    <h4 align="center">Nom</h4>
+                    <input type="text" maxlength="64" required th:field="*{name}"/>
+                </td>
+                <td>
+                    <h4 align="center">País</h4>
+                    <select class="form-control" required th:field="*{tempCountry}">
+                        <option value="">Selecciona el país</option>
+                        <option th:each="country : ${countries}"
+                                th:value="${country.id}"
+                                th:text="${country.id}+' : '+${country.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">URL</h4>
+                    <input type="text" maxlength="256" required th:field="*{url}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">Nom d'usuari</h4>
+                    <input type="text" maxlength="32" required th:field="*{username}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">Contrasenya</h4>
+                    <input type="password" maxlength="32" required th:field="*{password}"/>
+                </td>
+            </tr>
+        </table>
+        <p></p>
+        <button class="btn btn-primary" type="submit" value="createHealthcareInstitution">Crear Institució Mèdica
+        </button>
+    </form>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
 </body>
 </html>
