@@ -12,76 +12,75 @@
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
-<form class="needs-validation" novalidate method="post" th:object="${createWarning}">
-    <h1 align="center">ALERTA</h1>
+<h1 align="center">ALERTA</h1>
 
-    <table>
-        <tr>
-            <th>
-                <p align="center">Nom</p>
-            </th>
-            <th>
-                <p align="center">URI</p>
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <p align="center" th:text="${warning.name}" th:id="${warning.name}">NAME</p>
-            </td>
-            <td>
-                <p align="center" th:text="${warning.uri}" th:id="${warning.uri}">URI</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            <h4 align="center">Nom Curt</h4>
-                            <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
-                        </td>
-                        <td>
-                            <h4 align="center">Rol</h4>
-                            <p align="center" th:text="${warning.roleName}" th:id="${warning.roleName}">Rol</p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            <h4 align="center">Valor Verd</h4>
-                            <p align="center" th:text="${warning.greenValue}" th:id="${warning.greenValue}">Valor Verd</p>
-                        </td>
-                        <td>
-                            <h4 align="center">Valor Groc</h4>
+<table>
+    <tr>
+        <th>
+            <p align="center">Nom</p>
+        </th>
+        <th>
+            <p align="center">URI</p>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <p align="center" th:text="${warning.name}" th:id="${warning.name}">NAME</p>
+        </td>
+        <td>
+            <p align="center" th:text="${warning.uri}" th:id="${warning.uri}">URI</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <h4 align="center">Nom Curt</h4>
+                        <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
+                    </td>
+                    <td>
+                        <h4 align="center">Rol</h4>
+                        <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <h4 align="center">Valor Verd</h4>
+                        <p align="center" th:text="${warning.greenValue}" th:id="${warning.greenValue}">Valor Verd</p>
+                    </td>
+                    <td>
+                        <h4 align="center">Valor Groc</h4>
                         <p align="center" th:text="${warning.yellowValue}" th:id="${warning.yellowValue}">Valor Groc</p>
-                        </td>
-                        <td>
-                            <h4 align="center">Valor Vermell</h4>
-                            <p align="center" th:text="${warning.redValue}" th:id="${warning.redValue}">Valor Vermell</p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4 align="center">Descripció</h4>
-                <p align="center" th:text="${warning.description}" th:id="${warning.description}">Descripció</p>
-            </td>
-            <td>
-                <h4 align="center">Actualització</h4>
-                <p align="center" th:text="${warning.refreshRate}" th:id="${warning.refreshRate}">Actualització</p>
-                <h4 align="center">Notificació</h4>
-                <p align="center" th:text="${warning.notificationMessage}" th:id="${warning.notificationMessage}">Notificació</p>
-            </td>
-        </tr>
-    </table>
-    <p></p>
-    <a th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR ALERTA</a>
-    <a th:href="@{'/warning/edit/' + ${warning.id}}">EDITAR</a>
-</form>
+                    </td>
+                    <td>
+                        <h4 align="center">Valor Vermell</h4>
+                        <p align="center" th:text="${warning.redValue}" th:id="${warning.redValue}">Valor Vermell</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h4 align="center">Descripció</h4>
+            <p align="center" th:text="${warning.description}" th:id="${warning.description}">Descripció</p>
+        </td>
+        <td>
+            <h4 align="center">Actualització</h4>
+            <p align="center" th:text="${warning.refreshRate}" th:id="${warning.refreshRate}">Actualització</p>
+            <h4 align="center">Notificació</h4>
+            <p align="center" th:text="${warning.notificationMessage}" th:id="${warning.notificationMessage}">
+                Notificació</p>
+        </td>
+    </tr>
+</table>
+<p></p>
+<a th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR ALERTA</a>
+<a th:href="@{'/warning/edit/' + ${warning.id}}">EDITAR</a>
 </body>
 </html>

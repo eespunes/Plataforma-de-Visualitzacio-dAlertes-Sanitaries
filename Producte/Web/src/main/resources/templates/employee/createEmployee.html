@@ -22,11 +22,11 @@
             </td>
             <td>
                 <h4 align="center">Rol</h4>
-                <select class="form-control" required th:field="*{roleName}">
+                <select class="form-control" required th:field="*{tempRoleName}">
                     <option value="">Selecciona el rol</option>
                     <option th:each="role : ${roles}"
-                            th:value="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"
-                            th:text="${role.countryID}+'-'+${role.healthcareInstitutionID}+'-'+${role.name}"></option>
+                            th:value="${role.healthcareInstitution.country.id}+'-'+${role.healthcareInstitution.id}+'-'+${role.name}"
+                            th:text="${role.healthcareInstitution.country.id}+'-'+${role.healthcareInstitution.id}+'-'+${role.name}"></option>
                 </select>
             </td>
         </tr>

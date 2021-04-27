@@ -22,7 +22,7 @@
             </td>
             <td>
                 <h4 align="center">País</h4>
-                <select class="form-control" required th:field="*{countryID}">
+                <select class="form-control" required th:field="*{tempCountry}">
                     <option value="">Selecciona el país</option>
                     <option th:each="country : ${countries}"
                             th:value="${country.id}"

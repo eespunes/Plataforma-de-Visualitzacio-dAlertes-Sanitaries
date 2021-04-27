@@ -1,5 +1,6 @@
 package tfg.eespunes.persistance;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.stereotype.Service;
 import tfg.eespunes.domain.*;
 import tfg.eespunes.persistance.controllers.DatabaseDAO;
@@ -17,7 +18,7 @@ public class DatabaseController {
 
     //CREATE
     public int addHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-       return databaseDAO.insertHealthcareInstitution(healthcareInstitution);
+        return databaseDAO.insertHealthcareInstitution(healthcareInstitution);
     }
 
     public void addRole(Role role) {
@@ -54,6 +55,10 @@ public class DatabaseController {
     }
 
     // GET ONE
+    public Country getCountry(String countryId) {
+        return databaseDAO.findCountry(countryId);
+    }
+
     public HealthcareInstitution getHealthcareInstitution(int healthcareInstitutionID, String countryID) {
         return databaseDAO.findHealthcareInstitution(healthcareInstitutionID, countryID);
     }
@@ -111,5 +116,9 @@ public class DatabaseController {
 
     public List<Warning> getAllWarningsOfRole(String roleName, int healthcareInstitutionID, String countryID) {
         return databaseDAO.findAllWarningsOfRole(roleName, healthcareInstitutionID, countryID);
+    }
+
+    public int changePassword(String username, String newPassword) {
+        return databaseDAO.updatePassword(username, newPassword);
     }
 }

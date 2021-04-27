@@ -29,13 +29,13 @@
             <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
         </td>
         <td>
-            <p align="center" th:text="${role.healthcareInstitutionID}" th:id="${role.healthcareInstitutionID}">Institució Mèdica</p>
+            <p align="center" th:text="${role.healthcareInstitution.name}" th:id="${role.healthcareInstitution.id}">Institució Mèdica</p>
         </td>
         <td>
-            <p align="center" th:text="${role.countryID}" th:id="${role.countryID}">País</p>
+            <p align="center" th:text="${role.healthcareInstitution.country.id}" th:id="${role.healthcareInstitution.country.id}">País</p>
         </td>
         <td class="col-md-2">
-            <a th:href="@{'/role/' + ${role.name}+'/'+${role.healthcareInstitutionID}+'/'+${role.countryID}}">VEURE</a>
+            <a th:href="@{'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">VEURE</a>
         </td>
     </tr>
 </table>

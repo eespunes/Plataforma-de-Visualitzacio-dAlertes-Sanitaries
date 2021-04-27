@@ -23,6 +23,7 @@ public class DatabaseDAO {
     private final String FIND_ALL_EMPLOYEES = "SELECT * FROM Employees";
     private final String FIND_ALL_WARNINGS = "SELECT * FROM Warnings";
 
+    private final String FIND_COUNTRY_BY_ID = "SELECT * FROM Countries WHERE cou_id=?";
     private final String FIND_HEALTHCARE_INSTITUTION_BY_ID = "SELECT * FROM HealthcareInstitutions WHERE ins_id=? and ins_countryid=?";
     private final String FIND_ROLE_BY_ID = "SELECT * FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
     private final String FIND_EMPLOYEE_BY_USERNAME = "SELECT * FROM Employees WHERE emp_username=?";
@@ -43,6 +44,7 @@ public class DatabaseDAO {
 
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
+    private final String UPDATE_PASSWORD = "UPDATE Employees SET emp_password=? WHERE emp_username=?";
 
     private final JdbcTemplate jdbcTemplate;
     @Autowired
@@ -53,7 +55,7 @@ public class DatabaseDAO {
     }
 
     //MAPPERS
-    private RowMapper<Country> countryMapper = (resultSet, i) -> {
+    private final RowMapper<Country> countryMapper = (resultSet, i) -> {
         Country country = new Country(
                 resultSet.getString("cou_continentID"),
                 resultSet.getString("cou_id"),
@@ -61,10 +63,10 @@ public class DatabaseDAO {
         return country;
     };
 
-    private RowMapper<HealthcareInstitution> healthcareInstitutionMapper = (resultSet, i) -> {
+    private final RowMapper<HealthcareInstitution> healthcareInstitutionMapper = (resultSet, i) -> {
         HealthcareInstitution healthcareInstitution = new HealthcareInstitution(
                 resultSet.getInt("ins_id"),
-                resultSet.getString("ins_countryid"),
+                findCountry(resultSet.getString("ins_countryid")),
                 resultSet.getString("ins_name"),
                 resultSet.getString("ins_url"),
                 resultSet.getString("ins_username"),
@@ -76,8 +78,7 @@ public class DatabaseDAO {
         Role role = new Role(
                 resultSet.getString("rol_name"),
                 resultSet.getString("rol_description"),
-                resultSet.getString("rol_institutionID"),
-                resultSet.getString("rol_countryID"));
+                findHealthcareInstitution(resultSet.getInt("rol_institutionID"), resultSet.getString("rol_countryID")));
         return role;
     };
 
@@ -87,9 +88,7 @@ public class DatabaseDAO {
                 resultSet.getString("emp_password"),
                 resultSet.getString("emp_name"),
                 resultSet.getString("emp_surname"),
-                resultSet.getString("emp_rolename"),
-                resultSet.getInt("emp_roleinstitutionid"),
-                resultSet.getString("emp_rolecountryid")
+                findRole(resultSet.getString("emp_rolename"), resultSet.getInt("emp_roleinstitutionid"), resultSet.getString("emp_rolecountryid"))
         );
         return employee;
     };
@@ -107,29 +106,28 @@ public class DatabaseDAO {
                 resultSet.getFloat("war_redvalue"),
                 resultSet.getFloat("war_lastvalue"),
                 resultSet.getInt("war_refreshrate"),
-                resultSet.getString("war_rolename"),
-                resultSet.getInt("war_roleinstitutionid"),
-                resultSet.getString("war_rolecountryid")
+                findRole(resultSet.getString("war_rolename"), resultSet.getInt("war_roleinstitutionid"), resultSet.getString("war_rolecountryid"))
         );
         return warning;
     };
 
     //CREATE
     public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountryID());
-        jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountryID(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
-        insertRole(new Role("WEB-ADMIN", "The web administrator of this healthcare institution", id + "", healthcareInstitution.getCountryID()));
-        insertEmployee(new Employee("ADMIN-" + id + "-" + healthcareInstitution.getCountryID(), passwordEncoder.encode("admin"), "admin", "admin", "WEB-ADMIN", id, healthcareInstitution.getCountryID()));
+        int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountry().getId());
+        jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountry().getId(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
+        Role role = new Role("WEB-ADMIN", "The web administrator of this healthcare institution", healthcareInstitution);
+        insertRole(role);
+        insertEmployee(new Employee("ADMIN-" + id + "-" + healthcareInstitution.getCountry().getId(), passwordEncoder.encode("admin"), "admin", "admin", role));
 
         return id;
     }
 
     public void insertRole(Role role) {
-        jdbcTemplate.update(INSERT_ROLE, role.getName(), Integer.parseInt(role.getHealthcareInstitutionID()), role.getCountryID(), role.getDescription());
+        jdbcTemplate.update(INSERT_ROLE, role.getName(), role.getHealthcareInstitution().getId(), role.getHealthcareInstitution().getCountry().getId(), role.getDescription());
     }
 
     public void insertEmployee(Employee employee) {
-        jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRoleName(), employee.getRoleInstitutionID(), employee.getRoleCountryID());
+        jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRole().getName(), employee.getRole().getHealthcareInstitution().getId(), employee.getRole().getHealthcareInstitution().getCountry().getId());
     }
 
     private int getHealthcareInstitutionCountByCountry(String countryID) {
@@ -138,7 +136,7 @@ public class DatabaseDAO {
 
     public int insertWarning(Warning warning) {
         int id = jdbcTemplate.queryForObject(COUNT_WARNINGS, new Object[]{}, Integer.class);
-        jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRoleName(), warning.getRoleInstitutionID(), warning.getRoleCountryID());
+        jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRole().getName(), warning.getRole().getHealthcareInstitution().getId(), warning.getRole().getHealthcareInstitution().getCountry().getId());
         return id;
     }
 
@@ -164,6 +162,10 @@ public class DatabaseDAO {
     }
 
     //FIND ONE
+    public Country findCountry(String id) {
+        return jdbcTemplate.queryForObject(FIND_COUNTRY_BY_ID, new Object[]{id}, countryMapper);
+    }
+
     public HealthcareInstitution findHealthcareInstitution(int healthcareInstitutionID, String countryID) {
         return jdbcTemplate.queryForObject(FIND_HEALTHCARE_INSTITUTION_BY_ID, new Object[]{healthcareInstitutionID, countryID}, healthcareInstitutionMapper);
     }
@@ -199,11 +201,11 @@ public class DatabaseDAO {
 
     //UPDATE
     public void updateHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        jdbcTemplate.update(UPDATE_HEALTHCARE_INSTITUTION, healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword(), healthcareInstitution.getId(), healthcareInstitution.getCountryID());
+        jdbcTemplate.update(UPDATE_HEALTHCARE_INSTITUTION, healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword(), healthcareInstitution.getId(), healthcareInstitution.getCountry().getId());
     }
 
     public void updateRole(Role role) {
-        jdbcTemplate.update(UPDATE_ROLE, role.getDescription(), role.getName(), Integer.parseInt(role.getHealthcareInstitutionID()), role.getCountryID());
+        jdbcTemplate.update(UPDATE_ROLE, role.getDescription(), role.getName(), role.getHealthcareInstitution().getId(), role.getHealthcareInstitution().getCountry().getId());
     }
 
     public void updateEmployee(Employee employee) {
@@ -222,4 +224,9 @@ public class DatabaseDAO {
     public List<Warning> findAllWarningsOfRole(String roleName, int healthcareInstitutionID, String countryID) {
         return jdbcTemplate.query(FIND_ALL_WARNINGS_OF_ROLE, new Object[]{roleName, healthcareInstitutionID, countryID}, warningMapper);
     }
+
+    public int updatePassword(String username, String newPassword) {
+        return jdbcTemplate.update(UPDATE_PASSWORD, passwordEncoder.encode(newPassword), username);
+    }
+
 }

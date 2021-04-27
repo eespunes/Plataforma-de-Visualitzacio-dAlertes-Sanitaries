@@ -30,27 +30,31 @@ public class WebPostController {
 
     @PostMapping("/institution/create")
     public String createInstitution(HealthcareInstitution healthcareInstitution, RedirectAttributes redirectAttributes) {
+        healthcareInstitution.setCountry(databaseController.getCountry(healthcareInstitution.getTempCountry()));
         healthcareInstitution.setId(databaseController.addHealthcareInstitution(healthcareInstitution));
 
         redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());
-        redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountryID());
+        redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountry().getId());
         return "redirect:/institution/{healthcareInstitutionID}/{countryID}";
     }
 
     @PostMapping("/role/create")
     public String createRole(Role role, RedirectAttributes redirectAttributes) {
-        role.setCountryIDFromHealthcareInstitution();
+        String[] healthcareInstitution = role.getTempHealthcareInstitution().split("-");
+        role.setHealthcareInstitution(databaseController.getHealthcareInstitution(Integer.parseInt(healthcareInstitution[1]), healthcareInstitution[0]));
         databaseController.addRole(role);
 
         redirectAttributes.addAttribute("roleName", role.getName());
-        redirectAttributes.addAttribute("healthcareInstitutionID", role.getHealthcareInstitutionID());
-        redirectAttributes.addAttribute("countryID", role.getCountryID());
+        redirectAttributes.addAttribute("healthcareInstitutionID", role.getHealthcareInstitution().getId());
+        redirectAttributes.addAttribute("countryID", role.getHealthcareInstitution().getCountry().getId());
         return "redirect:/role/{roleName}/{healthcareInstitutionID}/{countryID}";
     }
 
     @PostMapping("/employee/create")
     public String createEmployee(Employee employee, RedirectAttributes redirectAttributes) {
-        employee.setCountryIDAndHealthcareInstitutionIDFromRoleName();
+        String[] role = employee.getTempRoleName().split("-");
+        employee.setRole(databaseController.getRole(role[2], Integer.parseInt(role[1]), role[0]));
+
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         databaseController.addEmployee(employee);
 
@@ -60,7 +64,9 @@ public class WebPostController {
 
     @PostMapping("/warning/create")
     public String createWarning(Warning warning, RedirectAttributes redirectAttributes) {
-        warning.setCountryIDAndHealthcareInstitutionIDFromRoleName();
+        String[] role = warning.getTempRoleName().split("-");
+        warning.setRole(databaseController.getRole(role[2], Integer.parseInt(role[1]), role[0]));
+
         warning.setId(databaseController.addWarning(warning));
 
         redirectAttributes.addAttribute("id", warning.getId());
@@ -73,7 +79,7 @@ public class WebPostController {
         databaseController.editHealthcareInstitution(healthcareInstitution);
 
         redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());
-        redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountryID());
+        redirectAttributes.addAttribute("countryID", healthcareInstitution.getCountry().getId());
         return "redirect:/institution/{healthcareInstitutionID}/{countryID}";
     }
 
@@ -84,8 +90,8 @@ public class WebPostController {
         databaseController.editRole(role);
 
         redirectAttributes.addAttribute("roleName", role.getName());
-        redirectAttributes.addAttribute("healthcareInstitutionID", role.getHealthcareInstitutionID());
-        redirectAttributes.addAttribute("countryID", role.getCountryID());
+        redirectAttributes.addAttribute("healthcareInstitutionID", role.getHealthcareInstitution().getId());
+        redirectAttributes.addAttribute("countryID", role.getHealthcareInstitution().getCountry().getId());
         return "redirect:/role/{roleName}/{healthcareInstitutionID}/{countryID}";
     }
 

@@ -23,7 +23,7 @@
             <p align="center" th:text="${healthcareInstitution.password}" th:id="${healthcareInstitution.password}">
                 Contrasenya</p>
             <h4 align="center">País</h4>
-            <p align="center" th:text="${healthcareInstitution.countryID}" th:id="${healthcareInstitution.countryID}">
+            <p align="center" th:text="${healthcareInstitution.country.name}" th:id="${healthcareInstitution.country.id}">
                 País</p>
         </td>
         <td>
@@ -44,10 +44,10 @@
                         <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
                     </td>
                     <td>
-                        <a th:href="@{'/role/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">VEURE</a>
+                        <a th:href="@{'/role/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">VEURE</a>
                     </td>
                     <td class="col-md-2">
-                        <a th:href="@{'/role/delete/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">ELIMINAR</a>
+                        <a th:href="@{'/role/delete/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">ELIMINAR</a>
                     </td>
                 </tr>
             </table>
@@ -55,7 +55,7 @@
         </td>
     </tr>
 </table>
-<a th:href="@{'/institution/delete/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">ELIMINAR INSTITUCIÓ MÈDICA</a>
-<a th:href="@{'/institution/edit/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">EDITAR</a>
+<a th:href="@{'/institution/delete/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">ELIMINAR INSTITUCIÓ MÈDICA</a>
+<a th:href="@{'/institution/edit/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">EDITAR</a>
 </body>
 </html>

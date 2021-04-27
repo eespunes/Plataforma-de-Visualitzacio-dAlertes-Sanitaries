@@ -27,10 +27,10 @@
             <p align="center" th:text="${healthcareInstitution.name}" th:id="${healthcareInstitution.name}">Nom</p>
         </td>
         <td>
-            <p align="center" th:text="${healthcareInstitution.countryID}" th:id="${healthcareInstitution.countryID}">País</p>
+            <p align="center" th:text="${healthcareInstitution.country.id}" th:id="${healthcareInstitution.country.id}">País</p>
         </td>
         <td class="col-md-2">
-            <a th:href="@{'/institution/' + ${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">VEURE</a>
+            <a th:href="@{'/institution/' + ${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">VEURE</a>
         </td>
     </tr>
 </table>

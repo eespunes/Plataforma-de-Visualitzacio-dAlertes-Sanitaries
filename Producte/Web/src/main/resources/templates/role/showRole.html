@@ -15,7 +15,7 @@
             <h4 align="center">Nom</h4>
             <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
             <h4 align="center">Institució mèdica</h4>
-            <p align="center" th:text="${healthcareInstitution.name}" th:id="${healthcareInstitution.name}">Institució
+            <p align="center" th:text="${role.healthcareInstitution.name}" th:id="${role.healthcareInstitution.name}">Institució
                 mèdica</p>
             <h4 align="center">Descripció</h4>
             <p align="center" th:text="${role.description}" th:id="${role.description}">Descripció</p>
@@ -51,7 +51,7 @@
         </td>
     </tr>
 </table>
-<a th:href="@{'/role/delete/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">ELIMINAR ROL</a>
-<a th:href="@{'/role/edit/' + ${role.name}+'/'+${healthcareInstitution.id}+'/'+${healthcareInstitution.countryID}}">EDITAR</a>
+<a th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">ELIMINAR ROL</a>
+<a th:href="@{'/role/edit/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">EDITAR</a>
 </body>
 </html>

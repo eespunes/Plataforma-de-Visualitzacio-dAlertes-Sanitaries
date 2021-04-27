@@ -14,12 +14,11 @@ public class Warning {
     private float lastValue;
     private float refreshRate;
 
-    private String roleName;
-    private int roleInstitutionID;
-    private String roleCountryID;
+    private Role role;
 
+    private String tempRoleName;
 
-    public Warning(int id, String name, String shortName, String description, String uri, String notificationMessage, float greenValue, float yellowValue, float redValue, float lastValue, float refreshRate, String roleName, int roleInstitutionID, String roleCountryID) {
+    public Warning(int id, String name, String shortName, String description, String uri, String notificationMessage, float greenValue, float yellowValue, float redValue, float lastValue, float refreshRate, Role role) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
@@ -31,9 +30,7 @@ public class Warning {
         this.redValue = redValue;
         this.lastValue = lastValue;
         this.refreshRate = refreshRate;
-        this.roleName = roleName;
-        this.roleInstitutionID = roleInstitutionID;
-        this.roleCountryID = roleCountryID;
+        this.role = role;
     }
 
     public Warning() {
@@ -127,37 +124,19 @@ public class Warning {
         this.refreshRate = refreshRate;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public int getRoleInstitutionID() {
-        return roleInstitutionID;
+    public String getTempRoleName() {
+        return tempRoleName;
     }
 
-    public void setRoleInstitutionID(int roleInstitutionID) {
-        this.roleInstitutionID = roleInstitutionID;
-    }
-
-    public String getRoleCountryID() {
-        return roleCountryID;
-    }
-
-    public void setRoleCountryID(String roleCountryID) {
-        this.roleCountryID = roleCountryID;
-    }
-
-    public void setCountryIDAndHealthcareInstitutionIDFromRoleName() {
-        String[] splitted = roleName.split("-");
-
-        if (splitted.length == 3) {
-            this.roleName = splitted[2];
-            this.roleInstitutionID = Integer.parseInt(splitted[1]);
-            this.roleCountryID = splitted[0];
-        }
+    public void setTempRoleName(String tempRoleName) {
+        this.tempRoleName = tempRoleName;
     }
 }

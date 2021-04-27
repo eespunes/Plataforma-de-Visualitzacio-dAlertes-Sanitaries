@@ -2,15 +2,16 @@ package tfg.eespunes.domain;
 
 public class HealthcareInstitution {
     private int id;
-    private String countryID;
+    private Country country;
     private String name;
     private String url;
     private String username;
     private String password;
+    private String tempCountry;
 
-    public HealthcareInstitution(int id, String countryID, String name, String url, String username, String password) {
+    public HealthcareInstitution(int id, Country country, String name, String url, String username, String password) {
         this.id = id;
-        this.countryID = countryID;
+        this.country = country;
         this.name = name;
         this.url = url;
         this.username = username;
@@ -28,12 +29,12 @@ public class HealthcareInstitution {
         this.id = id;
     }
 
-    public String getCountryID() {
-        return countryID;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryID(String countryID) {
-        this.countryID = countryID;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public String getName() {
@@ -66,5 +67,13 @@ public class HealthcareInstitution {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTempCountry() {
+        return tempCountry;
+    }
+
+    public void setTempCountry(String tempCountry) {
+        this.tempCountry = tempCountry;
     }
 }

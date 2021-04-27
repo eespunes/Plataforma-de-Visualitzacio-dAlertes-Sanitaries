@@ -6,14 +6,13 @@ import javax.validation.constraints.Size;
 public class Role {
     private String name;
     private String description;
-    private String healthcareInstitutionID;
-    private String countryID;
+    private HealthcareInstitution healthcareInstitution;
+    private String tempHealthcareInstitution;
 
-    public Role(String name, String description, String healthcareInstitutionID, String countryID) {
+    public Role(String name, String description, HealthcareInstitution healthcareInstitution) {
         this.name = name;
         this.description = description;
-        this.healthcareInstitutionID = healthcareInstitutionID;
-        this.countryID = countryID;
+        this.healthcareInstitution = healthcareInstitution;
     }
 
     public Role() {
@@ -35,28 +34,19 @@ public class Role {
         this.description = description;
     }
 
-    public String getHealthcareInstitutionID() {
-        return healthcareInstitutionID;
+    public HealthcareInstitution getHealthcareInstitution() {
+        return healthcareInstitution;
     }
 
-    public void setHealthcareInstitutionID(String healthcareInstitutionID) {
-        this.healthcareInstitutionID = healthcareInstitutionID;
+    public void setHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
+        this.healthcareInstitution = healthcareInstitution;
     }
 
-    public String getCountryID() {
-        return countryID;
+    public String getTempHealthcareInstitution() {
+        return tempHealthcareInstitution;
     }
 
-    public void setCountryID(String countryID) {
-        this.countryID = countryID;
-    }
-
-    public void setCountryIDFromHealthcareInstitution() {
-        String[] splitted = healthcareInstitutionID.split("-");
-
-        if (splitted.length == 2) {
-            this.healthcareInstitutionID = splitted[1];
-            this.countryID = splitted[0];
-        }
+    public void setTempHealthcareInstitution(String tempHealthcareInstitution) {
+        this.tempHealthcareInstitution = tempHealthcareInstitution;
     }
 }

@@ -12,7 +12,7 @@ import tfg.eespunes.persistance.DatabaseController;
 
 @Controller
 public class WebGetController {
-    private DatabaseController databaseController;
+    private  DatabaseController databaseController;
 
     public WebGetController(DatabaseController databaseController) {
         this.databaseController = databaseController;
@@ -66,7 +66,7 @@ public class WebGetController {
     }
 
     @GetMapping("/employee/all")
-    public String getAllEployees(Model model) {
+    public String getAllEmployees(Model model) {
         model.addAttribute("employees", databaseController.getAllEmployees());
         return "employee/showEmployees";
     }
@@ -88,7 +88,6 @@ public class WebGetController {
     @GetMapping("/role/{roleName}/{healthcareInstitutionID}/{countryID}")
     public String getRole(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
         model.addAttribute("role", databaseController.getRole(roleName, healthcareInstitutionID, countryID));
-        model.addAttribute("healthcareInstitution", databaseController.getHealthcareInstitution(healthcareInstitutionID, countryID));
         model.addAttribute("warnings", databaseController.getAllWarningsOfRole(roleName, healthcareInstitutionID, countryID));
         return "role/showRole";
     }
@@ -110,14 +109,12 @@ public class WebGetController {
     @GetMapping("/institution/edit/{healthcareInstitutionID}/{countryID}")
     public String editInstitution(@PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
         model.addAttribute("healthcareInstitution", databaseController.getHealthcareInstitution(healthcareInstitutionID, countryID));
-        model.addAttribute("roles", databaseController.getAllRolesOfHealthcareInstitution(healthcareInstitutionID, countryID));
         return "healthcareInstitution/editHealthcareInstitution";
     }
 
     @GetMapping("/role/edit/{roleName}/{healthcareInstitutionID}/{countryID}")
     public String editRole(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
         model.addAttribute("role", databaseController.getRole(roleName, healthcareInstitutionID, countryID));
-        model.addAttribute("healthcareInstitution", databaseController.getHealthcareInstitution(healthcareInstitutionID, countryID));
         model.addAttribute("warnings", databaseController.getAllWarningsOfRole(roleName, healthcareInstitutionID, countryID));
         return "role/editRole";
     }
@@ -139,31 +136,27 @@ public class WebGetController {
     public String deleteInstitution(@PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
         databaseController.deleteHealthcareInstitution(healthcareInstitutionID, countryID);
 
-        model.addAttribute("healthcareInstitutions", databaseController.getAllHealthcareInstitutions());
-        return "healthcareInstitution/showHealthcareInstitutions";
+        return getAllInstitutions(model);
     }
 
     @GetMapping("/role/delete/{roleName}/{healthcareInstitutionID}/{countryID}")
     public String deleteRole(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
         databaseController.deleteRole(roleName, healthcareInstitutionID, countryID);
 
-        model.addAttribute("roles", databaseController.getAllRoles());
-        return "role/showRoles";
+        return getAllRoles(model);
     }
 
     @GetMapping("/employee/delete/{username}")
     public String deleteEmployee(@PathVariable String username, Model model) {
         databaseController.deleteEmployee(username);
 
-        model.addAttribute("employees", databaseController.getAllEmployees());
-        return "employee/showEmployees";
+        return getAllEmployees(model);
     }
 
     @GetMapping("/warning/delete/{id}")
     public String deleteWarning(@PathVariable int id, Model model) {
         databaseController.deleteWarning(id);
 
-        model.addAttribute("warnings", databaseController.getAllWarnings());
-        return "warning/showWarnings";
+        return getAllWarnings(model);
     }
 }

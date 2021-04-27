@@ -8,18 +8,15 @@ public class Employee {
     private String password;
     private String name;
     private String surname;
-    private String roleName;
-    private int roleInstitutionID;
-    private String roleCountryID;
+    private Role role;
+    private String tempRoleName;
 
-    public Employee(String username, String password, String name, String surname, String roleName, int roleInstitutionID, String roleCountryID) {
+    public Employee(String username, String password, String name, String surname, Role role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.roleName = roleName;
-        this.roleInstitutionID = roleInstitutionID;
-        this.roleCountryID = roleCountryID;
+        this.role = role;
     }
 
     public Employee() {
@@ -39,7 +36,7 @@ public class Employee {
 
     public void setPassword(String password) {
         System.out.println(password);
-        this.password =  password;
+        this.password = password;
     }
 
     public String getName() {
@@ -58,37 +55,19 @@ public class Employee {
         this.surname = surname;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public int getRoleInstitutionID() {
-        return roleInstitutionID;
+    public String getTempRoleName() {
+        return tempRoleName;
     }
 
-    public void setRoleInstitutionID(int roleInstitutionID) {
-        this.roleInstitutionID = roleInstitutionID;
-    }
-
-    public String getRoleCountryID() {
-        return roleCountryID;
-    }
-
-    public void setRoleCountryID(String roleCountryID) {
-        this.roleCountryID = roleCountryID;
-    }
-
-    public void setCountryIDAndHealthcareInstitutionIDFromRoleName() {
-        String[] splitted = roleName.split("-");
-
-        if (splitted.length == 3) {
-            this.roleName = splitted[2];
-            this.roleInstitutionID = Integer.parseInt(splitted[1]);
-            this.roleCountryID = splitted[0];
-        }
+    public void setTempRoleName(String tempRoleName) {
+        this.tempRoleName = tempRoleName;
     }
 }

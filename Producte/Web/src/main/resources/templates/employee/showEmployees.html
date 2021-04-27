@@ -39,13 +39,13 @@
             <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
         </td>
         <td>
-            <p  align="center"th:text="${employee.roleName}" th:id="${employee.roleName}">Rol</p>
+            <p  align="center"th:text="${employee.role.name}" th:id="${employee.role.name}">Rol</p>
         </td>
         <td>
             <a align="center" th:href="@{'/employee/' + ${employee.username}}">VEURE</a>
         </td>
     </tr>
 </table>
-<h3 align="center" th:if="${employees.size()==0}">No s'ha trobat cap usuari.</h3>
+<h3 align="center" th:if="${employees.size()==0}">No s'ha trobat cap empleat.</h3>
 </body>
 </html>

@@ -22,11 +22,11 @@
             </td>
             <td>
                 <h4 align="center">Institució Mèdica</h4>
-                <select class="form-control" required th:field="*{healthcareInstitutionID}">
+                <select class="form-control" required th:field="*{tempHealthcareInstitution}">
                     <option value="">Selecciona la institució mèdica</option>
                     <option th:each="healthcareInstitution : ${healthcareInstitutions}"
-                            th:value="${healthcareInstitution.countryID}+'-'+${healthcareInstitution.id}"
-                            th:text="${healthcareInstitution.countryID}+'-'+${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
+                            th:value="${healthcareInstitution.country.id}+'-'+${healthcareInstitution.id}"
+                            th:text="${healthcareInstitution.country.id}+'-'+${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
                 </select>
             </td>
         </tr>
