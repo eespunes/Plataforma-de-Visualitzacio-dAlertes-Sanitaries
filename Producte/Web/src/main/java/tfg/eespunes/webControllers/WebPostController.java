@@ -40,7 +40,7 @@ public class WebPostController {
 
     @PostMapping("/role/create")
     public String createRole(Role role, RedirectAttributes redirectAttributes) {
-        String[] healthcareInstitution = role.getTempHealthcareInstitution().split("-");
+        String[] healthcareInstitution = role.getTempHealthcareInstitution().split(" - ");
         role.setHealthcareInstitution(databaseController.getHealthcareInstitution(Integer.parseInt(healthcareInstitution[1]), healthcareInstitution[0]));
         databaseController.addRole(role);
 
@@ -52,7 +52,7 @@ public class WebPostController {
 
     @PostMapping("/employee/create")
     public String createEmployee(Employee employee, RedirectAttributes redirectAttributes) {
-        String[] role = employee.getTempRoleName().split("-");
+        String[] role = employee.getTempRoleName().split(" - ");
         employee.setRole(databaseController.getRole(role[2], Integer.parseInt(role[1]), role[0]));
 
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
@@ -64,7 +64,7 @@ public class WebPostController {
 
     @PostMapping("/warning/create")
     public String createWarning(Warning warning, RedirectAttributes redirectAttributes) {
-        String[] role = warning.getTempRoleName().split("-");
+        String[] role = warning.getTempRoleName().split(" - ");
         warning.setRole(databaseController.getRole(role[2], Integer.parseInt(role[1]), role[0]));
 
         warning.setId(databaseController.addWarning(warning));

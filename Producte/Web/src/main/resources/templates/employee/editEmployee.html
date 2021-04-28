@@ -6,36 +6,17 @@
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/create :: createStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <h1 align="center">Editar EMPLEAT</h1>
+    <h1 align="center">EDITAR EMPLEAT</h1>
     <form class="needs-validation" novalidate method="post" th:object="${employee}">
-        <table>
+        <table class ="create">
             <tr>
                 <th>
-                    <h4 align="center">Nom</h4>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h4 align="center">Cognoms</h4>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" maxlength="32" required th:field="*{surname}"/>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h4 align="center">Usuari</h4>
+                    <h4 align="center">NOM D'USUARI</h4>
                 </th>
             </tr>
             <tr>
@@ -45,7 +26,27 @@
             </tr>
             <tr>
                 <th>
-                    <h4 align="center">Rol</h4>
+                    <h4 align="center">NOM</h4>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h4 align="center">COGNOMS</h4>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" maxlength="32" required th:field="*{surname}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h4 align="center">ROL</h4>
                 </th>
             </tr>
             <tr>

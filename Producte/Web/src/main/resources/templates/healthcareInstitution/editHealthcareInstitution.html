@@ -6,25 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Editar Institució Mèdica</title>
+    <title>EDITAR INSTITUCIÓ MÈDICA</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/create :: createStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
     <form class="needs-validation" novalidate method="post" th:object="${healthcareInstitution}">
-        <h1 align="center">Editar Institució Mèdica</h1>
-        <table>
+        <h1 align="center">EDITAR INSTITUCIÓ MÈDICA</h1>
+        <table class ="create">
             <tr>
                 <td>
-                    <h4 align="center">Nom</h4>
+                    <h4 align="center">NOM</h4>
                     <p align="center" th:text="${healthcareInstitution.name}" th:id="${healthcareInstitution.name}">
                         Nom</p>
                 </td>
                 <td>
-                    <h4 align="center">País</h4>
+                    <h4 align="center">PAÍS</h4>
                     <p align="center" th:text="${healthcareInstitution.country.id}"
                        th:id="${healthcareInstitution.country.id}">
                         País</p>
@@ -38,19 +39,19 @@
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">Nom d'usuari</h4>
+                    <h4 align="center">NOM D'USUARI</h4>
                     <input type="text" maxlength="32" required th:field="*{username}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">Contrasenya</h4>
+                    <h4 align="center">CONTRASENYA</h4>
                     <input type="password" maxlength="32" required th:field="*{password}"/>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="healthcareInstitution">EDITAR Institució Mèdica</button>
+        <button class="btn btn-primary" type="submit" value="healthcareInstitution">EDITAR INSTITUCIÓ MÈDICA</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

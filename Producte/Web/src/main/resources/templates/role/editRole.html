@@ -6,24 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Editar Rol</title>
+    <title>EDITAR ROL</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/create :: createStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
     <form class="needs-validation" novalidate method="post" th:object="${role}">
-        <h1 align="center">Editar Rol</h1>
-        <table>
+        <h1 align="center">EDITAR ROL</h1>
+        <table class ="create">
             <tr>
                 <td>
-                    <h4 align="center">Nom</h4>
+                    <h4 align="center">NOM</h4>
                     <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
                 </td>
                 <td>
-                    <h4 align="center">Institució Mèdica</h4>
+                    <h4 align="center">INSTITUCIÓ MÈDICA</h4>
                     <p align="center" th:text="${role.healthcareInstitution.name}"
                        th:id="${role.healthcareInstitution.name}">Institució
                         mèdica</p>
@@ -31,13 +32,13 @@
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">Descripció</h4>
+                    <h4 align="center">DESCRIPCIÓ</h4>
                     <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="role">Editar Rol</button>
+        <button class="btn btn-primary" type="submit" value="role">EDITAR ROL</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

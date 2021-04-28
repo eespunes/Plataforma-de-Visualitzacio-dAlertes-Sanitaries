@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style th:fragment="createStyle">
+        div {
+            justify-content: center;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00f8ff;
+        }
+
+        .ct-h4 {
+            color: white;
+            margin-bottom: 1%;
+        }
+
+        .create {
+            width: 75%;
+            table-layout: fixed;
+            overflow-wrap: break-word;
+            background-color: #00f8ff;
+            border-radius: 5px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 0 12px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .inner {
+            box-shadow: none;
+            width: 85%;
+        }
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        input, select {
+            box-sizing: border-box;
+            width: 75%;
+            border: 0px;
+            border-radius: 5px;
+            background-color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        textarea {
+            box-sizing: border-box;
+            width: 75%;
+            border: 0px;
+            border-radius: 5px;
+            background-color: white;
+            padding: 12px;
+            text-align: justify;
+            resize: none;
+        }
+
+
+        input, select, textarea:focus {
+            outline-color: #00f8ff;
+        }
+
+        select:after {
+            background-color: #00f8ff;
+        }
+
+        button {
+            box-sizing: border-box;
+            width: 50%;
+            border: 0px;
+            border-radius: 5px;
+            background-color: #00f8ff;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .green {
+            background-color: #00ff00;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .red {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <form class="needs-validation" novalidate method="post" th:object="${createRole}">
+        <h1 align="center">CREAR ROL</h1>
+        <table class ="create">
+            <tr>
+                <td>
+                    <h4 class="ct-h4" align="center">USUARI</h4>
+                    <input type="text" id="username" name="username" placeholder="Introdueix el nom d'usuari...">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 align="center">CONTRASENYA</h4>
+                    <input type="password" id="password" name="password" placeholder="Introdueix la contrasenya...">
+                </td>
+            </tr>
+        </table>
+        <p></p>
+        <button type="submit">INICIAR SESSIÓ</button>
+    </form>
+</div>
+</body>
+</html>

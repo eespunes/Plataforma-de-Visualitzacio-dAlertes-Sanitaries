@@ -10,19 +10,44 @@
             left: 0;
             bottom: 0;
             width: 100%;
+            text-align: center;
+        }
+
+        .ft-table {
+            width: 100%;
             background-color: #00f8ff;
             color: white;
-            text-align: center;
+        }
+
+        .ft-grad {
+            padding: 2.5vh;
+            background-image: linear-gradient(to bottom, rgba(0,248,255,0), rgba(0,248,255,1));
+        }
+
+        .ft-tfg {
+            margin-top: .5vh;
+            margin-bottom: 1vh;
+        }
+
+        .ft-auth {
+            margin-top: 0vh;
+            margin-bottom: 1vh;
+        }
+
+        .ft-ex {
+            margin-top: 0vh;
+            margin-bottom: .5vh;
         }
     </style>
 </head>
 <body>
 <div th:fragment="footer" class="footer">
-    <table>
+    <div class="ft-grad"></div>
+    <table class="ft-table">
         <tr>
-            <td><h4>TREBALL DE FINAL DE GRAU</h4>
-                <h5>AUTOR: ERIK ESPUÑES JUBERÓ</h5>
-                <h6>TUTOR: EUGENI FERNANDEZ GONZALEZ
+            <td><h4 class="ft-tfg">TREBALL DE FINAL DE GRAU</h4>
+                <h5 class="ft-auth">AUTOR: ERIK ESPUÑES JUBERÓ</h5>
+                <h6 class="ft-ex">TUTOR: EUGENI FERNANDEZ GONZALEZ
                     | CURS 2020/2021 | GRAU EN ENGINYERIA INFORMÀTICA DE GESTIÓ I SISTEMES D’INFORMACIÓ</h6></td>
             <td><h6>Image</h6></td>
         </tr>

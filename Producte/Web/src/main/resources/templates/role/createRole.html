@@ -6,41 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Crear Rol</title>
+    <title>CREAR ROL</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/create :: createStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
     <form class="needs-validation" novalidate method="post" th:object="${createRole}">
-        <h1 align="center">Crear Rol</h1>
-        <table>
+        <h1 align="center">CREAR ROL</h1>
+        <table class ="create">
             <tr>
                 <td>
-                    <h4 align="center">Nom</h4>
-                    <input type="text" maxlength="16" required th:field="*{name}"/>
+                    <h4 align="center">NOM</h4>
+                    <input type="text" maxlength="16" minlength="1" placeholder="Introdueix el nom..." required th:field="*{name}"/>
                 </td>
                 <td>
-                    <h4 align="center">Institució Mèdica</h4>
+                    <h4 align="center">INSTITUCIÓ MÈDICA</h4>
                     <select class="form-control" required th:field="*{tempHealthcareInstitution}">
                         <option value="">Selecciona la institució mèdica</option>
                         <option th:each="healthcareInstitution : ${healthcareInstitutions}"
-                                th:value="${healthcareInstitution.country.id}+'-'+${healthcareInstitution.id}"
-                                th:text="${healthcareInstitution.country.id}+'-'+${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
+                                th:value="${healthcareInstitution.country.id}+' - '+${healthcareInstitution.id}"
+                                th:text="${healthcareInstitution.country.id}+' - '+${healthcareInstitution.id}+' : '+${healthcareInstitution.name}"></option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">Descripció</h4>
-                    <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
+                    <h4 align="center">DESCRIPCIÓ</h4>
+                    <textarea type="text" maxlength="512" rows="14" minlength="1" placeholder="Introdueix la descripció..." required th:field="*{description}"></textarea>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="createRole">Crear Rol</button>
+        <button class="btn btn-primary" type="submit" value="createRole">CREAR ROL</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

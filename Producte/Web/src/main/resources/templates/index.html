@@ -7,20 +7,90 @@
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <style>
+        .idx-table {
+            overflow: auto;
+            width: 95%;
+            table-layout: fixed;
+            overflow-wrap: break-word;
+            margin: auto;
+        }
+
+        .list {
+            float: left;
+            display: block;
+            font-weight: bolder;
+            background-color: #00f8ff;
+            color: white;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            padding: 25% 0 25%;
+            text-decoration: none;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .create {
+            float: left;
+            display: block;
+            font-weight: bolder;
+            background-color: #00ff00;
+            color: white;
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+            padding: 12.5% 0 12.5%;
+            text-decoration: none;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .create:hover {
+            background: #ffffff;
+            color: #00ff00;
+            outline: 3px solid #00ff00;
+        }
+
+        .list:hover {
+            background: #ffffff;
+            color: #00f8ff;
+            outline: 3px solid #00f8ff;
+        }
+
+    </style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <H2>LLISTES</H2>
-    <a href="/role/all">ROLS</a>
-    <a href="/warning/all">ALERTES</a>
-    <a href="/employee/all">USUARIS</a>
-    <a href="/institution/all">INSTITUCIONS</a>
-    <H2>CREAR</H2>
-    <a href="/role/create">ROLS</a>
-    <a href="/warning/create">ALERTES</a>
-    <a href="/employee/create">USUARIS</a>
-    <a href="/institution/create">INSTITUCIONS</a>
+    <table class="idx-table">
+        <tr>
+            <th>
+                <a class="list" href="/role/all">LLISTA DE ROLS</a>
+            </th>
+            <th>
+                <a class="list" href="/warning/all">LLISTA D'ALERTES</a>
+            </th>
+            <th>
+                <a class="list" href="/employee/all">LLISTA D'EMPLEATS</a>
+            </th>
+            <th>
+                <a class="list" href="/institution/all">LLISTA D'INSTITUCIONS MÈDIQUES</a>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <a class="create" href="/role/create">CREAR ROL</a>
+            </td>
+            <td>
+                <a class="create" href="/warning/create">CREAR ALERTA</a>
+            </td>
+            <td>
+                <a class="create" href="/employee/create">CREAR EMPLEAT</a>
+            </td>
+            <td>
+                <a class="create" href="/institution/create">CREAR INSTITUCIÓ MÈDICA</a>
+            </td>
+        </tr>
+    </table>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
 </body>

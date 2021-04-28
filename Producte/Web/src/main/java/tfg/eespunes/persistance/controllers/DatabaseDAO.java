@@ -171,7 +171,7 @@ public class DatabaseDAO {
     }
 
     public Role findRole(String roleName, int healthcareInstitutionID, String countryID) {
-        System.out.println(roleName + " - " + healthcareInstitutionID + " - " + countryID);
+        System.out.println(roleName + "-" + healthcareInstitutionID + "-" + countryID);
         return jdbcTemplate.queryForObject(FIND_ROLE_BY_ID, new Object[]{roleName, healthcareInstitutionID, countryID}, roleMapper);
     }
 
