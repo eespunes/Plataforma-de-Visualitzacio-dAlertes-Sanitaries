@@ -6,21 +6,29 @@
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <link rel="stylesheet" href="../../static/css/table.css">
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
     <h1 align="center">LLISTA D'ALERTES</h1>
-    <table>
+    <table id="table">
         <tr>
             <th>
-                <p align="center">ID</p>
+                <p align="center">ID <button onclick="asc(0)">Asc</button><button onclick="desc(0)">Desc</button></p>
+                <p><input type="text" id="0" onkeyup="search(0)" placeholder="Search.." title="Type in a name"></p>
             </th>
             <th>
-                <p align="center">Nom Curt</p>
+                <p align="center">NOM CURT <button onclick="asc(1)">Asc</button><button onclick="desc(1)">Desc</button></p>
+                <p><input type="text" id="1" onkeyup="search(1)" placeholder="Search.." title="Type in a name"></p>
             </th>
             <th>
-                <p align="center">Rol</p>
+                <p align="center">ROL <button onclick="asc(2)">Asc</button><button onclick="desc(2)">Desc</button></p>
+                <p><input type="text" id="2" onkeyup="search(2)" placeholder="Search.." title="Type in a name"></p>
+            </th>
+            <th>
+                <p align="center">INSTITUCIÓ MÈDICA <button onclick="asc(3)">Asc</button><button onclick="desc(3)">Desc</button></p>
+                <p><input type="text" id="3" onkeyup="search(3)" placeholder="Search.." title="Type in a name"></p>
             </th>
             <th>
                 <p align="center"></p>
@@ -38,6 +46,9 @@
                 <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
             </td>
             <td>
+                <p align="center" th:text="${warning.role.healthcareInstitution.name}" th:id="${warning.role.healthcareInstitution.name}">Institució Mèdica</p>
+            </td>
+            <td>
                 <a th:href="@{'/warning/' + ${warning.id}}">VEURE</a>
             </td>
         </tr>
@@ -45,5 +56,6 @@
     <h3 align="center" th:if="${warnings.size()==0}">No s'ha trobat cap alerta.</h3>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
 </body>
 </html>

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:fragment="headerStyle">
+        * {
+            box-sizing: border-box
+        }
+
         body {
             margin: 0;
             font-family: 'Acme';
@@ -24,7 +28,7 @@
             float: left;
             display: block;
             color: #ffffff;
-            width: 23%;
+            width: 25%;
             text-align: center;
             padding: 12px;
             text-decoration: none;
@@ -38,7 +42,7 @@
 
         .dropdown {
             float: left;
-            width: 23%;
+            width: 25%;
             overflow: hidden;
         }
 
@@ -59,7 +63,7 @@
             display: none;
             position: absolute;
             background-color: #00f8ff;
-            width: 23%;
+            width: 25%;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
@@ -99,7 +103,7 @@
         </button>
         <div class="dropdown-content">
             <a href="/warning/all">Alertes</a>
-            <a href="/user/all">Usuaris</a>
+            <a href="/employee/all">Usuaris</a>
             <a href="/role/all">Rols</a>
             <a href="/institution/all">Institucions Mèdiques</a>
         </div>
@@ -110,20 +114,13 @@
         </button>
         <div class="dropdown-content">
             <a href="/warning/create">Alertes</a>
-            <a href="/user/create">Usuaris</a>
+            <a href="/employee/create">Usuaris</a>
             <a href="/role/create">Rols</a>
             <a href="/institution/create">Institucions Mèdiques</a>
         </div>
     </div>
-    <div class="dropdown">
-        <button class="dropbtn">PERFIL
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="/">Veure Perfil</a>
-            <a href="/logout">Tancar Sessió</a>
-        </div>
-    </div>
+    <a th:if="${#authentication.name=='anonymousUser'}" href="/login">INICIAR SESSIÓ</a>
+    <a th:unless="${#authentication.name=='anonymousUser'}" href="/logout">TANCAR SESSIÓ</a>
 </div>
 </body>
 </html>

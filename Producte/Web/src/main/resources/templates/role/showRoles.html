@@ -6,21 +6,25 @@
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <link rel="stylesheet" href="../../static/css/table.css">
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
     <h1 align="center">LLISTA DE ROLS</h1>
-    <table>
+    <table id="table">
         <tr>
             <th>
-                <p align="center">Nom</p>
+                <p align="center">NOM   <button onclick="asc(0)">Asc</button><button onclick="desc(0)">Desc</button></p>
+                <p><input type="text" id="0" onkeyup="search(0)" placeholder="Search..." title="Type in a name"></p>
             </th>
             <th>
-                <p align="center">Institució Mèdica</p>
+                <p align="center">INSTITUCIÓ MÈDICA <button onclick="asc(1)">Asc</button><button onclick="desc(1)">Desc</button></p>
+                <p><input type="text" id="1" onkeyup="search(1)" placeholder="Search..." title="Type in a name"></p>
             </th>
             <th>
-                <p align="center">País</p>
+                <p align="center">PAÍS <button onclick="asc(2)">Asc</button><button onclick="desc(2)">Desc</button></p>
+                <p><input type="text" id="2" onkeyup="search(2)" placeholder="Search.." title="Type in a name"></p>
             </th>
             <th>
             </th>
@@ -46,5 +50,6 @@
     <h3 align="center" th:if="${roles.size()==0}">No s'ha trobat cap rol.</h3>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
 </body>
 </html>
