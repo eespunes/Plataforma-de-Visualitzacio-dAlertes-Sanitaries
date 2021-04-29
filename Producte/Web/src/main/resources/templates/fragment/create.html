@@ -70,15 +70,22 @@
             background-color: #00f8ff;
         }
 
-        button {
+        .ct-btn {
             box-sizing: border-box;
             width: 50%;
-            border: 0px;
+            border: 2px solid #00f8ff;
             border-radius: 5px;
             background-color: #00f8ff;
             color: white;
+            font-weight: bolder;
             padding: 12px;
             text-align: center;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .ct-btn:hover {
+            background: #ffffff;
+            color: #00f8ff;
         }
 
         .green {
@@ -113,7 +120,7 @@
             </tr>
         </table>
         <p></p>
-        <button type="submit">INICIAR SESSIÓ</button>
+        <button class="ct-btn" type="submit">INICIAR SESSIÓ</button>
     </form>
 </div>
 </body>

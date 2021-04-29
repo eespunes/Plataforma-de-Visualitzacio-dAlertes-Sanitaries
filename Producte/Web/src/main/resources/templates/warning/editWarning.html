@@ -49,7 +49,7 @@
                     <table class="inner">
                         <tr>
                             <td>
-                                <h4 class="ct-h4" align="center">VALOR<br>VERD</h4>
+                                <h4  class="ct-h4" align="center">VALOR<br>VERD</h4>
                                 <input class="green" type="number" required th:field="*{greenValue}"/>
                             </td>
                             <td>
@@ -66,21 +66,21 @@
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">DESCRIPCIÓ</h4>
+                    <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
                     <textarea align="center" type="text" maxlength="512" rows="14" required
                               th:field="*{description}"></textarea>
                 </td>
                 <td>
-                    <h4 align="center">ACTUALITZACIÓ</h4>
+                    <h4 class="ct-h4" align="center">ACTUALITZACIÓ</h4>
                     <input align="center" type="number" required th:field="*{refreshRate}"/>
-                    <h4 align="center">NOTIFICACIÓ</h4>
+                    <h4 class="ct-h4" align="center">NOTIFICACIÓ</h4>
                     <textarea align="center" type="text" maxlength="256" ROWS="7" required
                               th:field="*{notificationMessage}"></textarea>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="warning">EDITAR ALERTA</button>
+        <button class="ct-btn" class="btn btn-primary" type="submit" value="warning">EDITAR ALERTA</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

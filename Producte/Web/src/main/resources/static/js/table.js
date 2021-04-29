@@ -53,7 +53,7 @@ function desc(index) {
 
 function search(index) {
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById(index+"");
+    input = document.getElementById("s" + index);
     filter = input.value.toUpperCase();
     table = document.getElementById("table");
     tr = table.getElementsByTagName("tr");
@@ -68,4 +68,36 @@ function search(index) {
             }
         }
     }
+}
+
+function appear(index) {
+    let search, searchIcon, asc, desc;
+    search = document.getElementById("s" + index);
+    searchIcon = document.getElementById("b" + index);
+    asc = document.getElementById("a" + index);
+    desc = document.getElementById("d" + index);
+
+    search.style.display = "block";
+    searchIcon.style.display = "none"
+    asc.style.display = "none"
+    desc.style.display = "none"
+
+    search.focus();
+}
+
+function disappear(index) {
+    let search, searchIcon, asc, desc;
+    search = document.getElementById("s" + index);
+    searchIcon = document.getElementById("b" + index);
+    asc = document.getElementById("a" + index);
+    desc = document.getElementById("d" + index);
+
+    search.style.display = "none";
+    searchIcon.style.display = ""
+    asc.style.display = ""
+    desc.style.display = ""
+}
+
+function rowClicked(value) {
+    location.href = value;
 }

@@ -20,11 +20,11 @@
         <table class ="create">
             <tr>
                 <td>
-                    <h4 align="center">NOM</h4>
+                    <h4 class="ct-h4"align="center">NOM</h4>
                     <input type="text" maxlength="16" minlength="1" placeholder="Introdueix el nom..." required th:field="*{name}"/>
                 </td>
                 <td>
-                    <h4 align="center">INSTITUCIÓ MÈDICA</h4>
+                    <h4 class="ct-h4"align="center">INSTITUCIÓ MÈDICA</h4>
                     <select class="form-control" required th:field="*{tempHealthcareInstitution}">
                         <option value="">Selecciona la institució mèdica</option>
                         <option th:each="healthcareInstitution : ${healthcareInstitutions}"
@@ -35,13 +35,13 @@
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">DESCRIPCIÓ</h4>
+                    <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
                     <textarea type="text" maxlength="512" rows="14" minlength="1" placeholder="Introdueix la descripció..." required th:field="*{description}"></textarea>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="createRole">CREAR ROL</button>
+        <button class="ct-btn" class="btn btn-primary" type="submit" value="createRole">CREAR ROL</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

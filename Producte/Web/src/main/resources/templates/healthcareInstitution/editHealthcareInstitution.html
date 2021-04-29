@@ -25,7 +25,7 @@
                         Nom</p>
                 </td>
                 <td>
-                    <h4 align="center">PAÍS</h4>
+                    <h4 class="ct-h4"align="center">PAÍS</h4>
                     <p align="center" th:text="${healthcareInstitution.country.id}"
                        th:id="${healthcareInstitution.country.id}">
                         País</p>
@@ -33,25 +33,25 @@
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">URL</h4>
+                    <h4 class="ct-h4"align="center">URL</h4>
                     <input type="text" maxlength="256" required th:field="*{url}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">NOM D'USUARI</h4>
+                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
                     <input type="text" maxlength="32" required th:field="*{username}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">CONTRASENYA</h4>
+                    <h4 class="ct-h4"align="center">CONTRASENYA</h4>
                     <input type="password" maxlength="32" required th:field="*{password}"/>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="healthcareInstitution">EDITAR INSTITUCIÓ MÈDICA</button>
+        <button class="ct-btn" type="submit" value="healthcareInstitution">EDITAR INSTITUCIÓ MÈDICA</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

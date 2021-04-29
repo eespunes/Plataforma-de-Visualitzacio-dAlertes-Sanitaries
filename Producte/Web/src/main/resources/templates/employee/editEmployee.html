@@ -15,47 +15,31 @@
     <form class="needs-validation" novalidate method="post" th:object="${employee}">
         <table class ="create">
             <tr>
-                <th>
-                    <h4 align="center">NOM D'USUARI</h4>
-                </th>
-            </tr>
-            <tr>
                 <td>
+                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
                     <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
                 </td>
             </tr>
             <tr>
-                <th>
-                    <h4 align="center">NOM</h4>
-                </th>
-            </tr>
-            <tr>
                 <td>
+                    <h4 class="ct-h4"align="center">NOM</h4>
                     <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
                 </td>
             </tr>
             <tr>
-                <th>
-                    <h4 align="center">COGNOMS</h4>
-                </th>
-            </tr>
-            <tr>
                 <td>
+                    <h4 class="ct-h4"align="center">COGNOMS</h4>
                     <input type="text" maxlength="32" required th:field="*{surname}"/>
                 </td>
             </tr>
             <tr>
-                <th>
-                    <h4 align="center">ROL</h4>
-                </th>
-            </tr>
-            <tr>
                 <td>
+                    <h4 class="ct-h4"align="center">ROL</h4>
                     <p align="center" th:text="${employee.role.name}" th:id="${employee.role.name}">Rol</p>
                 </td>
             </tr>
         </table>
-        <button class="btn btn-primary" type="submit" value="employee">EDITAR EMPLEAT</button>
+        <button class="ct-btn" type="submit" value="employee">EDITAR EMPLEAT</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

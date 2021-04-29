@@ -20,11 +20,11 @@
         <table class ="create">
             <tr>
                 <td>
-                    <h4 align="center">NOM</h4>
+                    <h4 class="ct-h4"align="center">NOM</h4>
                     <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
                 </td>
                 <td>
-                    <h4 align="center">ROL</h4>
+                    <h4 class="ct-h4"align="center">ROL</h4>
                     <select class="form-control" required th:field="*{tempRoleName}">
                         <option value="">Selecciona el rol</option>
                         <option th:each="role : ${roles}"
@@ -35,25 +35,25 @@
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">COGNOMS</h4>
+                    <h4 class="ct-h4"align="center">COGNOMS</h4>
                     <input type="text" maxlength="32" required th:field="*{surname}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">NOM D'USUARI</h4>
+                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
                     <input type="text" maxlength="32" required th:field="*{username}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 align="center">CONTRASENYA</h4>
+                    <h4 class="ct-h4"align="center">CONTRASENYA</h4>
                     <input type="password" maxlength="32" required th:field="*{password}"/>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="btn btn-primary" type="submit" value="createEmployee">CREAR USUARI</button>
+        <button class="ct-btn" type="submit" value="createEmployee">CREAR USUARI</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
