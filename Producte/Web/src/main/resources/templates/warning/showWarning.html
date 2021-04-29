@@ -8,8 +8,11 @@
     <meta name="author" content="">
     <title>ALERTA</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
     <style th:replace="fragment/header :: headerStyle"></style>
     <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/list :: listStyle"></style>
+    <style th:replace="fragment/show :: showStyle"></style>
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
@@ -89,5 +92,6 @@
     <a th:href="@{'/warning/edit/' + ${warning.id}}">EDITAR</a>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
 </body>
 </html>
