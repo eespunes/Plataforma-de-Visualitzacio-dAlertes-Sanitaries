@@ -18,71 +18,69 @@
     <form method="post" th:object="${warning}">
         <h1>CREAR ALERTA</h1>
 
-        <table class ="ct-table">
+        <table class="ct-table">
             <tr>
-                <td>
-                     <h4 class="ct-h4" align="center">NOM</h4>
+                <td colspan="2">
+                    <h4 class="ct-h4" align="center">NOM</h4>
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Error</p>
-                    <input align="center" type="text" maxlength="64" minlength="1" placeholder="Introdueix el nom..." th:field="*{name}"/>
+                    <input align="center" type="text" maxlength="64" minlength="1" placeholder="Introdueix el nom..."
+                           th:field="*{name}"/>
                 </td>
-                <td>
-                     <h4 class="ct-h4" align="center">URI</h4>
+                <td colspan="3">
+                    <h4 class="ct-h4" align="center">URI</h4>
                     <p th:if="${#fields.hasErrors('uri')}" th:errors="*{uri}" style="color: red">Error</p>
-                    <input align="center" type="text" maxlength="256" minlength="1" placeholder="Introdueix la URI..." th:field="*{uri}"/>
+                    <input align="center" type="text" maxlength="256" minlength="1" placeholder="Introdueix la URI..."
+                           th:field="*{uri}"/>
                 </td>
             </tr>
             <tr>
+
                 <td>
-                    <table class="inner">
-                        <tr>
-                            <td>
-                                 <h4 class="ct-h4" align="center">NOM CURT</h4>
-                                <p th:if="${#fields.hasErrors('shortName')}" th:errors="*{shortName}" style="color: red">Error</p>
-                                <input type="text" maxlength="32" minlength="1" placeholder="Introdueix el nom curt..." th:field="*{shortName}"/>
-                            </td>
-                            <td>
-                                 <h4 class="ct-h4" align="center">ROL</h4>
-                                <select class="form-control" required th:field="*{tempRoleName}">
-                                    <option value="">Selecciona el rol</option>
-                                    <option th:each="role : ${roles}"
-                                            th:value="${role.healthcareInstitution.country.id}+' - '+${role.healthcareInstitution.id}+' - '+${role.name}"
-                                            th:text="${role.healthcareInstitution.country.id}+' - '+${role.healthcareInstitution.id}+' - '+${role.name}"></option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
+                    <h4 class="ct-h4" align="center">NOM CURT</h4>
+                    <p th:if="${#fields.hasErrors('shortName')}" th:errors="*{shortName}" style="color: red;float: right">Error</p>
+                    <input type="text" maxlength="32" minlength="1" placeholder="Introdueix el nom curt..."
+                           style="float: right" th:field="*{shortName}"/>
                 </td>
                 <td>
-                    <table class="inner">
-                        <tr>
-                            <td>
-                                 <h4 class="ct-h4" align="center">VALOR<br>VERD</h4>
-                                <input class="green" type="number" required th:field="*{greenValue}"/>
-                            </td>
-                            <td>
-                                 <h4 class="ct-h4" align="center">VALOR<br>GROC</h4>
-                                <input class="yellow"  type="number" required th:field="*{yellowValue}"/>
-                            </td>
-                            <td>
-                                 <h4 class="ct-h4" align="center">VALOR<br>VERMELL</h4>
-                                <input class="red"  type="number" required th:field="*{redValue}"/>
-                            </td>
-                        </tr>
-                    </table>
+                    <h4 class="ct-h4" align="center">ROL</h4>
+                    <select class="form-control" required th:field="*{tempRoleName}" style="float: left">
+                        <option value="">Selecciona el rol</option>
+                        <option th:each="role : ${roles}"
+                                th:value="${role.healthcareInstitution.country.id}+' - '+${role.healthcareInstitution.id}+' - '+${role.name}"
+                                th:text="${role.healthcareInstitution.country.id}+' - '+${role.healthcareInstitution.id}+' - '+${role.name}"></option>
+                    </select>
+                </td>
+
+                <td>
+                    <h4 class="ct-h4" align="center">VALOR<br>VERD</h4>
+                    <input class="green" type="number" required th:field="*{greenValue}"
+                           style="float: right"/>
+                </td>
+                <td>
+                    <h4 class="ct-h4" align="center">VALOR<br>GROC</h4>
+                    <input class="yellow" type="number" required th:field="*{yellowValue}"/>
+                </td>
+                <td>
+                    <h4 class="ct-h4" align="center">VALOR<br>VERMELL</h4>
+                    <input class="red" type="number" required th:field="*{redValue}" style="float: left"/>
                 </td>
             </tr>
             <tr>
-                <td>
-                     <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
-                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red">Error</p>
-                    <textarea align="center" type="text" maxlength="512" rows="14" minlength="1" placeholder="Introdueix la descripció..." th:field="*{description}"></textarea>
+                <td colspan="2">
+                    <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
+                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red">
+                        Error</p>
+                    <textarea align="center" type="text" maxlength="512" rows="14" minlength="1"
+                              placeholder="Introdueix la descripció..." th:field="*{description}"></textarea>
                 </td>
-                <td>
-                     <h4 class="ct-h4" align="center">ACTUALITZACIÓ</h4>
+                <td colspan="3">
+                    <h4 class="ct-h4" align="center">ACTUALITZACIÓ</h4>
                     <input align="center" type="number" required th:field="*{refreshRate}"/>
-                     <h4 class="ct-h4" align="center">NOTIFICACIÓ</h4>
-                    <p th:if="${#fields.hasErrors('notificationMessage')}" th:errors="*{notificationMessage}" style="color: red">Error</p>
-                    <textarea align="center" type="text" maxlength="256" minlength="1" placeholder="Introdueix el text de notificació..." ROWS="7"
+                    <h4 class="ct-h4" align="center">NOTIFICACIÓ</h4>
+                    <p th:if="${#fields.hasErrors('notificationMessage')}" th:errors="*{notificationMessage}"
+                       style="color: red">Error</p>
+                    <textarea align="center" type="text" maxlength="256" minlength="1"
+                              placeholder="Introdueix el text de notificació..." ROWS="7"
                               th:field="*{notificationMessage}"></textarea>
                 </td>
             </tr>
