@@ -22,14 +22,14 @@ CREATE TABLE HealthcareInstitutions
     ins_name      VARCHAR(64)  NOT NULL,
     ins_URL       VARCHAR(256) NOT NULL,
     ins_username  VARCHAR(32)  NOT NULL,
-    ins_password  VARCHAR(32)  NOT NULL,
+    ins_password  VARCHAR(128)  NOT NULL,
     PRIMARY KEY (ins_id, ins_countryID),
     FOREIGN KEY (ins_countryID) REFERENCES Countries (cou_id)
 );
 DROP TABLE IF EXISTS Roles CASCADE;
 CREATE TABLE Roles
 (
-    rol_name          VARCHAR(16),
+    rol_name          VARCHAR(32),
     rol_institutionID INTEGER,
     rol_countryID     VARCHAR(3),
     rol_description   VARCHAR(512) NOT NULL,
@@ -54,8 +54,8 @@ DROP TABLE IF EXISTS Warnings CASCADE;
 CREATE TABLE Warnings
 (
     war_id                  SERIAL UNIQUE,
-    war_name                VARCHAR(64)  NOT NULL,
-    war_shortName           VARCHAR(32)  NOT NULL,
+    war_name                VARCHAR(128)  NOT NULL,
+    war_shortName           VARCHAR(64)  NOT NULL,
     war_description         VARCHAR(512) NOT NULL,
     war_URI                 VARCHAR(256) NOT NULL,
     war_notificationMessage VARCHAR(256) NOT NULL,

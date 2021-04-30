@@ -78,6 +78,10 @@ https://mvnrepository.com/artifact/org.openweathermap.java-api/api-common ">
             <artifactId>txtmark</artifactId>
             <version>0.13</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

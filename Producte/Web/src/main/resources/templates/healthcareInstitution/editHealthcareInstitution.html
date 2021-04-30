@@ -17,7 +17,7 @@
 <div class="main">
     <form class="needs-validation" novalidate method="post" th:object="${healthcareInstitution}">
         <h1 align="center">EDITAR INSTITUCIÓ MÈDICA</h1>
-        <table class ="ct-table">
+        <table class="ct-table">
             <tr>
                 <td>
                     <h4 align="center">NOM</h4>
@@ -25,7 +25,7 @@
                         Nom</p>
                 </td>
                 <td>
-                    <h4 class="ct-h4"align="center">PAÍS</h4>
+                    <h4 class="ct-h4" align="center">PAÍS</h4>
                     <p align="center" th:text="${healthcareInstitution.country.id}"
                        th:id="${healthcareInstitution.country.id}">
                         País</p>
@@ -33,20 +33,25 @@
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">URL</h4>
-                    <input type="text" maxlength="256" required th:field="*{url}"/>
+                    <h4 class="ct-h4" align="center">URL</h4>
+                    <p th:if="${#fields.hasErrors('url')}" th:errors="*{url}" style="color: red">Error</p>
+                    <input type="text" maxlength="256" placeholder="Introdueix la URL..." th:field="*{url}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
-                    <input type="text" maxlength="32" required th:field="*{username}"/>
+                    <h4 class="ct-h4" align="center">NOM D'USUARI</h4>
+                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red">Error</p>
+                    <input type="text" maxlength="32" required placeholder="Introdueix el nom d'usuari..."
+                           th:field="*{username}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">CONTRASENYA</h4>
-                    <input type="password" maxlength="32" required th:field="*{password}"/>
+                    <h4 class="ct-h4" align="center">CONTRASENYA</h4>
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red">Error</p>
+                    <input type="password" maxlength="32" placeholder="Introdueix la contrasenya..."
+                           th:field="*{password}"/>
                 </td>
             </tr>
         </table>

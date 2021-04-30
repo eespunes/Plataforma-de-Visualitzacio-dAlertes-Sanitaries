@@ -15,7 +15,7 @@
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <form class="needs-validation" novalidate method="post" th:object="${role}">
+    <form novalidate method="post" th:object="${role}">
         <h1 align="center">EDITAR ROL</h1>
         <table class ="ct-table">
             <tr>
@@ -33,12 +33,13 @@
             <tr>
                 <td>
                     <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
-                    <textarea type="text" maxlength="512" required th:field="*{description}"></textarea>
+                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red">Error</p>
+                    <textarea type="text" maxlength="512" rows="14" minlength="1" placeholder="Introdueix la descripció..." th:field="*{description}"></textarea>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="ct-btn" class="btn btn-primary" type="submit" value="role">EDITAR ROL</button>
+        <button class="ct-btn" type="submit" value="role">EDITAR ROL</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

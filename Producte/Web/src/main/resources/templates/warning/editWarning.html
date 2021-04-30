@@ -15,7 +15,7 @@
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <form class="needs-validation" novalidate method="post" th:object="${warning}">
+    <form novalidate method="post" th:object="${warning}">
         <h1>EDITAR ALERTA</h1>
 
         <table class ="ct-table">
@@ -26,7 +26,8 @@
                 </td>
                 <td>
                     <h4 class="ct-h4" align="center">URI</h4>
-                    <input align="center" type="text" maxlength="256" required th:field="*{uri}"/>
+                    <p th:if="${#fields.hasErrors('uri')}" th:errors="*{uri}" style="color: red">Error</p>
+                    <input align="center" type="text" maxlength="256" placeholder="Introdueix la URI..." th:field="*{uri}"/>
                 </td>
             </tr>
             <tr>
@@ -67,20 +68,22 @@
             <tr>
                 <td>
                     <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
-                    <textarea align="center" type="text" maxlength="512" rows="14" required
+                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red">Error</p>
+                    <textarea align="center" type="text" maxlength="512" rows="14"  placeholder="Introdueix la descripció.."
                               th:field="*{description}"></textarea>
                 </td>
                 <td>
                     <h4 class="ct-h4" align="center">ACTUALITZACIÓ</h4>
                     <input align="center" type="number" required th:field="*{refreshRate}"/>
                     <h4 class="ct-h4" align="center">NOTIFICACIÓ</h4>
-                    <textarea align="center" type="text" maxlength="256" ROWS="7" required
+                    <p th:if="${#fields.hasErrors('notificationMessage')}" th:errors="*{notificationMessage}" style="color: red">Error</p>
+                    <textarea align="center" type="text" maxlength="256" ROWS="7" placeholder="Introdueix el text de notificació..."
                               th:field="*{notificationMessage}"></textarea>
                 </td>
             </tr>
         </table>
         <p></p>
-        <button class="ct-btn" class="btn btn-primary" type="submit" value="warning">EDITAR ALERTA</button>
+        <button class="ct-btn" type="submit" value="warning">EDITAR ALERTA</button>
     </form>
 </div>
 <div th:replace="fragment/footer :: footer"></div>

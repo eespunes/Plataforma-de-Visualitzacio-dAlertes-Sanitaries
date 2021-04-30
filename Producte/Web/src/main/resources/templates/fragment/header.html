@@ -102,10 +102,10 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-            <a href="/warning/all">Alertes</a>
-            <a href="/employee/all">Usuaris</a>
-            <a href="/role/all">Rols</a>
             <a href="/institution/all">Institucions Mèdiques</a>
+            <a href="/role/all">Rols</a>
+            <a href="/warning/all">Alertes</a>
+            <a href="/employee/all">Empleats</a>
         </div>
     </div>
     <div class="dropdown">
@@ -113,10 +113,10 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-            <a href="/warning/create">Alertes</a>
-            <a href="/employee/create">Usuaris</a>
-            <a href="/role/create">Rols</a>
             <a href="/institution/create">Institucions Mèdiques</a>
+            <a href="/role/create">Rols</a>
+            <a href="/warning/create">Alertes</a>
+            <a href="/employee/create">Empleats</a>
         </div>
     </div>
     <a th:if="${#authentication.name=='anonymousUser'}" href="/login">INICIAR SESSIÓ</a>

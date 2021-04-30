@@ -13,28 +13,30 @@
 <div class="main">
     <h1 align="center">EDITAR EMPLEAT</h1>
     <form class="needs-validation" novalidate method="post" th:object="${employee}">
-        <table class ="ct-table">
+        <table class="ct-table">
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
+                    <h4 class="ct-h4" align="center">NOM D'USUARI</h4>
                     <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">NOM</h4>
-                    <input align="center" type="text" maxlength="32" required th:field="*{name}"/>
+                    <h4 class="ct-h4" align="center">NOM</h4>
+                    <input align="center" type="text" maxlength="32"placeholder="Introdueix el nom..."
+                           th:field="*{name}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">COGNOMS</h4>
-                    <input type="text" maxlength="32" required th:field="*{surname}"/>
+                    <h4 class="ct-h4" align="center">COGNOMS</h4>
+                    <input type="text" maxlength="32" placeholder="Introdueix el cognom..."
+                           th:field="*{surname}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">ROL</h4>
+                    <h4 class="ct-h4" align="center">ROL</h4>
                     <p align="center" th:text="${employee.role.name}" th:id="${employee.role.name}">Rol</p>
                 </td>
             </tr>

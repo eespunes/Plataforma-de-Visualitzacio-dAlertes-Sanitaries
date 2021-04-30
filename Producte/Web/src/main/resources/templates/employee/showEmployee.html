@@ -13,51 +13,40 @@
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <h1 align="center">EMPLEAT</h1>
-    <table>
-        <tr>
-            <th>
-                <p align="center">Nom</p>
-            </th>
-        </tr>
+    <table class="shw-table">
         <tr>
             <td>
-                <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>
+                <h2 align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</h2>
             </td>
         </tr>
         <tr>
-            <th>
-                <p align="center">Cognoms</p>
-            </th>
-        </tr>
-        <tr>
             <td>
-                <p align="center" th:text="${employee.surname}" th:id="${employee.surname}">Cognoms</p>
+                <h2 align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</h2>
             </td>
         </tr>
         <tr>
-            <th>
-                <p align="center">Usuari</p>
-            </th>
-        </tr>
-        <tr>
             <td>
-                <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
+                <h2 align="center" th:text="${employee.surname}" th:id="${employee.surname}">Cognoms</h2>
             </td>
         </tr>
         <tr>
-            <th>
-                <p align="center">Rol</p>
-            </th>
+            <td>
+                <h2 align="center" th:text="${employee.role.name}" th:id="${employee.role.name}">Rol</h2>
+            </td>
         </tr>
         <tr>
             <td>
-                <p align="center" th:text="${employee.role.name}" th:id="${employee.role.name}">Rol</p>
+                <a class="shw-edit"
+                   th:href="@{'/employee/edit/' + ${employee.username}}">EDITAR</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="shw-delete"
+                   th:href="@{'/employee/delete/' + ${employee.username}}">ELIMINAR</a>
             </td>
         </tr>
     </table>
-    <a th:href="@{'/employee/delete/' + ${employee.username}}">ELIMINAR EMPLEAT</a>
-    <a th:href="@{'/employee/edit/' + ${employee.username}}">EDITAR</a>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
 <script src="/js/table.js"></script>

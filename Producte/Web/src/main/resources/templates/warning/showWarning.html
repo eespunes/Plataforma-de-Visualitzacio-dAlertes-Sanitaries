@@ -17,79 +17,65 @@
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <h1 align="center">ALERTA</h1>
 
-    <table>
+    <table class="shw-table">
         <tr>
-            <th>
-                <p align="center">Nom</p>
-            </th>
-            <th>
-                <p align="center">URI</p>
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <p align="center" th:text="${warning.name}" th:id="${warning.name}">NAME</p>
+            <td colspan="2">
+                <h2 align="center" th:text="${warning.name}" th:id="${warning.name}">NAME</h2>
             </td>
-            <td>
-                <p align="center" th:text="${warning.uri}" th:id="${warning.uri}">URI</p>
+            <td colspan="2">
+                <h2 align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</h2>
             </td>
         </tr>
         <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            <h4 align="center">Nom Curt</h4>
-                            <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
-                        </td>
-                        <td>
-                            <h4 align="center">Rol</h4>
-                            <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
-                        </td>
-                    </tr>
-                </table>
+            <td colspan="2">
+                <h2 align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</h2>
             </td>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            <h4 align="center">Valor Verd</h4>
-                            <p align="center" th:text="${warning.greenValue}" th:id="${warning.greenValue}">Valor
-                                Verd</p>
-                        </td>
-                        <td>
-                            <h4 align="center">Valor Groc</h4>
-                            <p align="center" th:text="${warning.yellowValue}" th:id="${warning.yellowValue}">Valor
-                                Groc</p>
-                        </td>
-                        <td>
-                            <h4 align="center">Valor Vermell</h4>
-                            <p align="center" th:text="${warning.redValue}" th:id="${warning.redValue}">Valor
-                                Vermell</p>
-                        </td>
-                    </tr>
-                </table>
+            <td colspan="2">
+                <h2 align="center" th:text="${warning.uri}" th:id="${warning.uri}">URI</h2>
             </td>
         </tr>
         <tr>
             <td>
-                <h4 align="center">Descripció</h4>
-                <p align="center" th:text="${warning.description}" th:id="${warning.description}">Descripció</p>
+                <h2 align="center" th:text="${warning.refreshRate}" th:id="${warning.refreshRate}">Actualització</h2>
             </td>
-            <td>
-                <h4 align="center">Actualització</h4>
-                <p align="center" th:text="${warning.refreshRate}" th:id="${warning.refreshRate}">Actualització</p>
-                <h4 align="center">Notificació</h4>
-                <p align="center" th:text="${warning.notificationMessage}" th:id="${warning.notificationMessage}">
-                    Notificació</p>
+            <td style="background-image: linear-gradient(to top, rgba(0, 255, 0, 1), rgba(32, 168, 182, 1));">
+                <h2 align="center" th:text="${warning.greenValue}" th:id="${warning.greenValue}">Valor
+                    Verd</h2>
+            </td>
+            <td style="background-image: linear-gradient(to top, rgba(255, 255, 0, 1), rgba(0, 248, 255, 1));">
+                <h2 align="center" th:text="${warning.yellowValue}" th:id="${warning.yellowValue}">Valor
+                    Groc</h2>
+            </td>
+            <td style="background-image: linear-gradient(to top, rgba(255, 0, 0, 1), rgba(0, 248, 255, 1));">
+                <h2 align="center" th:text="${warning.redValue}" th:id="${warning.redValue}">Valor
+                    Vermell</h2>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <h2 align="center" th:text="${warning.notificationMessage}" th:id="${warning.notificationMessage}">
+                    Notificació</h2>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <h2 align="center" th:text="${warning.description}" th:id="${warning.description}">Descripció</h2>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a class="shw-edit"
+                   th:href="@{'/warning/edit/' + ${warning.id}}">EDITAR</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a class="shw-delete"
+                   th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR</a>
             </td>
         </tr>
     </table>
-    <p></p>
-    <a th:href="@{'/warning/delete/' + ${warning.id}}">ELIMINAR ALERTA</a>
-    <a th:href="@{'/warning/edit/' + ${warning.id}}">EDITAR</a>
 </div>
 <div th:replace="fragment/footer :: footer"></div>
 <script src="/js/table.js"></script>

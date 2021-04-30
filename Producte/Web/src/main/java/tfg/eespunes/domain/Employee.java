@@ -1,12 +1,26 @@
 package tfg.eespunes.domain;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Employee {
+
+    @NotEmpty(message = "No es pot deixar el nom d'usuari buit")
+    @Size(min = 4, max = 64,message = "El nom d'usuari ha de tenir entre 4 i 64 caràcters.")
     private String username;
+    @NotEmpty(message = "No es pot deixar la contrasenya buida")
+    @Size(min = 3, max = 32,message = "La contrasenya ha de tenir entre 3 i 32 caràcters.")
     private String password;
+    @NotEmpty(message = "No es pot deixar el nom buit")
+    @Size(min = 1, max = 32,message = "El nom ha de tenir entre 1 i 32 caràcters.")
     private String name;
+    @NotEmpty(message = "No es pot deixar el cognom buit")
+    @Size(min = 1, max = 64,message = "El cognom ha de tenir entre 1 i 64 caràcters.")
     private String surname;
     private Role role;
     private String tempRoleName;
