@@ -36,7 +36,7 @@ public class RoleController {
     }
 
     @PostMapping("/role/create")
-    public String createRolePOST(@Valid Role role, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String createRolePOST(@Valid Role role, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return createRole(role, model);
         }

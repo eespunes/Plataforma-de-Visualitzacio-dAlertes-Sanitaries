@@ -31,7 +31,7 @@ public class WarningController {
     }
 
     @PostMapping("/warning/create")
-    public String createWarningPOST(@Valid Warning warning, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String createWarningPOST(@Valid Warning warning, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return createWarning(warning, model);
         }
