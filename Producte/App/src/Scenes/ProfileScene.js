@@ -1,8 +1,12 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 const ProfileScene = () => {
-  return <Text style={styles.text}>List Screen</Text>;
+  return (
+      <View>
+        <Text style={styles.text}>Profile Screen</Text>
+      </View>
+  );
 };
 
 const styles = StyleSheet.create({
