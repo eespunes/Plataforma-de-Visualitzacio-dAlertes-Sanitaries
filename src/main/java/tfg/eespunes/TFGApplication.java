@@ -8,14 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class TFGApplication implements CommandLineRunner {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+public class TFGApplication {
     public static void main(String[] args) {
         SpringApplication.run(TFGApplication.class, args);
-    }
-    @Override
-    public void run(String... strings) throws Exception {
-        System.out.println("Admin: "+passwordEncoder.encode("admin"));
     }
 }
