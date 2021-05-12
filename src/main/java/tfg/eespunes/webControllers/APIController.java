@@ -24,12 +24,9 @@ public class APIController {
         this.databaseController = databaseController;
     }
 
-    @GetMapping("/warning/all")
-    public List<Warning> getAllWarnings() {
-        List<Warning> allWarnings = databaseController.getAllWarnings();
-        for (Warning warning : allWarnings) {
-            System.out.println(warning.getName());
-        }
+    @GetMapping("/warning/all/{roleName}/{healthcareInstitutionID}/{countryID}")
+    public List<Warning> getAllWarnings(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID) {
+        List<Warning> allWarnings = databaseController.getAllWarningsOfRole(roleName, healthcareInstitutionID, countryID);
         return allWarnings;
     }
 
@@ -49,7 +46,7 @@ public class APIController {
     }
 
     @GetMapping("/login/{username}/{password}/{registrationToken}")
-    public boolean login(@PathVariable String username, @PathVariable String password, @PathVariable String registrationToken) {
+    public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String registrationToken) {
         Employee employee = databaseController.getEmployee(username);
 
 //        List<Warning> warnings = databaseController.getAllWarnings();
@@ -61,7 +58,11 @@ public class APIController {
 //            FirebaseMessaging.getInstance().subscribeToTopic(registrationTokens, warning.getId());
 //        }
 
-        return passwordEncoder.matches(password, employee.getPassword());
+        if (passwordEncoder.matches(password, employee.getPassword())) {
+            return employee;
+        } else {
+            return null;
+        }
     }
 
     @GetMapping("/logout/{registrationToken}")

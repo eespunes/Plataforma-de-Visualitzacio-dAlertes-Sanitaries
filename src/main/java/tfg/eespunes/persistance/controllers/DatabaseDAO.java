@@ -40,7 +40,7 @@ public class DatabaseDAO {
     private final String UPDATE_WARNING = "UPDATE Warnings SET war_description=?, war_uri=?, war_notificationmessage=?, war_greenvalue=?, war_yellowvalue=?, war_redvalue=?, war_refreshrate=? WHERE war_id=?";
 
     private final String FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS = "SELECT * FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
-    private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_name=? and war_roleinstitutionid=? and war_rolecountryid=?";
+    private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_rolename=? and war_roleinstitutionid=? and war_rolecountryid=?";
 
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
