@@ -1,25 +1,15 @@
-// import React from "react";
 import React, {useState, useEffect} from "react";
 import {Text, View, FlatList, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, Button} from "react-native";
 import axios from 'axios';
-// import iid from '@react-native-firebase/iid';
+import savedData from "../savedData";
 
-// const state = {
-//     data: []
-// }
-// const Item = ({item, onPress}) => (
-//     <TouchableOpacity onPress={onPress} style={[styles.item]}>
-//         <Text style={[styles.title]}>{item.name}</Text>
-//         <Text style={[styles.title]}>{item.lastValue}</Text>
-//     </TouchableOpacity>
-// );
-
-const ListScene = (props) => {
+function ListScene({navigation}) {
     let [data, setData] = React.useState('')
 
     const warningListData = async () => {
         axios
-            .get('https://tfg-informatica.herokuapp.com/api/warning/all')
+            .get(savedData.URL + 'warning/all/' + savedData.user.role.name + '/' + savedData.user.role.healthcareInstitution.id + '/' + savedData.user.role.healthcareInstitution.country.id)
+            // .get('https://tfg-informatica.herokuapp.com/api/warning/all/WEB-ADMIN/0/ESP')
             .then(function (response) {
                 setData(response.data);
             })
@@ -32,9 +22,14 @@ const ListScene = (props) => {
         warningListData();
     }, [])
 
+    function changeToWarning(item) {
+        savedData.warning = item;
+        navigation.navigate("Warning")
+    }
+
     if (data.length !== 0) {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={[styles.safeArea]}>
                 <Text style={styles.header}>LLISTA D'ALERTES</Text>
                 <FlatList
                     data={data}
@@ -42,13 +37,16 @@ const ListScene = (props) => {
                     renderItem={({item}) => {
                         return (
                             <TouchableOpacity
-                                style={[styles.item]}
-                                onPress={() => props.navigation.navigate("Warning", {
-                                    item: item,
-                                })}
-                            >
-                                <Text style={[styles.title]}>{item.name}</Text>
-                                <Text style={[styles.title]}>{item.lastValue}</Text>
+                                style={[styles.list]}
+                                onPress={() => changeToWarning(item)}>
+                                <View style={[styles.insideList]}>
+                                    <Text style={[styles.subheader]}>{item.name}</Text>
+                                </View>
+                                <View style={[styles.insideList]}>
+                                    <View style={styles.semaphore}>
+                                        <Text style={[styles.subheader]}>{item.lastValue}</Text>
+                                    </View>
+                                </View>
                             </TouchableOpacity>
                         );
                     }}
@@ -64,25 +62,56 @@ const ListScene = (props) => {
         );
     }
 }
-// ;
 
 const styles = StyleSheet.create({
-    container: {
+    safeArea: {
         flex: 1,
-    },
-    item: {
         backgroundColor: '#ffffff',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-    },
-    title: {
-        fontSize: 32,
-        color: 'black'
+        justifyContent: 'center',
+
+        alignItems: 'center'
     },
     header: {
-        fontSize: 45
+        fontSize: 45,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#00F8FF'
+    },
+    list: {
+        marginTop:'2.5%',
+        width: '95%',
+        // height: '60%',
+        flexDirection: "row",
+        textAlign: 'center',
+        alignItems: 'center',
+        backgroundColor: '#00F8FF',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
+    },
+    subheader: {
+        fontSize: 20,
+        margin:'2.5%',
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    semaphore: {
+        borderColor: 'white',
+        borderWidth: 5,
+        backgroundColor: '#00ff00',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        flexGrow: 1,
+        margin:'2.5%'
+    }, insideList: {
+        width:'50%',
     }
+
 });
 
 export default ListScene;

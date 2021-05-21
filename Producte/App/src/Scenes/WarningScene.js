@@ -1,25 +1,91 @@
 import React from "react";
-import {Text, View, StyleSheet} from "react-native";
+import {Text, SafeAreaView, View, StyleSheet} from "react-native";
+import savedData from "../savedData";
 
-const WarningScene = (props) => {
-    let item = props.navigation.state.params.item;
+function WarningScene() {
+    let warning = savedData.warning;
     return (
-        <View>
-            <Text style={styles.header}>Warning Screen</Text>
-            <Text style={[styles.text]}>{item.title}</Text>
-            <Text style={[styles.text]}>{item.description}</Text>
-            <Text style={[styles.text]}>{item.value}</Text>
-        </View>
+        <SafeAreaView style={[styles.safeArea]}>
+            <View style={[styles.card]}>
+                <Text style={[styles.subheader]}>{warning.name}</Text>
+                <View style={styles.separator}/>
+                <Text style={[styles.text]}>{warning.description}</Text>
+                <View style={styles.separator}/>
+                <View style={styles.semaphore}>
+                    <Text style={[styles.subheader]}>{warning.lastValue}</Text>
+                </View>
+            </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+
+        alignItems: 'center'
+    },
     header: {
-        fontSize: 45
+        fontSize: 45,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#00F8FF'
+    },
+    card: {
+        width: '95%',
+        height: '95%',
+        textAlign: 'center',
+        alignItems: 'center',
+        backgroundColor: '#00F8FF',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5
+    },
+    subheader: {
+        fontSize: 40,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     text: {
-        fontSize: 30
+        width: '95%',
+        fontSize: 20,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'justify'
+    },
+    input: {
+        color: 'white',
+        textAlign: 'center'
+    },
+    button: {
+        backgroundColor: '#00aeef',
+        borderColor: 'red',
+        borderWidth: 5,
+        borderRadius: 15
+    },
+    separator: {
+        marginVertical: 8,
+        borderColor: 'white',
+        borderWidth: 2.5,
+        width:'100%'
+    }, semaphore: {
+        borderColor: 'white',
+        borderWidth: 5,
+        backgroundColor: '#00ff00',
+        width: '95%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        flexGrow: 1,
+        marginBottom:'2.5%'
     }
+
 });
 
 export default WarningScene;

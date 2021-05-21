@@ -1,21 +1,34 @@
-import {createAppContainer} from "react-navigation";
-import {createStackNavigator} from "react-navigation-stack";
+import React from "react";
+
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
+import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
+
 import LoginScene from "./src/Scenes/LoginScene";
-import ListScene from "./src/Scenes/ListScene";
 import WarningScene from "./src/Scenes/WarningScene";
+import ListScene from "./src/Scenes/ListScene";
+import ProfileScene from "./src/Scenes/ProfileScene";
 
-const navigator = createStackNavigator(
-    {
-        Home: LoginScene,
-        List: ListScene,
-        Warning: WarningScene
-    },
-    {
-        initialRouteName: "Home",
-        defaultNavigationOptions: {
-            title: "Plataforma de Visualització d'Alertes Sanitàries",
-        },
-    }
-);
+const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
-export default createAppContainer(navigator);
+
+const App = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName='Login'>
+                <Stack.Screen name='Login' component={LoginScene}/>
+                <Stack.Screen name='Warning' component={WarningScene}/>
+                <Stack.Screen name='List' options={{title: ''}}>
+                    {() => (
+                        <Tab.Navigator initialRouteName='List'>
+                            <Tab.Screen name='List' component={ListScene}/>
+                            <Tab.Screen name='Profile' component={ProfileScene}/>
+                        </Tab.Navigator>
+                    )}
+                </Stack.Screen>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
+export default App;
