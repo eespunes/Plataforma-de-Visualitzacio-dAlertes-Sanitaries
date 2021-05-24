@@ -29,19 +29,28 @@ public class EmployeeController {
 
     //CREAR
     @GetMapping("/employee/create")
-    public String createEmployee(Employee employee,Model model) {
+    public String createEmployee(Employee employee, Model model) {
         model.addAttribute("roles", databaseController.getAllRoles());
+        model.addAttribute("nameError", employee.getNameError());
         return "employee/createEmployee";
     }
 
     @PostMapping("/employee/create")
-    public String createEmployeePOST(@Valid Employee employee, BindingResult bindingResult,Model model,  RedirectAttributes redirectAttributes) {
+    public String createEmployeePOST(@Valid Employee employee, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return createEmployee(employee,model);
+            employee.setNameError("");
+            return createEmployee(employee, model);
         }
 
         String[] role = employee.getTempRoleName().split(" - ");
         employee.setRole(databaseController.getRole(role[2], Integer.parseInt(role[1]), role[0]));
+
+        Employee employeeCheck = databaseController.getEmployee(employee.getUsername());
+
+        if (employeeCheck != null) {
+            employee.setNameError("Aquest nom d'usuari (" + employee.getUsername() + "),  ja està en ús per l'empleat de la institució mèdica " + employeeCheck.getRole().getHealthcareInstitution().getName() + " (" + employeeCheck.getRole().getHealthcareInstitution().getId() + ", " + employeeCheck.getRole().getHealthcareInstitution().getCountry().getId() + ") i amb rol " + employeeCheck.getRole().getName());
+            return createEmployee(employee, model);
+        }
 
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         databaseController.addEmployee(employee);
@@ -73,7 +82,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/edit/{username}")
-    public String editEmployeePOST(Employee employee,RedirectAttributes redirectAttributes) {
+    public String editEmployeePOST(Employee employee, RedirectAttributes redirectAttributes) {
         databaseController.editEmployee(employee);
 
         redirectAttributes.addAttribute("username", employee.getUsername());

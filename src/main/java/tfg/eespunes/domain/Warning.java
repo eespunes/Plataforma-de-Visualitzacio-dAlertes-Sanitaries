@@ -6,19 +6,19 @@ import javax.validation.constraints.Size;
 public class Warning{
     private int id;
     @NotEmpty(message = "No es pot deixar el nom buit")
-    @Size(min = 1, max = 128,message = "El nom ha de tenir entre 1 i 128 caràcters.")
+    @Size(min = 1, max = 128,message = "El nom ha de tenir entre 1 i 128 caràcters")
     private String name;
     @NotEmpty(message = "No es pot deixar el nom curt buit")
-    @Size(min = 1, max = 64,message = "El nom ha de tenir entre 1 i 64 caràcters.")
+    @Size(min = 1, max = 64,message = "El nom ha de tenir entre 1 i 64 caràcters")
     private String shortName;
     @NotEmpty(message = "No es pot deixar la descripció buida")
-    @Size(min = 1, max = 512,message = "La descripció ha de tenir entre 1 i 512 caràcters.")
+    @Size(min = 1, max = 512,message = "La descripció ha de tenir entre 1 i 512 caràcters")
     private String description;
     @NotEmpty(message = "No es pot deixar la URI buida")
-    @Size(min = 1, max = 256,message = "La URI ha de tenir entre 1 i 256 caràcters.")
+    @Size(min = 1, max = 256,message = "La URI ha de tenir entre 1 i 256 caràcters")
     private String uri;
     @NotEmpty(message = "No es pot deixar la descripció buida")
-    @Size(min = 1, max = 256,message = "La notificació ha de tenir entre 1 i 265 caràcters.")
+    @Size(min = 1, max = 256,message = "La notificació ha de tenir entre 1 i 265 caràcters")
     private String notificationMessage;
 
     private float greenValue;

@@ -1,6 +1,7 @@
 package tfg.eespunes.persistance.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -181,11 +182,19 @@ public class DatabaseDAO {
     }
 
     public Role findRole(String roleName, int healthcareInstitutionID, String countryID) {
-        return jdbcTemplate.queryForObject(FIND_ROLE_BY_ID, new Object[]{roleName, healthcareInstitutionID, countryID}, roleMapper);
+        try {
+            return jdbcTemplate.queryForObject(FIND_ROLE_BY_ID, new Object[]{roleName, healthcareInstitutionID, countryID}, roleMapper);
+        } catch (EmptyResultDataAccessException erdae) {
+            return null;
+        }
     }
 
     public Employee findEmployee(String username) {
-        return jdbcTemplate.queryForObject(FIND_EMPLOYEE_BY_USERNAME, new Object[]{username}, employeeMapper);
+        try {
+            return jdbcTemplate.queryForObject(FIND_EMPLOYEE_BY_USERNAME, new Object[]{username}, employeeMapper);
+        } catch (EmptyResultDataAccessException erdae) {
+            return null;
+        }
     }
 
     public Warning findWarning(int id) {

@@ -20,9 +20,10 @@
         <table class ="ct-table">
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">NOM</h4>
-                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Error</p>
-                    <input align="center" type="text" maxlength="32" placeholder="Introdueix el nom..." th:field="*{name}"/>
+                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
+                    <p style="color: red" th:text="${nameError}">Name Error</p>
+                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red">Error</p>
+                    <input type="text" maxlength="32" placeholder="Introdueix el nom d'usuari..." th:field="*{username}"/>
                 </td>
                 <td>
                     <h4 class="ct-h4"align="center">ROL</h4>
@@ -36,23 +37,23 @@
             </tr>
             <tr>
                 <td>
-                    <h4 class="ct-h4"align="center">COGNOMS</h4>
-                    <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" style="color: red">Error</p>
-                    <input type="text" maxlength="32" placeholder="Introdueix el cognom..." th:field="*{surname}"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h4 class="ct-h4"align="center">NOM D'USUARI</h4>
-                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red">Error</p>
-                    <input type="text" maxlength="32" placeholder="Introdueix el nom d'usuari..." th:field="*{username}"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <h4 class="ct-h4"align="center">CONTRASENYA</h4>
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red">Error</p>
                     <input type="password" maxlength="32" placeholder="Introdueix la contrasenya..." th:field="*{password}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 class="ct-h4"align="center">NOM</h4>
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Error</p>
+                    <input align="center" type="text" maxlength="32" placeholder="Introdueix el nom..." th:field="*{name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 class="ct-h4"align="center">COGNOMS</h4>
+                    <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" style="color: red">Error</p>
+                    <input type="text" maxlength="32" placeholder="Introdueix el cognom..." th:field="*{surname}"/>
                 </td>
             </tr>
         </table>

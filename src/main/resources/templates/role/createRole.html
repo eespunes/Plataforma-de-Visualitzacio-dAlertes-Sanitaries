@@ -21,6 +21,7 @@
             <tr>
                 <td>
                     <h4 class="ct-h4"align="center">NOM</h4>
+                    <p style="color: red" th:text="${nameError}">Name Error</p>
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Error</p>
                     <input type="text" maxlength="32" minlength="3" placeholder="Introdueix el nom..." th:field="*{name}"/>
                 </td>
