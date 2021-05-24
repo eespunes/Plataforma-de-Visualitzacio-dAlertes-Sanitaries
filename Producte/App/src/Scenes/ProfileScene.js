@@ -100,9 +100,9 @@ function ProfileScene({navigation}) {
                 </TouchableOpacity>
             </View>
             <TouchableOpacity
-                style={[styles.button]}
+                style={[styles.creditsButton]}
                 onPress={() => navigation.navigate('About')}>
-                <Text style={[styles.buttonText]}>Crédits</Text>
+                <Text style={[styles.creditsButtonText]}>Crédits</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );
@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
         color: '#00F8FF'
     },
     card: {
-
         marginTop: '2.5%',
         width: '95%',
         textAlign: 'center',
@@ -176,7 +175,6 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#ffffff',
-
         borderRadius: 5
     },
     buttonEnd: {
@@ -189,6 +187,18 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderWidth: 2.5,
         width: '100%'
+    },
+    creditsButton: {
+        width: '95%',
+        marginTop: '2.5%',
+        backgroundColor: '#00F8FF',
+        borderRadius: 5
+    },
+    creditsButtonText: {
+        color: 'white',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 });
 
