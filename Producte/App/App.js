@@ -8,6 +8,7 @@ import LoginScene from "./src/Scenes/LoginScene";
 import WarningScene from "./src/Scenes/WarningScene";
 import ListScene from "./src/Scenes/ListScene";
 import ProfileScene from "./src/Scenes/ProfileScene";
+import AboutScene from "./src/Scenes/AboutScene";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -19,6 +20,7 @@ const App = () => {
             <Stack.Navigator initialRouteName='Login'>
                 <Stack.Screen name='Login' component={LoginScene}/>
                 <Stack.Screen name='Warning' component={WarningScene}/>
+                <Stack.Screen name='About' component={AboutScene}/>
                 <Stack.Screen name='List' options={{title: ''}}>
                     {() => (
                         <Tab.Navigator initialRouteName='List'>

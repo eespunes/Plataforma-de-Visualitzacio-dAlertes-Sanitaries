@@ -1,19 +1,21 @@
 import React from "react";
 import {Text, SafeAreaView, View, StyleSheet, Image} from "react-native";
-import savedData from "../savedData";
 
-function WarningScene() {
-    let warning = savedData.warning;
+function AboutScene() {
     return (
         <SafeAreaView style={[styles.safeArea]}>
             <View style={[styles.card]}>
-                <Text style={[styles.subheader]}>{warning.name}</Text>
+                <Text style={[styles.subheader]}>TREBALL DE FINAL DE GRAU</Text>
                 <View style={styles.separator}/>
-                <Text style={[styles.text]}>{warning.description}</Text>
+                <Text style={[styles.text]}>CURS 2020/2021</Text>
                 <View style={styles.separator}/>
-                <View style={styles.semaphore}>
-                    <Text style={[styles.subheader]}>{warning.lastValue}</Text>
-                </View>
+                <Text style={[styles.text]}>AUTOR: ERIK ESPUÑES JUBERÓ</Text>
+                <View style={styles.separator}/>
+                <Text style={[styles.text]}>TUTOR: EUGENI FERNANDEZ GONZALEZ</Text>
+                <View style={styles.separator}/>
+                <Text style={[styles.text]}>GRAU EN ENGINYERIA INFORMÀTICA DE GESTIÓ I SISTEMES D’INFORMACIÓ</Text>
+                <View style={styles.separator}/>
+                <Image style={styles.image} resizeMode="contain" source={require('./tcm.png')} />
             </View>
         </SafeAreaView>
     );
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         fontWeight: 'bold',
-        textAlign: 'justify'
+        textAlign: 'center'
     },
     input: {
         color: 'white',
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         borderColor: 'white',
         borderWidth: 2.5,
-        width: '100%'
+        width:'100%'
     }, semaphore: {
         borderColor: 'white',
         borderWidth: 5,
@@ -83,9 +85,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
         flexGrow: 1,
-        marginBottom: '2.5%'
+        marginBottom:'2.5%'
+    },image:{
+        width:'95%'
     }
 
 });
 
-export default WarningScene;
+export default AboutScene;

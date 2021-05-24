@@ -2,19 +2,23 @@ import React from "react";
 import {Text, SafeAreaView, View, Button, TextInput, StyleSheet, TouchableOpacity} from "react-native";
 import axios from "axios";
 import savedData from "../savedData";
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function LoginScene({navigation}) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+
 
     const login = async () => {
-        console.log('Holaaa')
+        setLoading(true);
         axios
             .get(savedData.URL + 'login/' + username + '/' + password + '/000')
             .then(function (response) {
                 // iid().get().then(function (response) {
                 //     alert('Current Instance ID: ' + response);
                 // })
+                setLoading(false);
                 if (response.data !== '') {
                     savedData.user = response.data
                     navigation.navigate("List")
@@ -23,13 +27,20 @@ function LoginScene({navigation}) {
                 }
             })
             .catch(function (error) {
-                alert(error.message)
-                // alert('S\'ha produit un error al servidor.')
+                setLoading(false);
+                alert('S\'ha produit un error al servidor')
             })
     };
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <Spinner
+                visible={loading}
+                overlayColor={'rgba(0, 248, 255, 15)'}
+                textContent={'Iniciant sessió...'}
+                textStyle={styles.subheader}
+                animation={'slide'}
+            />
             <Text style={styles.header}>INICIA SESSIÓ</Text>
             <View style={styles.card}>
                 <Text style={styles.subheader}>Nom d'usuari</Text>
@@ -38,6 +49,7 @@ function LoginScene({navigation}) {
                     onChangeText={value => setUsername(value)}
                     value={username}
                     placeholder="Introdueix el nom d'usuari..."
+                    maxLength={64}
                 />
                 <Text style={styles.subheader}>Contrasenya</Text>
                 <TextInput
@@ -46,6 +58,7 @@ function LoginScene({navigation}) {
                     value={password}
                     placeholder="Introdueix la contrasenya..."
                     secureTextEntry={true}
+                    maxLength={32}
                 />
             </View>
             <TouchableOpacity
@@ -70,7 +83,7 @@ const styles = StyleSheet.create({
         color: '#00F8FF'
     },
     card: {
-        marginTop:'2.5%',
+        marginTop: '2.5%',
         width: '95%',
         textAlign: 'center',
         backgroundColor: '#00F8FF',
@@ -93,8 +106,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     button: {
-        width:'95%',
-        marginTop:'2.5%',
+        width: '95%',
+        marginTop: '2.5%',
         backgroundColor: '#00F8FF',
         borderRadius: 5
     },

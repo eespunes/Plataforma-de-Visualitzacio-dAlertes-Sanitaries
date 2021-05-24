@@ -25,22 +25,29 @@ function ListScene({navigation}) {
                 const dataArray = Object.values(response.data);
                 for (let i = 0; i < dataArray.length; i++) {
                     const warning = dataArray[i];
-                    try {
-                        axios
-                            .get(warning.role.healthcareInstitution.url + warning.uri, {
-                                headers: {
-                                    'Authorization': 'Basic ' + btoa(warning.role.healthcareInstitution.username + ':' + warning.role.healthcareInstitution.password)
-                                }
-                            })
-                            .then(function (response) {
-                                console.log(warning.name)
-                                console.log(response.data)
-                                warning.lastValue = response.data.value
-                            })
-                    } catch (error) {
-                    }
+                    console.log(warning.role.healthcareInstitution.url + warning.uri)
+                    // try {
+                    //     axios
+                    //         .get(warning.role.healthcareInstitution.url + warning.uri, {
+                    //             headers: {
+                    //                 'Accept': 'application/json',
+                    //                 'User-Agent': 'axios/0.21.1',
+                    //                 'Authorization': 'Basic ' + btoa(warning.role.healthcareInstitution.username + ':' + warning.role.healthcareInstitution.password)
+                    //             }
+                    //         })
+                    //         .then(function (response) {
+                    //             console.log(warning.name)
+                    //             console.log(response.data)
+                    //             warning.lastValue = response.data.value
+                    //         })
+                    // } catch (error) {
+                    //     console.log(error.response.data)
+                    // }
                 }
                 setData(response.data);
+            })
+            .catch(function (error) {
+                alert('S\'ha produit un error al servidor.')
             })
     };
 
@@ -57,7 +64,7 @@ function ListScene({navigation}) {
     }
 
     const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
+        setRefreshing(true)
         warningListData().then(() => setRefreshing(false))
     }, []);
 
@@ -66,7 +73,7 @@ function ListScene({navigation}) {
         return (
             <SafeAreaView style={[styles.safeArea]}>
                 <ScrollView
-                    contentContainerStyle={styles.scrollView}
+                    contentContainerStyle={styles.safeArea}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
@@ -103,7 +110,7 @@ function ListScene({navigation}) {
         return (
             <SafeAreaView>
                 <Text style={styles.header}>LLISTA D'ALERTES</Text>
-                <Text style={styles.title}>No s'ha trobat cap alerta!</Text>
+                <Text style={styles.nothing}>No s'ha trobat cap alerta!</Text>
             </SafeAreaView>
         );
     }
@@ -113,8 +120,6 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: '#ffffff',
-        justifyContent: 'center',
-
         alignItems: 'center'
     },
     header: {
@@ -126,7 +131,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
         backgroundColor: '#ffffff',
-        justifyContent: 'center',
 
         alignItems: 'center'
     },
@@ -149,6 +153,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: '2.5%',
         color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    nothing: {
+        fontSize: 20,
+        margin: '2.5%',
+        color: 'black',
         fontWeight: 'bold',
         textAlign: 'center'
     },
