@@ -49,7 +49,7 @@ public class APIController {
         return databaseController.getEmployee(username);
     }
 
-    @GetMapping("/employee/{username}/{newPassword}")
+    @GetMapping("/employee/change/{username}/{newPassword}")
     public int changePassword(@PathVariable String username, @PathVariable String newPassword) {
         return databaseController.changePassword(username, newPassword);
     }
