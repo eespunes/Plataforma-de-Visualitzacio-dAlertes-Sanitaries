@@ -53,7 +53,7 @@
 
             </th>
         </tr>
-        <tr
+        <tr class="trClickable"
                 th:each="role : ${roles}" th:onclick="'javascript:rowClicked(\'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}+'\');'">
             <td>
                 <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>

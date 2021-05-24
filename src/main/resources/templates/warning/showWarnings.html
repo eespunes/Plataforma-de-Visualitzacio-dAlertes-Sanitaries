@@ -65,7 +65,7 @@
                 </h2>
             </th>
         </tr>
-        <tr
+        <tr class="trClickable"
                 th:each="warning : ${warnings}" th:onclick="'javascript:rowClicked(\'/warning/' + ${warning.id}+'\');'">
             <td>
                 <p align="center" th:text="${warning.id}" th:id="${warning.id}">ID</p>

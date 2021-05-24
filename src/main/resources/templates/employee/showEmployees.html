@@ -77,7 +77,7 @@
                 </h2>
             </th>
         </tr>
-        <tr
+        <tr class="trClickable"
                 th:each="employee : ${employees}" th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
             <td>
                 <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>

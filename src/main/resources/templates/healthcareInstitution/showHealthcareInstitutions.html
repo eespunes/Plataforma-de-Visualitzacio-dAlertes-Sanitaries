@@ -41,7 +41,7 @@
             </th>
         </tr>
 
-        <tr
+        <tr class="trClickable"
                 th:each="healthcareInstitution : ${healthcareInstitutions}" th:onclick="'javascript:rowClicked(\'/institution/' + ${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}+'\');'">
             <td>
                 <p align="center" th:text="${healthcareInstitution.name}" th:id="${healthcareInstitution.name}">Nom</p>
