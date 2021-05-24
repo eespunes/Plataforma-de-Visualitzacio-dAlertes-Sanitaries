@@ -40,7 +40,8 @@
                 <tr>
                     <td colspan="2">
                         <a class="shw-delete"
-                           th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">ELIMINAR</a>
+                           th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}"
+                           onclick="return confirm('Estas segur que vols eliminar aquest rol?\n(També s\'eliminaran les alertes i empleats associats a aquest rol)')">ELIMINAR</a>
                     </td>
                 </tr>
             </table>

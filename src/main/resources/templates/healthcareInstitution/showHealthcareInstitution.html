@@ -54,7 +54,8 @@
                 <tr>
                     <td>
                         <a class="shw-delete"
-                           th:href="@{'/institution/delete/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">ELIMINAR</a>
+                           th:href="@{'/institution/delete/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}"
+                           onclick="return confirm('Estas segur que vols eliminar aquesta institució mèdica?\n(També s\'eliminaran els rols, alertes i empleats associats a aquesta institució mèdica)')">ELIMINAR</a>
                     </td>
                 </tr>
             </table>

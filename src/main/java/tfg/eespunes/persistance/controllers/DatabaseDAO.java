@@ -258,7 +258,6 @@ public class DatabaseDAO {
     }
 
     public void updateWarningLastValue(int id, float value) {
-        System.out.println(value);
         jdbcTemplate.update(UPDATE_WARNING_LAST_VALUE, value, id);
 
     }

@@ -43,7 +43,8 @@
         <tr>
             <td>
                 <a class="shw-delete"
-                   th:href="@{'/employee/delete/' + ${employee.username}}">ELIMINAR</a>
+                   th:href="@{'/employee/delete/' + ${employee.username}}"
+                   onclick="return confirm('Segur que vols eliminar aquest empleat?')">ELIMINAR</a>
             </td>
         </tr>
     </table>
