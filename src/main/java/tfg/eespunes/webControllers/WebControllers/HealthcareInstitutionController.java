@@ -69,8 +69,9 @@ public class HealthcareInstitutionController {
     }
 
     @PostMapping("/institution/edit/{healthcareInstitutionID}/{countryID}")
-    public String editInstitutionPOST(HealthcareInstitution healthcareInstitution, RedirectAttributes redirectAttributes, @PathVariable String countryID) {
+    public String editInstitutionPOST(HealthcareInstitution healthcareInstitution, RedirectAttributes redirectAttributes, @PathVariable int healthcareInstitutionID,@PathVariable String countryID) {
         healthcareInstitution.setCountry(databaseController.getCountry(countryID));
+        healthcareInstitution.setId(healthcareInstitutionID);
         databaseController.editHealthcareInstitution(healthcareInstitution);
 
         redirectAttributes.addAttribute("healthcareInstitutionID", healthcareInstitution.getId());

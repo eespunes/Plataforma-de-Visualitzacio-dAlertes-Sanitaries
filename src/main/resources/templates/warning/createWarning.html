@@ -74,8 +74,8 @@
                               placeholder="Introdueix la descripció..." th:field="*{description}"></textarea>
                 </td>
                 <td colspan="3">
-                    <h4 class="ct-h4" align="center">ACTUALITZACIÓ</h4>
-                    <input align="center" type="number" required th:field="*{refreshRate}"/>
+                    <h4 class="ct-h4" align="center">ACTUALITZACIÓ (En segons)</h4>
+                    <input align="center" type="number" step="1" required th:field="*{refreshRate}"/>
                     <h4 class="ct-h4" align="center">NOTIFICACIÓ</h4>
                     <p th:if="${#fields.hasErrors('notificationMessage')}" th:errors="*{notificationMessage}"
                        style="color: red">Error</p>

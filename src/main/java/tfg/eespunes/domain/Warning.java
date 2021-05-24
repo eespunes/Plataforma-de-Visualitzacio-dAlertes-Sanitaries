@@ -3,7 +3,7 @@ package tfg.eespunes.domain;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class Warning {
+public class Warning{
     private int id;
     @NotEmpty(message = "No es pot deixar el nom buit")
     @Size(min = 1, max = 128,message = "El nom ha de tenir entre 1 i 128 caràcters.")
@@ -25,13 +25,13 @@ public class Warning {
     private float yellowValue;
     private float redValue;
     private float lastValue;
-    private float refreshRate;
+    private int refreshRate;
 
     private Role role;
 
     private String tempRoleName;
 
-    public Warning(int id, String name, String shortName, String description, String uri, String notificationMessage, float greenValue, float yellowValue, float redValue, float lastValue, float refreshRate, Role role) {
+    public Warning(int id, String name, String shortName, String description, String uri, String notificationMessage, float greenValue, float yellowValue, float redValue, float lastValue, int refreshRate, Role role) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
@@ -129,11 +129,11 @@ public class Warning {
         this.lastValue = lastValue;
     }
 
-    public float getRefreshRate() {
+    public int getRefreshRate() {
         return refreshRate;
     }
 
-    public void setRefreshRate(float refreshRate) {
+    public void setRefreshRate(int refreshRate) {
         this.refreshRate = refreshRate;
     }
 

@@ -63,7 +63,7 @@ CREATE TABLE Warnings
     war_yellowValue         FLOAT        NOT NULL,
     war_redValue            FLOAT        NOT NULL,
     war_lastValue           FLOAT        NOT NULL,
-    war_refreshRate         FLOAT        NOT NULL,
+    war_refreshRate         INTEGER        NOT NULL,
     war_roleName            VARCHAR(16) NOT NULL,
     war_roleInstitutionID   INTEGER NOT NULL,
     war_roleCountryID       VARCHAR(3) NOT NULL,

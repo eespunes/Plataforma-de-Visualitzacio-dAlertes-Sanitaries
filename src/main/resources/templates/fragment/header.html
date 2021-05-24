@@ -8,14 +8,19 @@
         * {
             box-sizing: border-box
         }
-
-        body {
+        html, body {
+            height: 100%;
             margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
             font-family: 'Acme';
         }
 
         /* The navigation bar */
         .navbar {
+            flex-shrink: 0;
             overflow: auto;
             background-color: #00f8ff;
             /*position: fixed; !* Set the navbar to fixed position *!*/
@@ -90,7 +95,8 @@
 
         /* Main content */
         .main {
-            margin-top: 5vh; /* Add a top margin to avoid content overlay */
+            /*margin-top: 5vh;*/
+            flex: 1 0 auto;
         }
     </style>
 </head>

@@ -45,6 +45,8 @@ public class DatabaseDAO {
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
     private final String UPDATE_PASSWORD = "UPDATE Employees SET emp_password=? WHERE emp_username=?";
+    private final String UPDATE_WARNING_LAST_VALUE = "UPDATE Warnings SET war_lastvalue=? WHERE war_id=?";
+
 
     private final JdbcTemplate jdbcTemplate;
     @Autowired
@@ -114,6 +116,7 @@ public class DatabaseDAO {
     //CREATE
     public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
         int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountry().getId());
+        healthcareInstitution.setId(id);
         jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountry().getId(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
         Role role = new Role("WEB-ADMIN", "The web administrator of this healthcare institution", healthcareInstitution);
         insertRole(role);
@@ -171,7 +174,6 @@ public class DatabaseDAO {
     }
 
     public Role findRole(String roleName, int healthcareInstitutionID, String countryID) {
-        System.out.println(roleName + "-" + healthcareInstitutionID + "-" + countryID);
         return jdbcTemplate.queryForObject(FIND_ROLE_BY_ID, new Object[]{roleName, healthcareInstitutionID, countryID}, roleMapper);
     }
 
@@ -230,4 +232,9 @@ public class DatabaseDAO {
         return jdbcTemplate.update(UPDATE_PASSWORD, passwordEncoder.encode(newPassword), username);
     }
 
+    public void updateWarningLastValue(int id, float value) {
+        System.out.println(value);
+        jdbcTemplate.update(UPDATE_WARNING_LAST_VALUE, value, id);
+
+    }
 }

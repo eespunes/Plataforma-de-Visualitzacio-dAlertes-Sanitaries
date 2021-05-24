@@ -121,4 +121,8 @@ public class DatabaseController {
     public int changePassword(String username, String newPassword) {
         return databaseDAO.updatePassword(username, newPassword);
     }
+
+    public void setWarningLastValue(int id, float value) {
+        databaseDAO.updateWarningLastValue(id,value);
+    }
 }
