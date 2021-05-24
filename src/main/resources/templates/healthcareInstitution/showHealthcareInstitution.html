@@ -14,7 +14,7 @@
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <table class ="shw-main">
+    <table class="shw-main">
         <td>
             <table class="shw-table">
                 <tr>
@@ -61,7 +61,8 @@
         </td>
         <td>
             <table class="lst-table" id="table">
-                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'ROLS DE '+${healthcareInstitution.name}">ROLS DE {NOM}</h1></tr>
+                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'ROLS DE '+${healthcareInstitution.name}">ROLS
+                    DE {NOM}</h1></tr>
                 <tr>
                     <th class="lst-th">
                         <h2 align="center">
@@ -81,6 +82,7 @@
                     </th>
                 </tr>
                 <tr
+                        class="trClickable"
                         th:each="role : ${roles}"
                         th:onclick="'javascript:rowClicked(\'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}+'\');'">
                     <td>

@@ -118,6 +118,10 @@ public class DatabaseController {
         return databaseDAO.findAllWarningsOfRole(roleName, healthcareInstitutionID, countryID);
     }
 
+    public List<Employee> getAllEmployeesOfRole(String roleName, int healthcareInstitutionID, String countryID) {
+        return databaseDAO.findAllEmployeesOfRole(roleName, healthcareInstitutionID, countryID);
+    }
+
     public int changePassword(String username, String newPassword) {
         return databaseDAO.updatePassword(username, newPassword);
     }

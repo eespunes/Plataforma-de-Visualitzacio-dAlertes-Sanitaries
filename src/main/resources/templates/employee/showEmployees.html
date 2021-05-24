@@ -77,6 +77,11 @@
                 </h2>
             </th>
         </tr>
+        <tr>
+            <td colspan="5">
+                <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT</p>
+            </td>
+        </tr>
         <tr class="trClickable"
                 th:each="employee : ${employees}" th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
             <td>
@@ -97,7 +102,6 @@
             </td>
         </tr>
     </table>
-    <h3 align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT</h3>
 </div>
 <script>
 

@@ -47,8 +47,11 @@
         </td>
         <td>
             <table class="lst-table" id="table">
-                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'ALERTES DE '+${role.name}">ALERTES DE
-                    {NOM}</h1></tr>
+                <tr>
+                    <h1 CLASS="shw-tableHeader" align="center" th:text="'ALERTES DE '+${role.name}">ALERTES DE
+                        {NOM}</h1>
+                </tr>
+
                 <tr>
                     <th class="lst-th">
                         <h2 align="center">
@@ -60,19 +63,14 @@
                             NOM CURT
                         </h2>
                     </th>
-                    <th class="lst-th">
-                        <h2 align="center">
-                            ROL
-                        </h2>
-
-                    </th>
-                    <th class="lst-th">
-                        <h2 align="center">
-                            INSTITUCIÓ MÈDICA
-                        </h2>
-                    </th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA PER AQUEST ROL.</p>
+                    </td>
                 </tr>
                 <tr
+                        class="trClickable"
                         th:each="warning : ${warnings}"
                         th:onclick="'javascript:rowClicked(\'/warning/' + ${warning.id}+'\');'">
                     <td>
@@ -81,12 +79,41 @@
                     <td>
                         <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
                     </td>
+                </tr>
+            </table>
+
+            <table class="lst-table" id="table2">
+                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'EMPLEATS DE '+${role.name}">EMPLEATS DE
+                    {NOM}</h1></tr>
+                <tr>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            NOM
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            COGNOMS
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            USUARI
+                        </h2>
+
+                    </th>
+                </tr>
+                <tr class="trClickable"
+                    th:each="employee : ${employees}"
+                    th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
                     <td>
-                        <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
+                        <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>
                     </td>
                     <td>
-                        <p align="center" th:text="${warning.role.healthcareInstitution.name}"
-                           th:id="${warning.role.healthcareInstitution.name}">Institució Mèdica</p>
+                        <p align="center" th:text="${employee.surname}" th:id="${employee.surname}">Cognoms</p>
+                    </td>
+                    <td>
+                        <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
                     </td>
                 </tr>
             </table>

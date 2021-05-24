@@ -63,6 +63,7 @@ public class RoleController {
     public String getRole(@PathVariable String roleName, @PathVariable int healthcareInstitutionID, @PathVariable String countryID, Model model) {
         model.addAttribute("role", databaseController.getRole(roleName, healthcareInstitutionID, countryID));
         model.addAttribute("warnings", databaseController.getAllWarningsOfRole(roleName, healthcareInstitutionID, countryID));
+        model.addAttribute("employees", databaseController.getAllEmployeesOfRole(roleName, healthcareInstitutionID, countryID));
         return "role/showRole";
     }
 

@@ -41,6 +41,7 @@ public class DatabaseDAO {
 
     private final String FIND_ALL_ROLES_OF_HEALTHCARE_INSTITUTIONS = "SELECT * FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
     private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_rolename=? and war_roleinstitutionid=? and war_rolecountryid=?";
+    private final String FIND_ALL_EMPLOYEES_OF_ROLE = "SELECT * FROM Employees WHERE emp_rolename=? and emp_roleinstitutionid=? and emp_rolecountryid=?";
 
     private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
@@ -226,6 +227,10 @@ public class DatabaseDAO {
 
     public List<Warning> findAllWarningsOfRole(String roleName, int healthcareInstitutionID, String countryID) {
         return jdbcTemplate.query(FIND_ALL_WARNINGS_OF_ROLE, new Object[]{roleName, healthcareInstitutionID, countryID}, warningMapper);
+    }
+
+    public List<Employee> findAllEmployeesOfRole(String roleName, int healthcareInstitutionID, String countryID) {
+        return jdbcTemplate.query(FIND_ALL_EMPLOYEES_OF_ROLE, new Object[]{roleName, healthcareInstitutionID, countryID}, employeeMapper);
     }
 
     public int updatePassword(String username, String newPassword) {
