@@ -72,8 +72,10 @@ function ListScene({navigation}) {
     if (data.length !== 0) {
         return (
             <SafeAreaView style={[styles.safeArea]}>
+                <Text style={styles.header}>LLISTA D'ALERTES</Text>
                 <ScrollView
                     contentContainerStyle={styles.safeArea}
+                    scrollEnabled={false}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
@@ -81,28 +83,30 @@ function ListScene({navigation}) {
                         />
                     }
                 >
-                    <Text style={styles.header}>LLISTA D'ALERTES</Text>
-                    <FlatList
-                        data={data}
-                        keyExtractor={(warning) => warning.id}
-                        contentContainerStyle={[styles.flatList]}
-                        renderItem={({item}) => {
-                            return (
-                                <TouchableOpacity
-                                    style={[styles.list]}
-                                    onPress={() => changeToWarning(item)}>
-                                    <View style={[styles.insideList]}>
-                                        <Text style={[styles.subheader]}>{item.name}</Text>
-                                    </View>
-                                    <View style={[styles.insideList]}>
-                                        <View style={styles.semaphore}>
-                                            <Text style={[styles.subheader]}>{item.lastValue}</Text>
+                    <View style={[styles.test]}>
+                        <FlatList
+                            // nestedScrollEnabled
+                            data={data}
+                            keyExtractor={(warning) => warning.id}
+                            contentContainerStyle={[styles.flatList]}
+                            renderItem={({item}) => {
+                                return (
+                                    <TouchableOpacity
+                                        style={[styles.list]}
+                                        onPress={() => changeToWarning(item)}>
+                                        <View style={[styles.insideList]}>
+                                            <Text style={[styles.subheader]}>{item.name}</Text>
                                         </View>
-                                    </View>
-                                </TouchableOpacity>
-                            );
-                        }}
-                    />
+                                        <View style={[styles.insideList]}>
+                                            <View style={[(savedData.checkWarningColor(item) === 0) ? styles.semaphoreGreen : (savedData.checkWarningColor(item) === 1) ? styles.semaphoreYellow : styles.semaphoreRed]}>
+                                                <Text style={[styles.subheader]}>{item.lastValue}</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                );
+                            }}
+                        />
+                    </View>
                 </ScrollView>
             </SafeAreaView>
         );
@@ -118,26 +122,31 @@ function ListScene({navigation}) {
 
 const styles = StyleSheet.create({
     safeArea: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#ffffff',
         alignItems: 'center'
+    },
+    test: {
+        maxHeight: "92.5%",
+        width: '100%'
     },
     header: {
         fontSize: 45,
         textAlign: 'center',
         fontWeight: 'bold',
         color: '#00F8FF'
-    }, flatList: {
-        flex: 1,
-        flexGrow: 1,
+    },
+    flatList: {
+        flexGrow: 0,
         backgroundColor: '#ffffff',
 
         alignItems: 'center'
     },
     list: {
         marginTop: '2.5%',
-        width: '95%',
-        // height: '60%',
+        marginBottom: '2.5%',
+        width: '97.5%',
+        height: 175,
         flexDirection: "row",
         textAlign: 'center',
         alignItems: 'center',
@@ -163,7 +172,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center'
     },
-    semaphore: {
+    semaphoreGreen: {
         borderColor: 'white',
         borderWidth: 5,
         backgroundColor: '#00ff00',
@@ -172,7 +181,28 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         flexGrow: 1,
         margin: '2.5%'
-    }, insideList: {
+    },
+    semaphoreYellow: {
+        borderColor: 'white',
+        borderWidth: 5,
+        backgroundColor: '#ffff00',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        flexGrow: 1,
+        margin: '2.5%'
+    },
+    semaphoreRed: {
+        borderColor: 'white',
+        borderWidth: 5,
+        backgroundColor: '#ff0000',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        flexGrow: 1,
+        margin: '2.5%'
+    },
+    insideList: {
         width: '50%',
     }
 

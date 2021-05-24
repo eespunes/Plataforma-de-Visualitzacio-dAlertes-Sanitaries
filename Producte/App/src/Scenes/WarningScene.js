@@ -11,7 +11,8 @@ function WarningScene() {
                 <View style={styles.separator}/>
                 <Text style={[styles.text]}>{warning.description}</Text>
                 <View style={styles.separator}/>
-                <View style={styles.semaphore}>
+                <View
+                    style={[(savedData.checkWarningColor(warning) === 0) ? styles.semaphoreGreen : (savedData.checkWarningColor(warning) === 1) ? styles.semaphoreYellow : styles.semaphoreRed]}>
                     <Text style={[styles.subheader]}>{warning.lastValue}</Text>
                 </View>
             </View>
@@ -75,17 +76,39 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderWidth: 2.5,
         width: '100%'
-    }, semaphore: {
+    }, semaphoreGreen: {
         borderColor: 'white',
         borderWidth: 5,
-        backgroundColor: '#00ff00',
         width: '95%',
+        backgroundColor: '#00ff00',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
         flexGrow: 1,
-        marginBottom: '2.5%'
-    }
+        margin: '2.5%'
+    },
+    semaphoreYellow: {
+        borderColor: 'white',
+        borderWidth: 5,
+        width: '95%',
+        backgroundColor: '#ffff00',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        flexGrow: 1,
+        margin: '2.5%'
+    },
+    semaphoreRed: {
+        borderColor: 'white',
+        borderWidth: 5,
+        backgroundColor: '#ff0000',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        flexGrow: 1,
+        width: '95%',
+        margin: '2.5%'
+    },
 
 });
 
