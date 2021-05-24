@@ -4,7 +4,7 @@ import {
     SafeAreaView,
     View,
     StyleSheet,
-    Text, TouchableOpacity, Modal, TextInput,
+    Text, TouchableOpacity, Modal, TextInput, Platform,
 } from 'react-native';
 import savedData from "../savedData";
 import axios from "axios";

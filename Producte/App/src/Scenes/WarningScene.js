@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, SafeAreaView, View, StyleSheet, Image} from "react-native";
+import {Text, SafeAreaView, View, StyleSheet, Image, Platform} from "react-native";
 import savedData from "../savedData";
 
 function WarningScene() {
@@ -21,6 +21,7 @@ function WarningScene() {
 
 const styles = StyleSheet.create({
     safeArea: {
+        paddingTop: '7.5%',
         flex: 1,
         backgroundColor: '#ffffff',
         justifyContent: 'center',

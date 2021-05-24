@@ -8,7 +8,7 @@ import {
     StyleSheet,
     TextInput,
     Button,
-    ScrollView, RefreshControl
+    ScrollView, RefreshControl, Platform
 } from "react-native";
 import axios from 'axios';
 import {encode as btoa} from 'base-64'

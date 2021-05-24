@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, SafeAreaView, View, Button, TextInput, StyleSheet, TouchableOpacity} from "react-native";
+import {Text, SafeAreaView, View, Button, TextInput, StyleSheet, TouchableOpacity, Platform} from "react-native";
 import axios from "axios";
 import savedData from "../savedData";
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -72,6 +72,7 @@ function LoginScene({navigation}) {
 
 const styles = StyleSheet.create({
     safeArea: {
+        paddingTop: '7.5%',
         flex: 1,
         backgroundColor: '#ffffff',
         alignItems: 'center'
