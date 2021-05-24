@@ -8,7 +8,7 @@ function LoginScene({navigation}) {
     const [password, setPassword] = React.useState('');
 
     const login = async () => {
-        console.log(savedData.URL + 'login/' + username + '/' + password + '/000')
+        console.log('Holaaa')
         axios
             .get(savedData.URL + 'login/' + username + '/' + password + '/000')
             .then(function (response) {

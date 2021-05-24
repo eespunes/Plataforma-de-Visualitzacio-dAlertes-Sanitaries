@@ -1,25 +1,54 @@
 import React, {useState, useEffect} from "react";
-import {Text, View, FlatList, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, Button} from "react-native";
+import {
+    Text,
+    View,
+    FlatList,
+    SafeAreaView,
+    TouchableOpacity,
+    StyleSheet,
+    TextInput,
+    Button,
+    ScrollView, RefreshControl
+} from "react-native";
 import axios from 'axios';
+import {encode as btoa} from 'base-64'
 import savedData from "../savedData";
 
 function ListScene({navigation}) {
     let [data, setData] = React.useState('')
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const warningListData = async () => {
         axios
             .get(savedData.URL + 'warning/all/' + savedData.user.role.name + '/' + savedData.user.role.healthcareInstitution.id + '/' + savedData.user.role.healthcareInstitution.country.id)
-            // .get('https://tfg-informatica.herokuapp.com/api/warning/all/WEB-ADMIN/0/ESP')
             .then(function (response) {
+                const dataArray = Object.values(response.data);
+                for (let i = 0; i < dataArray.length; i++) {
+                    const warning = dataArray[i];
+                    try {
+                        axios
+                            .get(warning.role.healthcareInstitution.url + warning.uri, {
+                                headers: {
+                                    'Authorization': 'Basic ' + btoa(warning.role.healthcareInstitution.username + ':' + warning.role.healthcareInstitution.password)
+                                }
+                            })
+                            .then(function (response) {
+                                console.log(warning.name)
+                                console.log(response.data)
+                                warning.lastValue = response.data.value
+                            })
+                    } catch (error) {
+                    }
+                }
                 setData(response.data);
-            })
-            .catch(function (error) {
-                alert(error.message);
             })
     };
 
     useEffect(() => {
-        warningListData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            onRefresh();
+        });
+        return unsubscribe;
     }, [])
 
     function changeToWarning(item) {
@@ -27,30 +56,47 @@ function ListScene({navigation}) {
         navigation.navigate("Warning")
     }
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        warningListData().then(() => setRefreshing(false))
+    }, []);
+
+
     if (data.length !== 0) {
         return (
             <SafeAreaView style={[styles.safeArea]}>
-                <Text style={styles.header}>LLISTA D'ALERTES</Text>
-                <FlatList
-                    data={data}
-                    keyExtractor={(warning) => warning.id}
-                    renderItem={({item}) => {
-                        return (
-                            <TouchableOpacity
-                                style={[styles.list]}
-                                onPress={() => changeToWarning(item)}>
-                                <View style={[styles.insideList]}>
-                                    <Text style={[styles.subheader]}>{item.name}</Text>
-                                </View>
-                                <View style={[styles.insideList]}>
-                                    <View style={styles.semaphore}>
-                                        <Text style={[styles.subheader]}>{item.lastValue}</Text>
+                <ScrollView
+                    contentContainerStyle={styles.scrollView}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }
+                >
+                    <Text style={styles.header}>LLISTA D'ALERTES</Text>
+                    <FlatList
+                        data={data}
+                        keyExtractor={(warning) => warning.id}
+                        contentContainerStyle={[styles.flatList]}
+                        renderItem={({item}) => {
+                            return (
+                                <TouchableOpacity
+                                    style={[styles.list]}
+                                    onPress={() => changeToWarning(item)}>
+                                    <View style={[styles.insideList]}>
+                                        <Text style={[styles.subheader]}>{item.name}</Text>
                                     </View>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
+                                    <View style={[styles.insideList]}>
+                                        <View style={styles.semaphore}>
+                                            <Text style={[styles.subheader]}>{item.lastValue}</Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            );
+                        }}
+                    />
+                </ScrollView>
             </SafeAreaView>
         );
     } else {
@@ -76,9 +122,16 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         color: '#00F8FF'
+    }, flatList: {
+        flex: 1,
+        flexGrow: 1,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+
+        alignItems: 'center'
     },
     list: {
-        marginTop:'2.5%',
+        marginTop: '2.5%',
         width: '95%',
         // height: '60%',
         flexDirection: "row",
@@ -94,7 +147,7 @@ const styles = StyleSheet.create({
     },
     subheader: {
         fontSize: 20,
-        margin:'2.5%',
+        margin: '2.5%',
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center'
@@ -107,9 +160,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
         flexGrow: 1,
-        margin:'2.5%'
+        margin: '2.5%'
     }, insideList: {
-        width:'50%',
+        width: '50%',
     }
 
 });
