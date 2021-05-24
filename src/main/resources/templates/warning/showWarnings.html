@@ -65,11 +65,6 @@
                 </h2>
             </th>
         </tr>
-        <tr>
-            <td colspan="5">
-                <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA</p>
-            </td>
-        </tr>
         <tr class="trClickable"
                 th:each="warning : ${warnings}" th:onclick="'javascript:rowClicked(\'/warning/' + ${warning.id}+'\');'">
             <td>
@@ -84,6 +79,11 @@
             <td>
                 <p align="center" th:text="${warning.role.healthcareInstitution.name}"
                    th:id="${warning.role.healthcareInstitution.name}">Institució Mèdica</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA</p>
             </td>
         </tr>
     </table>

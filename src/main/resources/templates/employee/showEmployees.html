@@ -19,7 +19,8 @@
                 <h2 align="center">
                     NOM
                     <br>
-                    <input type="text" id="s0" onkeyup="search(0)" onfocusout="disappear(0)" placeholder="Busca un nom d'un empleat..."
+                    <input type="text" id="s0" onkeyup="search(0)" onfocusout="disappear(0)"
+                           placeholder="Busca un nom d'un empleat..."
                            title="Type in a name"
                            hidden="true">
                     <button class="lst-btn" id="b0" onclick="appear(0)"><i class="fas fa-search"></i></button>
@@ -31,7 +32,8 @@
                 <h2 align="center">
                     COGNOMS
                     <br>
-                    <input type="text" id="s1" onkeyup="search(1)" onfocusout="disappear(1)" placeholder="Busca un cognom d'un empleat..."
+                    <input type="text" id="s1" onkeyup="search(1)" onfocusout="disappear(1)"
+                           placeholder="Busca un cognom d'un empleat..."
                            title="Type in a name"
                            hidden="true">
                     <button class="lst-btn" id="b1" onclick="appear(1)"><i class="fas fa-search"></i></button>
@@ -43,7 +45,8 @@
                 <h2 align="center">
                     USUARI
                     <br>
-                    <input type="text" id="s2" onkeyup="search(2)" onfocusout="disappear(2)" placeholder="Busca un nom d'usuari d'un empleat..."
+                    <input type="text" id="s2" onkeyup="search(2)" onfocusout="disappear(2)"
+                           placeholder="Busca un nom d'usuari d'un empleat..."
                            title="Type in a name"
                            hidden="true">
                     <button class="lst-btn" id="b2" onclick="appear(2)"><i class="fas fa-search"></i></button>
@@ -56,7 +59,8 @@
                 <h2 align="center">
                     ROL
                     <br>
-                    <input type="text" id="s3" onkeyup="search(3)" onfocusout="disappear(3)" placeholder="Busca un nom d'un rol..."
+                    <input type="text" id="s3" onkeyup="search(3)" onfocusout="disappear(3)"
+                           placeholder="Busca un nom d'un rol..."
                            title="Busca un nom d'un rol..." hidden="true"
                     >
                     <button class="lst-btn" id="b3" onclick="appear(3)"><i class="fas fa-search"></i></button>
@@ -68,7 +72,8 @@
                 <h2 align="center">
                     INSTITUCIÓ MÈDICA
                     <br>
-                    <input type="text" id="s4" onkeyup="search(4)" onfocusout="disappear(4)" placeholder="Busca un nom d'una institució mèdica..."
+                    <input type="text" id="s4" onkeyup="search(4)" onfocusout="disappear(4)"
+                           placeholder="Busca un nom d'una institució mèdica..."
                            title="Busca un nom d'una institució mèdica..."
                            hidden="true">
                     <button class="lst-btn" id="b4" onclick="appear(4)"><i class="fas fa-search"></i></button>
@@ -77,13 +82,9 @@
                 </h2>
             </th>
         </tr>
-        <tr>
-            <td colspan="5">
-                <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT</p>
-            </td>
-        </tr>
         <tr class="trClickable"
-                th:each="employee : ${employees}" th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
+            th:each="employee : ${employees}"
+            th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
             <td>
                 <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>
             </td>
@@ -99,6 +100,11 @@
             <td>
                 <p align="center" th:text="${employee.role.healthcareInstitution.name}"
                    th:id="${employee.role.healthcareInstitution.name}">Institució Mèdica</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT</p>
             </td>
         </tr>
     </table>

@@ -40,11 +40,6 @@
                 </h2>
             </th>
         </tr>
-        <tr>
-            <td colspan="2">
-                <p align="center" th:if="${healthcareInstitutions.size()==0}">NO S'HA TROBAT CAP INSTITUCIÓ MÈDICA</p>
-            </td>
-        </tr>
         <tr class="trClickable"
                 th:each="healthcareInstitution : ${healthcareInstitutions}" th:onclick="'javascript:rowClicked(\'/institution/' + ${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}+'\');'">
             <td>
@@ -53,6 +48,11 @@
             <td>
                 <p align="center" th:text="${healthcareInstitution.country.name}"
                    th:id="${healthcareInstitution.country.id}">País</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p align="center" th:if="${healthcareInstitutions.size()==0}">NO S'HA TROBAT CAP INSTITUCIÓ MÈDICA</p>
             </td>
         </tr>
     </table>

@@ -31,8 +31,14 @@ public class DatabaseDAO {
 
     private final String DELETE_HEALTHCARE_INSTITUTION = "DELETE FROM HealthcareInstitutions WHERE ins_id=? and ins_countryid=?";
     private final String DELETE_ROLE = "DELETE FROM Roles WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
+    private final String DELETE_ROLE_BY_HEALTHCARE_INSTITUTION = "DELETE FROM Roles WHERE rol_institutionid=? and rol_countryid=?";
     private final String DELETE_EMPLOYEE = "DELETE FROM Employees WHERE emp_username=?";
+    private final String DELETE_EMPLOYEE_BY_HEALTHCARE_INSTITUTION = "DELETE FROM Employees WHERE emp_roleinstitutionid=? and emp_rolecountryid=?";
+    private final String DELETE_EMPLOYEE_BY_ROLE = "DELETE FROM Employees WHERE emp_rolename=? and emp_roleinstitutionid=? and emp_rolecountryid=?";
     private final String DELETE_WARNING = "DELETE FROM Warnings WHERE war_id=?";
+    private final String DELETE_WARNING_BY_HEALTHCARE_INSTITUTION = "DELETE FROM Warnings WHERE war_roleinstitutionid=? and war_rolecountryid=?";
+    private final String DELETE_WARNING_BY_ROLE = "DELETE FROM Warnings WHERE war_rolename=? and war_roleinstitutionid=? and war_rolecountryid=?";
+
 
     private final String UPDATE_HEALTHCARE_INSTITUTION = "UPDATE HealthcareInstitutions SET ins_url=?, ins_username=?, ins_password=? WHERE ins_id=? and ins_countryid=?";
     private final String UPDATE_ROLE = "UPDATE Roles SET rol_description=? WHERE rol_name=? and rol_institutionid=? and rol_countryid=?";
@@ -188,10 +194,15 @@ public class DatabaseDAO {
 
     //DELETE
     public void deleteHealthcareInstitution(int healthcareInstitutionID, String countryID) {
+        jdbcTemplate.update(DELETE_WARNING_BY_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
+        jdbcTemplate.update(DELETE_EMPLOYEE_BY_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
+        jdbcTemplate.update(DELETE_ROLE_BY_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
         jdbcTemplate.update(DELETE_HEALTHCARE_INSTITUTION, healthcareInstitutionID, countryID);
     }
 
     public void deleteRole(String roleName, int healthcareInstitutionID, String countryID) {
+        jdbcTemplate.update(DELETE_WARNING_BY_ROLE, roleName, healthcareInstitutionID, countryID);
+        jdbcTemplate.update(DELETE_EMPLOYEE_BY_ROLE, roleName, healthcareInstitutionID, countryID);
         jdbcTemplate.update(DELETE_ROLE, roleName, healthcareInstitutionID, countryID);
     }
 

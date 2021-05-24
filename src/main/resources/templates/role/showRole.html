@@ -64,11 +64,6 @@
                         </h2>
                     </th>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA PER AQUEST ROL.</p>
-                    </td>
-                </tr>
                 <tr
                         class="trClickable"
                         th:each="warning : ${warnings}"
@@ -78,6 +73,11 @@
                     </td>
                     <td>
                         <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA PER AQUEST ROL.</p>
                     </td>
                 </tr>
             </table>
@@ -114,6 +114,11 @@
                     </td>
                     <td>
                         <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT PER AQUEST ROL.</p>
                     </td>
                 </tr>
             </table>

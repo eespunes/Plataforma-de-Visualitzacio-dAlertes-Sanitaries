@@ -53,11 +53,6 @@
 
             </th>
         </tr>
-        <tr>
-            <td colspan="5">
-                <p align="center" th:if="${roles.size()==0}">NO S'HA TROBAT CAP ROL</p>
-            </td>
-        </tr>
         <tr class="trClickable"
                 th:each="role : ${roles}" th:onclick="'javascript:rowClicked(\'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}+'\');'">
             <td>
@@ -70,6 +65,11 @@
             <td>
                 <p align="center" th:text="${role.healthcareInstitution.country.name}"
                    th:id="${role.healthcareInstitution.country.id}">País</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <p align="center" th:if="${roles.size()==0}">NO S'HA TROBAT CAP ROL</p>
             </td>
         </tr>
     </table>
