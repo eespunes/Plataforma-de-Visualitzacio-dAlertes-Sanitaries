@@ -1,15 +1,18 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import {
     SafeAreaView,
     View,
-    StyleSheet,
-    Text, TouchableOpacity, Modal, TextInput, Platform,
+    Text,
+    TouchableOpacity,
+    Modal,
+    TextInput
 } from 'react-native';
 import savedData from "../savedData";
 import axios from "axios";
+import styles from "../Style";
 
-function ProfileScene({navigation}) {
+function ProfileScreen({navigation}) {
     let [password, setPassword] = React.useState('')
     const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -48,7 +51,7 @@ function ProfileScene({navigation}) {
         setModalVisible(false)
     };
     return (
-        <SafeAreaView style={[styles.safeArea]}>
+        <SafeAreaView style={[styles.safeAreaTab]}>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -59,10 +62,10 @@ function ProfileScene({navigation}) {
             >
                 <View style={styles.changePassword}>
                     <View style={styles.cardCP}>
-                        <Text style={styles.subheader}>Introdueix la nova contrasenya</Text>
+                        <Text style={styles.buttonText}>Introdueix la nova contrasenya</Text>
 
                         <TextInput
-                            style={styles.input}
+                            style={styles.alternativeInputEnd}
                             onChangeText={value => setPassword(value)}
                             value={password}
                             placeholder="Introdueix la nova contrasenya..."
@@ -71,10 +74,10 @@ function ProfileScene({navigation}) {
                         />
 
                         <TouchableOpacity
-                            style={[styles.buttonEnd]}
+                            style={[styles.passwordButton]}
                             onPress={() => changePassword()}
                         >
-                            <Text style={styles.buttonText}>Canviar</Text>
+                            <Text style={styles.subheader}>Canviar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -100,106 +103,11 @@ function ProfileScene({navigation}) {
                 </TouchableOpacity>
             </View>
             <TouchableOpacity
-                style={[styles.creditsButton]}
+                style={[styles.loginButton]}
                 onPress={() => navigation.navigate('About')}>
-                <Text style={[styles.creditsButtonText]}>Crédits</Text>
+                <Text style={[styles.aboutButtonText]}>Sobre l'aplicació</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#ffffff',
-        alignItems: 'center'
-    },
-    header: {
-        fontSize: 45,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: '#00F8FF'
-    },
-    card: {
-        marginTop: '2.5%',
-        width: '95%',
-        textAlign: 'center',
-        alignItems: 'center',
-        backgroundColor: '#00F8FF',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5
-    }, cardCP: {
-        borderColor: 'white',
-        borderWidth: 5,
-        marginTop: '2.5%',
-        width: '95%',
-        textAlign: 'center',
-        alignItems: 'center',
-        backgroundColor: '#00F8FF',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5
-    }, changePassword: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    subheader: {
-        fontSize: 30,
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    buttonText: {
-        fontSize: 30,
-        color: '#00F8FF',
-        marginHorizontal: '2.5%',
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    input: {
-        color: 'white',
-        textAlign: 'center',
-        borderColor: 'white',
-        borderWidth: 2.5,
-        marginBottom: '2.5%',
-        borderRadius: 5
-    },
-    button: {
-        backgroundColor: '#ffffff',
-        borderRadius: 5
-    },
-    buttonEnd: {
-        backgroundColor: '#ffffff',
-        borderRadius: 5,
-        marginBottom: '2.5%'
-    },
-    separator: {
-        marginVertical: 8,
-        borderColor: 'white',
-        borderWidth: 2.5,
-        width: '100%'
-    },
-    creditsButton: {
-        width: '95%',
-        marginTop: '2.5%',
-        backgroundColor: '#00F8FF',
-        borderRadius: 5
-    },
-    creditsButtonText: {
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    }
-});
-
-export default ProfileScene;
+export default ProfileScreen;

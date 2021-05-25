@@ -1,10 +1,17 @@
 import React from "react";
-import {Text, SafeAreaView, View, Button, TextInput, StyleSheet, TouchableOpacity, Platform} from "react-native";
+import {
+    Text,
+    SafeAreaView,
+    View,
+    TextInput,
+    TouchableOpacity
+} from "react-native";
 import axios from "axios";
 import savedData from "../savedData";
 import Spinner from 'react-native-loading-spinner-overlay';
+import styles from "../Style";
 
-function LoginScene({navigation}) {
+function LoginScreen({navigation}) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loading, setLoading] = React.useState(false);
@@ -53,7 +60,7 @@ function LoginScene({navigation}) {
                 />
                 <Text style={styles.subheader}>Contrasenya</Text>
                 <TextInput
-                    style={styles.input}
+                    style={styles.inputEnd}
                     onChangeText={value => setPassword(value)}
                     value={password}
                     placeholder="Introdueix la contrasenya..."
@@ -62,7 +69,7 @@ function LoginScene({navigation}) {
                 />
             </View>
             <TouchableOpacity
-                style={[styles.button]}
+                style={[styles.loginButton]}
                 onPress={() => login()}>
                 <Text style={[styles.subheader]}>Inicia Sessió</Text>
             </TouchableOpacity>
@@ -70,48 +77,4 @@ function LoginScene({navigation}) {
     );
 };
 
-const styles = StyleSheet.create({
-    safeArea: {
-        paddingTop: '7.5%',
-        flex: 1,
-        backgroundColor: '#ffffff',
-        alignItems: 'center'
-    },
-    header: {
-        fontSize: 45,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: '#00F8FF'
-    },
-    card: {
-        marginTop: '2.5%',
-        width: '95%',
-        textAlign: 'center',
-        backgroundColor: '#00F8FF',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5
-    },
-    subheader: {
-        fontSize: 30,
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    input: {
-        color: 'white',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    button: {
-        width: '95%',
-        marginTop: '2.5%',
-        backgroundColor: '#00F8FF',
-        borderRadius: 5
-    },
-});
-
-export default LoginScene;
+export default LoginScreen;

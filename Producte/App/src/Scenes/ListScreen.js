@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {
     Text,
     View,
@@ -6,15 +6,15 @@ import {
     SafeAreaView,
     TouchableOpacity,
     StyleSheet,
-    TextInput,
-    Button,
-    ScrollView, RefreshControl, Platform
+    ScrollView,
+    RefreshControl
 } from "react-native";
 import axios from 'axios';
 import {encode as btoa} from 'base-64'
 import savedData from "../savedData";
+import styles from "../Style";
 
-function ListScene({navigation}) {
+function ListScreen({navigation}) {
     let [data, setData] = React.useState('')
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -51,7 +51,7 @@ function ListScene({navigation}) {
             })
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             onRefresh();
         });
@@ -71,10 +71,10 @@ function ListScene({navigation}) {
 
     if (data.length !== 0) {
         return (
-            <SafeAreaView style={[styles.safeArea]}>
+            <SafeAreaView style={[styles.safeAreaTab]}>
                 <Text style={styles.header}>LLISTA D'ALERTES</Text>
                 <ScrollView
-                    contentContainerStyle={styles.safeArea}
+                    contentContainerStyle={styles.safeAreaTab}
                     scrollEnabled={false}
                     refreshControl={
                         <RefreshControl
@@ -83,7 +83,7 @@ function ListScene({navigation}) {
                         />
                     }
                 >
-                    <View style={[styles.test]}>
+                    <View style={[styles.viewList]}>
                         <FlatList
                             // nestedScrollEnabled
                             data={data}
@@ -92,14 +92,14 @@ function ListScene({navigation}) {
                             renderItem={({item}) => {
                                 return (
                                     <TouchableOpacity
-                                        style={[styles.list]}
+                                        style={[styles.cardList]}
                                         onPress={() => changeToWarning(item)}>
                                         <View style={[styles.insideList]}>
-                                            <Text style={[styles.subheader]}>{item.name}</Text>
+                                            <Text style={[styles.warningSubheader]}>{item.name}</Text>
                                         </View>
                                         <View style={[styles.insideList]}>
                                             <View style={[(savedData.checkWarningColor(item) === 0) ? styles.semaphoreGreen : (savedData.checkWarningColor(item) === 1) ? styles.semaphoreYellow : styles.semaphoreRed]}>
-                                                <Text style={[styles.subheader]}>{item.lastValue}</Text>
+                                                <Text style={[styles.noWarnings]}>{item.lastValue}</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
@@ -114,98 +114,15 @@ function ListScene({navigation}) {
         return (
             <SafeAreaView>
                 <Text style={styles.header}>LLISTA D'ALERTES</Text>
-                <Text style={styles.nothing}>No s'ha trobat cap alerta!</Text>
+                <Text style={styles.noWarnings}>No s'ha trobat cap alerta!</Text>
             </SafeAreaView>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    safeArea: {
-        flexGrow: 1,
-        backgroundColor: '#ffffff',
-        alignItems: 'center'
-    },
-    test: {
-        maxHeight: "92.5%",
-        width: '100%'
-    },
-    header: {
-        fontSize: 45,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: '#00F8FF'
-    },
-    flatList: {
-        flexGrow: 0,
-        backgroundColor: '#ffffff',
+const caca = StyleSheet.create({
 
-        alignItems: 'center'
-    },
-    list: {
-        marginTop: '2.5%',
-        marginBottom: '2.5%',
-        width: '97.5%',
-        height: 175,
-        flexDirection: "row",
-        textAlign: 'center',
-        alignItems: 'center',
-        backgroundColor: '#00F8FF',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5,
-    },
-    subheader: {
-        fontSize: 20,
-        margin: '2.5%',
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    nothing: {
-        fontSize: 20,
-        margin: '2.5%',
-        color: 'black',
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    semaphoreGreen: {
-        borderColor: 'white',
-        borderWidth: 5,
-        backgroundColor: '#00ff00',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        flexGrow: 1,
-        margin: '2.5%'
-    },
-    semaphoreYellow: {
-        borderColor: 'white',
-        borderWidth: 5,
-        backgroundColor: '#ffff00',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        flexGrow: 1,
-        margin: '2.5%'
-    },
-    semaphoreRed: {
-        borderColor: 'white',
-        borderWidth: 5,
-        backgroundColor: '#ff0000',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        flexGrow: 1,
-        margin: '2.5%'
-    },
-    insideList: {
-        width: '50%',
-    }
 
 });
 
-export default ListScene;
+export default ListScreen;

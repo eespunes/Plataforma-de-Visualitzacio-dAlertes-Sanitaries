@@ -4,11 +4,11 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 
-import LoginScene from "./src/Scenes/LoginScene";
-import WarningScene from "./src/Scenes/WarningScene";
-import ListScene from "./src/Scenes/ListScene";
-import ProfileScene from "./src/Scenes/ProfileScene";
-import AboutScene from "./src/Scenes/AboutScene";
+import LoginScreen from "./src/Scenes/LoginScreen";
+import WarningScreen from "./src/Scenes/WarningScreen";
+import ListScreen from "./src/Scenes/ListScreen";
+import ProfileScreen from "./src/Scenes/ProfileScreen";
+import AboutScreen from "./src/Scenes/AboutScreen";
 import {Platform} from "react-native";
 
 const Stack = createStackNavigator();
@@ -24,9 +24,9 @@ const App = () => {
                     headerShown: false
                 }}
             >
-                <Stack.Screen name='Login' component={LoginScene}/>
-                <Stack.Screen name='Warning' component={WarningScene}/>
-                <Stack.Screen name='About' component={AboutScene}/>
+                <Stack.Screen name='Login' component={LoginScreen}/>
+                <Stack.Screen name='Warning' component={WarningScreen}/>
+                <Stack.Screen name='About' component={AboutScreen}/>
                 <Stack.Screen name='List'>
                     {() => (
                         <Tab.Navigator
@@ -45,8 +45,8 @@ const App = () => {
                                 }
 
                             }}>
-                            <Tab.Screen name='List' component={ListScene}/>
-                            <Tab.Screen name='Profile' component={ProfileScene}/>
+                            <Tab.Screen name='List' component={ListScreen}/>
+                            <Tab.Screen name='Profile' component={ProfileScreen}/>
                         </Tab.Navigator>
                     )}
                 </Stack.Screen>
