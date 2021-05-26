@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
         color: '#00F8FF',
         alignSelf: 'center',
         textAlign: 'center',
-        borderColor: 'white',
+        borderColor: '#00F8FF',
         borderWidth: 2.5,
         fontSize: 20,
         marginBottom: '2.5%',
@@ -225,11 +225,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#00F8FF',
         borderRadius: 10
     },
+    closeButton: {
+        backgroundColor: 'red',
+        borderRadius: 10,
+        width: '10%',
+        alignSelf: 'flex-end',
+        margin: '2.5%',
+    },
     // SEMAPHORE
     semaphoreGreen: {
         borderColor: 'white',
         borderWidth: 5,
-        backgroundColor: '#00ff00',
+        backgroundColor: 'green',
         justifyContent: 'center',
         width: '95%',
         alignItems: 'center',
@@ -240,7 +247,7 @@ const styles = StyleSheet.create({
     semaphoreYellow: {
         borderColor: 'white',
         borderWidth: 5,
-        backgroundColor: '#ffff00',
+        backgroundColor: 'yellow',
         justifyContent: 'center',
         alignItems: 'center',
         width: '95%',
@@ -251,7 +258,7 @@ const styles = StyleSheet.create({
     semaphoreRed: {
         borderColor: 'white',
         borderWidth: 5,
-        backgroundColor: '#ff0000',
+        backgroundColor: 'red',
         justifyContent: 'center',
         width: '95%',
         alignItems: 'center',
@@ -263,7 +270,8 @@ const styles = StyleSheet.create({
     image: {
         width: '95%',
         resizeMode: "contain",
-        alignSelf:'center'
+        alignSelf: 'center',
+        backgroundColor: 'white',
     },
     separator: {
         marginVertical: 8,

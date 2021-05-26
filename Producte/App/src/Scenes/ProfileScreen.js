@@ -62,6 +62,12 @@ function ProfileScreen({navigation}) {
             >
                 <View style={styles.changePassword}>
                     <View style={styles.cardCP}>
+                        <TouchableOpacity
+                            style={[styles.closeButton]}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.subheader}>X</Text>
+                        </TouchableOpacity>
                         <Text style={styles.buttonText}>Introdueix la nova contrasenya</Text>
 
                         <TextInput

@@ -85,7 +85,6 @@ function ListScreen({navigation}) {
                 >
                     <View style={[styles.viewList]}>
                         <FlatList
-                            // nestedScrollEnabled
                             data={data}
                             keyExtractor={(warning) => warning.id}
                             contentContainerStyle={[styles.flatList]}
