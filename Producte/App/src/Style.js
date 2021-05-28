@@ -20,8 +20,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     viewList: {
-        maxHeight: "92.5%",
-        width: '100%'
+        maxHeight: "100%",
+        width: '100%',
+        alignItems: 'center'
     },
     changePassword: {
         flex: 1,
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
     semaphoreGreen: {
         borderColor: 'white',
         borderWidth: 5,
-        backgroundColor: 'green',
+        backgroundColor: '#00ff00',
         justifyContent: 'center',
         width: '95%',
         alignItems: 'center',

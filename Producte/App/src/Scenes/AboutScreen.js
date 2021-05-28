@@ -21,7 +21,7 @@ function AboutScreen() {
                 <View style={styles.separator}/>
                 <Text style={[styles.aboutText]}>GRAU EN ENGINYERIA INFORMÀTICA DE GESTIÓ I SISTEMES D’INFORMACIÓ</Text>
                 <View style={styles.separator}/>
-                <Image style={styles.image} source={require('../tcm.png')} />
+                <Image style={styles.image} source={require('../../assets/images/tcm.png')} />
             </View>
         </SafeAreaView>
     );

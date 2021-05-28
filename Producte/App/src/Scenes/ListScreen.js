@@ -17,34 +17,43 @@ import styles from "../Style";
 function ListScreen({navigation}) {
     let [data, setData] = React.useState('')
     const [refreshing, setRefreshing] = React.useState(false);
+    const [warningsUpdated, setWarningsUpdated] = React.useState(0);
 
     const warningListData = async () => {
         axios
             .get(savedData.URL + 'warning/all/' + savedData.user.role.name + '/' + savedData.user.role.healthcareInstitution.id + '/' + savedData.user.role.healthcareInstitution.country.id)
-            .then(function (response) {
+            .then(async function (response) {
+                setData(response.data);
+                // setRefreshing(true)
+                // setWarningsUpdated(0)
                 const dataArray = Object.values(response.data);
                 for (let i = 0; i < dataArray.length; i++) {
                     const warning = dataArray[i];
                     console.log(warning.role.healthcareInstitution.url + warning.uri)
-                    // try {
-                    //     axios
-                    //         .get(warning.role.healthcareInstitution.url + warning.uri, {
-                    //             headers: {
-                    //                 'Accept': 'application/json',
-                    //                 'User-Agent': 'axios/0.21.1',
-                    //                 'Authorization': 'Basic ' + btoa(warning.role.healthcareInstitution.username + ':' + warning.role.healthcareInstitution.password)
-                    //             }
-                    //         })
-                    //         .then(function (response) {
-                    //             console.log(warning.name)
-                    //             console.log(response.data)
-                    //             warning.lastValue = response.data.value
-                    //         })
-                    // } catch (error) {
-                    //     console.log(error.response.data)
-                    // }
+                    try {
+                        let response = await fetch(warning.role.healthcareInstitution.url + warning.uri, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': '*/*',
+                                'User-Agent': 'tfg/0.1.0',
+                                'Content-Type': 'application/json',
+                                'Connection': 'keep-alive',
+                                'Authorization': 'Basic ' + btoa(warning.role.healthcareInstitution.username + ':' + warning.role.healthcareInstitution.password)
+                            }
+                        });
+                        let json = await response.json();
+                        warning.lastValue = json.value
+                        console.log(json.value + '-' + warning.lastValue)
+                        // dataArray[i] = warning;
+                        // setWarningsUpdated(warningsUpdated + 1)
+                        // if(warningsUpdated===dataArray.length)
+                        // setRefreshing(false)
+                    } catch (error) {
+                        console.log(error.response.data)
+                    }
                 }
-                setData(response.data);
+                setData(dataArray);
+                console.log("finished")
             })
             .catch(function (error) {
                 alert('S\'ha produit un error al servidor.')
@@ -84,27 +93,22 @@ function ListScreen({navigation}) {
                     }
                 >
                     <View style={[styles.viewList]}>
-                        <FlatList
-                            data={data}
-                            keyExtractor={(warning) => warning.id}
-                            contentContainerStyle={[styles.flatList]}
-                            renderItem={({item}) => {
-                                return (
-                                    <TouchableOpacity
-                                        style={[styles.cardList]}
-                                        onPress={() => changeToWarning(item)}>
-                                        <View style={[styles.insideList]}>
-                                            <Text style={[styles.warningSubheader]}>{item.name}</Text>
-                                        </View>
-                                        <View style={[styles.insideList]}>
-                                            <View style={[(savedData.checkWarningColor(item) === 0) ? styles.semaphoreGreen : (savedData.checkWarningColor(item) === 1) ? styles.semaphoreYellow : styles.semaphoreRed]}>
-                                                <Text style={[styles.noWarnings]}>{item.lastValue}</Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                );
-                            }}
-                        />
+                        {data.map((item, index) =>
+                            <TouchableOpacity
+                                style={[styles.cardList]}
+                                onPress={() => changeToWarning(item)}
+                                key={item.id}>
+                                <View style={[styles.insideList]}>
+                                    <Text style={[styles.warningSubheader]}>{item.name}</Text>
+                                </View>
+                                <View style={[styles.insideList]}>
+                                    <View
+                                        style={[(savedData.checkWarningColor(item) === 0) ? styles.semaphoreGreen : (savedData.checkWarningColor(item) === 1) ? styles.semaphoreYellow : styles.semaphoreRed]}>
+                                        <Text style={[styles.noWarnings]}>{item.lastValue}</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -119,9 +123,6 @@ function ListScreen({navigation}) {
     }
 }
 
-const caca = StyleSheet.create({
-
-
-});
+const caca = StyleSheet.create({});
 
 export default ListScreen;
