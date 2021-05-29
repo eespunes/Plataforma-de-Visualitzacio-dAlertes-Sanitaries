@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "807605831698",
+    "project_id": "tfg-inf",
+    "storage_bucket": "tfg-inf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807605831698:android:f0bce16a26a30b98f4f0cb",
+        "android_client_info": {
+          "package_name": "com.eespunes.tfg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807605831698-vukm2ech30mmvnjiopas366gb6257ev3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqzuANU7klYSPAYf2SMIvj0gM5pj89v7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807605831698-vukm2ech30mmvnjiopas366gb6257ev3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807605831698-34ugs2ari9bggelhl8hu5ebboftef7ue.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eespunes.tfg.informatica"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

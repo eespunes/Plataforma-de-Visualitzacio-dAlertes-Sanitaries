@@ -19,8 +19,9 @@ function LoginScreen({navigation}) {
 
     const login = async () => {
         setLoading(true);
+        console.log(savedData.URL + 'login/' + username + '/' + password + '/'+savedData.token)
         axios
-            .get(savedData.URL + 'login/' + username + '/' + password + '/000')
+            .get(savedData.URL + 'login/' + username + '/' + password + '/00')
             .then(function (response) {
                 // iid().get().then(function (response) {
                 //     alert('Current Instance ID: ' + response);
@@ -35,6 +36,7 @@ function LoginScreen({navigation}) {
             })
             .catch(function (error) {
                 setLoading(false);
+                console.log(error)
                 alert('S\'ha produit un error al servidor')
             })
     };

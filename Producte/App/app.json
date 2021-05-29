@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Plataforma-de-Visualitzacio-dAlertes-Sanitaries-App",
     "slug": "Plataforma-de-Visualitzacio-dAlertes-Sanitaries-App",
+    "name": "Plataforma de Visualització d'Alertes Sanitáries",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,6 +19,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.eespunes.tfg",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png"
       }

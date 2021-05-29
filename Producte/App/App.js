@@ -1,4 +1,7 @@
-import React from "react";
+// import React from "react";
+import Constants from 'expo-constants';
+import React, {useState, useEffect, useRef} from 'react';
+import {Text, View, Button, Platform} from 'react-native';
 
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
@@ -9,13 +12,43 @@ import WarningScreen from "./src/Scenes/WarningScreen";
 import ListScreen from "./src/Scenes/ListScreen";
 import ProfileScreen from "./src/Scenes/ProfileScreen";
 import AboutScreen from "./src/Scenes/AboutScreen";
-import {Platform} from "react-native";
+import * as Notifications from 'expo-notifications';
+import savedData from "./src/savedData";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+    }),
+});
 
-const App = () => {
+export default function App() {
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+    useEffect(() => {
+        registerForPushNotificationsAsync().then(token => savedData.token=token);
+
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+            setNotification(notification);
+        });
+
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            console.log(response);
+        });
+
+        return () => {
+            Notifications.removeNotificationSubscription(notificationListener.current);
+            Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, []);
+
     return (
         <NavigationContainer>
             <Stack.Navigator
@@ -38,7 +71,7 @@ const App = () => {
                                 },
                                 inactiveTintColor: 'white',
                                 activeTintColor: '#00F8FF',
-                                labelStyle: { fontWeight: 'bold' },
+                                labelStyle: {fontWeight: 'bold'},
                                 indicatorStyle: {
                                     height: '60%',
                                     backgroundColor: 'white',
@@ -54,4 +87,34 @@ const App = () => {
         </NavigationContainer>
     );
 }
-export default App;
+
+async function registerForPushNotificationsAsync() {
+    let token;
+    if (Constants.isDevice) {
+        const {status: existingStatus} = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const {status} = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+        }
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log(token);
+    } else {
+        alert('Must use physical device for Push Notifications');
+    }
+
+    if (Platform.OS === 'android') {
+        await Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+        });
+    }
+
+    return token;
+}

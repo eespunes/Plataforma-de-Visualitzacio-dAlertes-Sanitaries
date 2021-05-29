@@ -17,19 +17,16 @@ import styles from "../Style";
 function ListScreen({navigation}) {
     let [data, setData] = React.useState('')
     const [refreshing, setRefreshing] = React.useState(false);
-    const [warningsUpdated, setWarningsUpdated] = React.useState(0);
 
     const warningListData = async () => {
         axios
             .get(savedData.URL + 'warning/all/' + savedData.user.role.name + '/' + savedData.user.role.healthcareInstitution.id + '/' + savedData.user.role.healthcareInstitution.country.id)
             .then(async function (response) {
                 setData(response.data);
-                // setRefreshing(true)
-                // setWarningsUpdated(0)
+                setRefreshing(true)
                 const dataArray = Object.values(response.data);
                 for (let i = 0; i < dataArray.length; i++) {
                     const warning = dataArray[i];
-                    console.log(warning.role.healthcareInstitution.url + warning.uri)
                     try {
                         let response = await fetch(warning.role.healthcareInstitution.url + warning.uri, {
                             method: 'GET',
@@ -43,17 +40,12 @@ function ListScreen({navigation}) {
                         });
                         let json = await response.json();
                         warning.lastValue = json.value
-                        console.log(json.value + '-' + warning.lastValue)
-                        // dataArray[i] = warning;
-                        // setWarningsUpdated(warningsUpdated + 1)
-                        // if(warningsUpdated===dataArray.length)
-                        // setRefreshing(false)
                     } catch (error) {
                         console.log(error.response.data)
                     }
                 }
+                setRefreshing(false)
                 setData(dataArray);
-                console.log("finished")
             })
             .catch(function (error) {
                 alert('S\'ha produit un error al servidor.')
