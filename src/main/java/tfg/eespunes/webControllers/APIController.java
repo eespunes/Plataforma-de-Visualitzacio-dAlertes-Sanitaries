@@ -60,21 +60,20 @@ public class APIController {
 
     @GetMapping("/login/{username}/{password}/{notificationToken}")
     public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String notificationToken) {
-//        Employee employee = databaseController.getEmployee(username);
-//
-//        String[] splitted = notificationToken.split("_");
-//        if (splitted.length == 2) {
-//            notificationToken = splitted[0] + "[" + splitted[1] + "]";
-//        }
-//
-////        System.out.println(notificationToken);
-//
-//        if (!PushClient.isExponentPushToken(notificationToken)) {
-//            return null;
-//        }
-
-//        databaseController.updateNotificationToken(username, notificationToken);
         Employee employee = databaseController.getEmployee(username);
+//
+        String[] splitted = notificationToken.split("_");
+        if (splitted.length == 2) {
+            notificationToken = splitted[0] + "[" + splitted[1] + "]";
+        }
+
+        if (!employee.getNotificationToken().equals(notificationToken)) {
+            if (!PushClient.isExponentPushToken(notificationToken)) {
+                return null;
+            }
+            databaseController.updateNotificationToken(username, notificationToken);
+            employee.setNotificationToken(notificationToken);
+        }
 
         String title = "HELLO FROM SERVER!!";
         String message = "Hello " + employee.getUsername() + " with token " + employee.getNotificationToken() + "!";
@@ -91,14 +90,13 @@ public class APIController {
         try {
             client = new PushClient();
         } catch (PushClientException e) {
-            e.printStackTrace();
+            return null;
         }
-        List<List<ExpoPushMessage>> chunks = client.chunkPushNotifications(expoPushMessages);
-
-        List<CompletableFuture<List<ExpoPushTicket>>> messageRepliesFutures = new ArrayList<>();
-
-        for (List<ExpoPushMessage> chunk : chunks) {
-            client.sendPushNotificationsAsync(chunk);
+        if (client != null) {
+            List<List<ExpoPushMessage>> chunks = client.chunkPushNotifications(expoPushMessages);
+            for (List<ExpoPushMessage> chunk : chunks) {
+                client.sendPushNotificationsAsync(chunk);
+            }
         }
 
 
