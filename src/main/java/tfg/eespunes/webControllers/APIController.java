@@ -62,6 +62,12 @@ public class APIController {
     public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String notificationToken) {
 
         Employee employee = databaseController.getEmployee(username);
+
+        String[] splitted = notificationToken.split("_");
+        if (splitted.length == 2) {
+            notificationToken = splitted[0] + "[" + splitted[1] + "]";
+        }
+
         if (!PushClient.isExponentPushToken(notificationToken)) {
             if (passwordEncoder.matches(password, employee.getPassword())) {
                 return employee;
