@@ -265,6 +265,6 @@ public class DatabaseDAO {
     }
 
     public void updateNotificationToken(String username, String notificationToken) {
-        jdbcTemplate.update(UPDATE_NOTIFICATION_TOKEN, username, notificationToken);
+        jdbcTemplate.update(UPDATE_NOTIFICATION_TOKEN,notificationToken,username);
     }
 }

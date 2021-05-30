@@ -60,30 +60,27 @@ public class APIController {
 
     @GetMapping("/login/{username}/{password}/{notificationToken}")
     public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String notificationToken) {
-
-        Employee employee = databaseController.getEmployee(username);
-
-        String[] splitted = notificationToken.split("_");
-        if (splitted.length == 2) {
-            notificationToken = splitted[0] + "[" + splitted[1] + "]";
-        }
-
-        if (!PushClient.isExponentPushToken(notificationToken)) {
-            if (passwordEncoder.matches(password, employee.getPassword())) {
-                return employee;
-            } else {
-                return null;
-            }
-        }
+//        Employee employee = databaseController.getEmployee(username);
+//
+//        String[] splitted = notificationToken.split("_");
+//        if (splitted.length == 2) {
+//            notificationToken = splitted[0] + "[" + splitted[1] + "]";
+//        }
+//
+////        System.out.println(notificationToken);
+//
+//        if (!PushClient.isExponentPushToken(notificationToken)) {
+//            return null;
+//        }
 
         databaseController.updateNotificationToken(username, notificationToken);
-        employee = databaseController.getEmployee(username);
+        Employee employee = databaseController.getEmployee(username);
 
         String title = "HELLO FROM SERVER!!";
         String message = "Hello " + employee.getUsername() + " with token " + employee.getNotificationToken() + "!";
 
         ExpoPushMessage expoPushMessage = new ExpoPushMessage();
-        expoPushMessage.getTo().add(notificationToken);
+        expoPushMessage.getTo().add(employee.getNotificationToken());
         expoPushMessage.setTitle(title);
         expoPushMessage.setBody(message);
 
@@ -101,8 +98,9 @@ public class APIController {
         List<CompletableFuture<List<ExpoPushTicket>>> messageRepliesFutures = new ArrayList<>();
 
         for (List<ExpoPushMessage> chunk : chunks) {
-            messageRepliesFutures.add(client.sendPushNotificationsAsync(chunk));
+            client.sendPushNotificationsAsync(chunk);
         }
+
 
         if (passwordEncoder.matches(password, employee.getPassword())) {
             return employee;
