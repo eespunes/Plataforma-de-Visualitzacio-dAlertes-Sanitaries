@@ -1,21 +1,11 @@
 package tfg.eespunes.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 import tfg.eespunes.persistance.DatabaseController;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class WarningThread extends Thread {
+    private ThreadCommon threadCommon;
     private Warning warning;
     private DatabaseController databaseController;
     private final boolean isGreater;
@@ -28,7 +18,7 @@ public class WarningThread extends Thread {
 
     public void run() {
         while (true) {
-            float newLastValue = GetLastValueFromAPI();
+            float newLastValue = threadCommon.GetLastValueFromAPI();
             if (knowAlertColor(newLastValue) > knowAlertColor(this.warning.getLastValue())) {
 //                SendNotification(
             }
@@ -42,29 +32,6 @@ public class WarningThread extends Thread {
             }
         }
     }
-
-    private float GetLastValueFromAPI() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        String auth = this.warning.getRole().getHealthcareInstitution().getUsername() + ":" + this.warning.getRole().getHealthcareInstitution().getPassword();
-        byte[] encodedAuth = Base64.encodeBase64(
-                auth.getBytes(StandardCharsets.US_ASCII));
-        String authHeader = "Basic " + new String(encodedAuth);
-
-        httpHeaders.add(HttpHeaders.AUTHORIZATION, authHeader);
-
-        HttpEntity<String> request = new HttpEntity<String>("", httpHeaders);
-        RestTemplate restTemplate = new RestTemplate();
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(this.warning.getRole().getHealthcareInstitution().getUrl() + this.warning.getUri(), HttpMethod.GET, request, String.class);
-
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode actualObj = mapper.readTree(response.getBody());
-            return (float) actualObj.get("value").asDouble();
-        } catch (IOException e) {
-        }
-        return 0;
-    }
-
     private int knowAlertColor(float lastValue) {
         if (isGreater) {
             if (lastValue < this.warning.getGreenValue())

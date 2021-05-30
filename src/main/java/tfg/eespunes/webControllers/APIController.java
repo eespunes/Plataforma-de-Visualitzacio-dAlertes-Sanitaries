@@ -73,7 +73,7 @@ public class APIController {
 //            return null;
 //        }
 
-        databaseController.updateNotificationToken(username, notificationToken);
+//        databaseController.updateNotificationToken(username, notificationToken);
         Employee employee = databaseController.getEmployee(username);
 
         String title = "HELLO FROM SERVER!!";
