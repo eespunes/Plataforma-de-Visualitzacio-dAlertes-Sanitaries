@@ -33,14 +33,14 @@ export default function App() {
     const responseListener = useRef();
 
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => savedData.token=token);
+        registerForPushNotificationsAsync().then(token => savedData.token=token.replace("[","_").replace("]",""));
 
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             setNotification(notification);
         });
 
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log(response);
+            console.log(response.data);
         });
 
         return () => {

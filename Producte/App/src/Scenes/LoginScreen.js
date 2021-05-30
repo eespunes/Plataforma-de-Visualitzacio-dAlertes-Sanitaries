@@ -19,13 +19,9 @@ function LoginScreen({navigation}) {
 
     const login = async () => {
         setLoading(true);
-        console.log(savedData.URL + 'login/' + username + '/' + password + '/'+savedData.token)
         axios
-            .get(savedData.URL + 'login/' + username + '/' + password + '/00')
+            .get(savedData.URL + 'login/' + username + '/' + password + '/'+savedData.token)
             .then(function (response) {
-                // iid().get().then(function (response) {
-                //     alert('Current Instance ID: ' + response);
-                // })
                 setLoading(false);
                 if (response.data !== '') {
                     savedData.user = response.data
