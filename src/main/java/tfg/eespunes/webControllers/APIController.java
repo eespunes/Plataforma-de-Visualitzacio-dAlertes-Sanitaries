@@ -62,9 +62,12 @@ public class APIController {
     public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String notificationToken) {
         Employee employee = databaseController.getEmployee(username);
         String[] splitted = notificationToken.split("_");
-        if (splitted.length == 2) {
-            notificationToken = splitted[0] + "[" + splitted[1] + "]";
+
+        notificationToken = splitted[0] + "[" + splitted[1];
+        for (int i = 2; i < splitted.length; i++) {
+            notificationToken += "_" + splitted[i];
         }
+        notificationToken += "]";
 
         if (!employee.getNotificationToken().equals(notificationToken)) {
             if (!PushClient.isExponentPushToken(notificationToken)) {
@@ -96,12 +99,12 @@ public class APIController {
     public void startThreads() {
         List<Warning> warnings = databaseController.getAllWarnings();
         for (Warning warning : warnings) {
-            WarningThread thread=warningIsInThread(warning.getId());
-            if (thread==null) {
+            WarningThread thread = warningIsInThread(warning.getId());
+            if (thread == null) {
                 WarningThread newWarning = new WarningThread(warning, databaseController, notificationMonitor);
                 newWarning.start();
                 threads.add(newWarning);
-            }else{
+            } else {
                 thread.setWarning(warning);
             }
         }
