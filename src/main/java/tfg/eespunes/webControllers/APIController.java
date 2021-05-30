@@ -9,14 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tfg.eespunes.domain.Employee;
 import tfg.eespunes.domain.Warning;
-import tfg.eespunes.domain.WarningThread;
+import tfg.eespunes.domain.threads.NotificationMonitor;
+import tfg.eespunes.domain.threads.WarningThread;
 import tfg.eespunes.persistance.DatabaseController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/")
@@ -25,9 +23,11 @@ public class APIController {
     private PasswordEncoder passwordEncoder;
     private DatabaseController databaseController;
     private List<WarningThread> threads;
+    private NotificationMonitor notificationMonitor;
 
     public APIController(DatabaseController databaseController) {
         this.databaseController = databaseController;
+        notificationMonitor = new NotificationMonitor();
         threads = new ArrayList<WarningThread>();
     }
 
@@ -61,7 +61,6 @@ public class APIController {
     @GetMapping("/login/{username}/{password}/{notificationToken}")
     public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String notificationToken) {
         Employee employee = databaseController.getEmployee(username);
-//
         String[] splitted = notificationToken.split("_");
         if (splitted.length == 2) {
             notificationToken = splitted[0] + "[" + splitted[1] + "]";
@@ -75,30 +74,7 @@ public class APIController {
             employee.setNotificationToken(notificationToken);
         }
 
-        String title = "HELLO FROM SERVER!!";
-        String message = "Hello " + employee.getUsername() + " with token " + employee.getNotificationToken() + "!";
-
-        ExpoPushMessage expoPushMessage = new ExpoPushMessage();
-        expoPushMessage.getTo().add(employee.getNotificationToken());
-        expoPushMessage.setTitle(title);
-        expoPushMessage.setBody(message);
-
-        List<ExpoPushMessage> expoPushMessages = new ArrayList<>();
-        expoPushMessages.add(expoPushMessage);
-
-        PushClient client = null;
-        try {
-            client = new PushClient();
-        } catch (PushClientException e) {
-            return null;
-        }
-        if (client != null) {
-            List<List<ExpoPushMessage>> chunks = client.chunkPushNotifications(expoPushMessages);
-            for (List<ExpoPushMessage> chunk : chunks) {
-                client.sendPushNotificationsAsync(chunk);
-            }
-        }
-
+        startThreads();
 
         if (passwordEncoder.matches(password, employee.getPassword())) {
             return employee;
@@ -107,13 +83,12 @@ public class APIController {
         }
     }
 
-    @GetMapping("/logout/{registrationToken}")
-    public boolean logout(@PathVariable String registrationToken) {
+    @GetMapping("/logout/{username}/{notificationToken}")
+    public boolean logout(@PathVariable String username, @PathVariable String notificationToken) {
 
-//        List<Warning> warnings = databaseController.getAllWarnings();
-//        for (Warning warning : warnings) {
-//            FirebaseMessaging.getInstance().unsubscribeToTopic(registrationTokens, warning.getId());
-//        }
+        Employee employee = databaseController.getEmployee(username);
+        databaseController.updateNotificationToken(username, "");
+        employee.setNotificationToken(notificationToken);
 
         return true;
     }
@@ -121,38 +96,22 @@ public class APIController {
     public void startThreads() {
         List<Warning> warnings = databaseController.getAllWarnings();
         for (Warning warning : warnings) {
-            if (!warningIsInThread(warning.getId())) {
-                WarningThread newWarning = new WarningThread(warning, databaseController);
+            WarningThread thread=warningIsInThread(warning.getId());
+            if (thread==null) {
+                WarningThread newWarning = new WarningThread(warning, databaseController, notificationMonitor);
                 newWarning.start();
                 threads.add(newWarning);
+            }else{
+                thread.setWarning(warning);
             }
         }
     }
 
-    private boolean warningIsInThread(int id) {
+    private WarningThread warningIsInThread(int id) {
         for (WarningThread thread : threads) {
             if (thread.getWarning().getId() == id)
-                return true;
+                return thread;
         }
-        return false;
-    }
-
-    public void stopThreads() {
-        List<Warning> warnings = databaseController.getAllWarnings();
-
-        for (WarningThread thread : threads) {
-            if (!threadIsInWarning(thread.getWarning().getId(), warnings)) {
-                thread.stop();
-                threads.remove(thread);
-            }
-        }
-    }
-
-    private boolean threadIsInWarning(int id, List<Warning> warnings) {
-        for (Warning warning : warnings) {
-            if (warning.getId() == id)
-                return true;
-        }
-        return false;
+        return null;
     }
 }
