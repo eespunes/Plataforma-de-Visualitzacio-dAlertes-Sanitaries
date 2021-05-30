@@ -28,12 +28,13 @@ public class WarningThread extends Thread {
 
     public void run() {
         while (true) {
-//            float newLastValue = GetLastValueFromAPI();
-//            if (knowAlertColor(newLastValue) > knowAlertColor(this.warning.getLastValue())) {
-////                SendNotification(
-//            }
-//            this.warning.setLastValue(newLastValue);
-//            this.databaseController.setWarningLastValue(this.warning.getId(),newLastValue);
+            float newLastValue = GetLastValueFromAPI();
+            if (knowAlertColor(newLastValue) > knowAlertColor(this.warning.getLastValue())) {
+//                SendNotification(
+            }
+            this.warning.setLastValue(newLastValue);
+            System.out.println(warning.getName() + "-" + newLastValue);
+            this.databaseController.setWarningLastValue(this.warning.getId(), newLastValue);
 
             try {
                 Thread.sleep(this.warning.getRefreshRate() * 1000);
@@ -53,11 +54,10 @@ public class WarningThread extends Thread {
 
         HttpEntity<String> request = new HttpEntity<String>("", httpHeaders);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(this.warning.getRole().getHealthcareInstitution().getUrl() + this.warning.getUri(), HttpMethod.GET, request, String.class);
-
-
-        ObjectMapper mapper = new ObjectMapper();
         try {
+            ResponseEntity<String> response = restTemplate.exchange(this.warning.getRole().getHealthcareInstitution().getUrl() + this.warning.getUri(), HttpMethod.GET, request, String.class);
+
+            ObjectMapper mapper = new ObjectMapper();
             JsonNode actualObj = mapper.readTree(response.getBody());
             return (float) actualObj.get("value").asDouble();
         } catch (IOException e) {

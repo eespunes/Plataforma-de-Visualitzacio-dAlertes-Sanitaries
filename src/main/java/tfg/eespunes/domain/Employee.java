@@ -25,13 +25,15 @@ public class Employee {
     private Role role;
     private String tempRoleName;
     private String nameError = "";
+    private String notificationToken;
 
-    public Employee(String username, String password, String name, String surname, Role role) {
+    public Employee(String username, String password, String name, String surname, Role role, String notificationToken) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.role = role;
+        this.notificationToken = notificationToken;
     }
 
     public Employee() {
@@ -92,5 +94,13 @@ public class Employee {
 
     public void setNameError(String nameError) {
         this.nameError = nameError;
+    }
+
+    public String getNotificationToken() {
+        return notificationToken;
+    }
+
+    public void setNotificationToken(String notificationToken) {
+        this.notificationToken = notificationToken;
     }
 }

@@ -15,7 +15,7 @@ public class DatabaseDAO {
 
     private final String INSERT_HEALTHCARE_INSTITUTION = "INSERT INTO HealthcareInstitutions VALUES (?,?,?,?,?,?);";
     private final String INSERT_ROLE = "INSERT INTO Roles VALUES (?,?,?,?);";
-    private final String INSERT_EMPLOYEE = "INSERT INTO Employees VALUES (?,?,?,?,?,?,?);";
+    private final String INSERT_EMPLOYEE = "INSERT INTO Employees VALUES (?,?,?,?,?,?,?,?);";
     private final String INSERT_WARNING = "INSERT INTO Warnings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
     private final String FIND_ALL_COUNTRIES = "SELECT * FROM Countries";
@@ -54,6 +54,7 @@ public class DatabaseDAO {
     private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
     private final String UPDATE_PASSWORD = "UPDATE Employees SET emp_password=? WHERE emp_username=?";
     private final String UPDATE_WARNING_LAST_VALUE = "UPDATE Warnings SET war_lastvalue=? WHERE war_id=?";
+    private final String UPDATE_NOTIFICATION_TOKEN = "UPDATE Employees SET emp_notificationToken=? WHERE emp_username=?";
 
 
     private final JdbcTemplate jdbcTemplate;
@@ -98,7 +99,8 @@ public class DatabaseDAO {
                 resultSet.getString("emp_password"),
                 resultSet.getString("emp_name"),
                 resultSet.getString("emp_surname"),
-                findRole(resultSet.getString("emp_rolename"), resultSet.getInt("emp_roleinstitutionid"), resultSet.getString("emp_rolecountryid"))
+                findRole(resultSet.getString("emp_rolename"), resultSet.getInt("emp_roleinstitutionid"), resultSet.getString("emp_rolecountryid")),
+                resultSet.getString("emp_notificationToken")
         );
         return employee;
     };
@@ -128,7 +130,7 @@ public class DatabaseDAO {
         jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountry().getId(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
         Role role = new Role("WEB-ADMIN", "The web administrator of this healthcare institution", healthcareInstitution);
         insertRole(role);
-        insertEmployee(new Employee("ADMIN-" + id + "-" + healthcareInstitution.getCountry().getId(), passwordEncoder.encode("admin"), "admin", "admin", role));
+        insertEmployee(new Employee("ADMIN-" + id + "-" + healthcareInstitution.getCountry().getId(), passwordEncoder.encode("admin"), "admin", "admin", role, ""));
 
         return id;
     }
@@ -138,7 +140,7 @@ public class DatabaseDAO {
     }
 
     public void insertEmployee(Employee employee) {
-        jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRole().getName(), employee.getRole().getHealthcareInstitution().getId(), employee.getRole().getHealthcareInstitution().getCountry().getId());
+        jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRole().getName(), employee.getRole().getHealthcareInstitution().getId(), employee.getRole().getHealthcareInstitution().getCountry().getId(), "");
     }
 
     private int getHealthcareInstitutionCountByCountry(String countryID) {
@@ -260,5 +262,9 @@ public class DatabaseDAO {
     public void updateWarningLastValue(int id, float value) {
         jdbcTemplate.update(UPDATE_WARNING_LAST_VALUE, value, id);
 
+    }
+
+    public void updateNotificationToken(String username, String notificationToken) {
+        jdbcTemplate.update(UPDATE_NOTIFICATION_TOKEN, username, notificationToken);
     }
 }

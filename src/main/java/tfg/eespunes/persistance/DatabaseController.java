@@ -127,6 +127,10 @@ public class DatabaseController {
     }
 
     public void setWarningLastValue(int id, float value) {
-        databaseDAO.updateWarningLastValue(id,value);
+        databaseDAO.updateWarningLastValue(id, value);
+    }
+
+    public void updateNotificationToken(String username, String notificationToken) {
+        databaseDAO.updateNotificationToken(username, notificationToken);
     }
 }

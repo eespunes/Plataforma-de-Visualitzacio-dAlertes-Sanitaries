@@ -82,6 +82,11 @@ https://mvnrepository.com/artifact/org.openweathermap.java-api/api-common ">
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.jav</groupId>
+            <artifactId>expo-server-sdk</artifactId>
+            <version>1.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

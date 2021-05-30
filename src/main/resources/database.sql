@@ -22,7 +22,7 @@ CREATE TABLE HealthcareInstitutions
     ins_name      VARCHAR(64)  NOT NULL,
     ins_URL       VARCHAR(256) NOT NULL,
     ins_username  VARCHAR(32)  NOT NULL,
-    ins_password  VARCHAR(128)  NOT NULL,
+    ins_password  VARCHAR(128) NOT NULL,
     PRIMARY KEY (ins_id, ins_countryID),
     FOREIGN KEY (ins_countryID) REFERENCES Countries (cou_id)
 );
@@ -39,14 +39,15 @@ CREATE TABLE Roles
 DROP TABLE IF EXISTS Employees CASCADE;
 CREATE TABLE Employees
 (
-    emp_username          VARCHAR(64) NOT NULL,
+    emp_username          VARCHAR(64)  NOT NULL,
     emp_password          VARCHAR(128) NOT NULL,
-    emp_name              VARCHAR(32) NOT NULL,
-    emp_surname           VARCHAR(64) NOT NULL,
-    emp_roleName          VARCHAR(16) NOT NULL,
-    emp_roleInstitutionID INTEGER NOT NULL,
-    emp_roleCountryID     VARCHAR(3) NOT NULL,
-    emp_enabled           BIT         NOT NULL DEFAULT B'1',
+    emp_name              VARCHAR(32)  NOT NULL,
+    emp_surname           VARCHAR(64)  NOT NULL,
+    emp_roleName          VARCHAR(16)  NOT NULL,
+    emp_roleInstitutionID INTEGER      NOT NULL,
+    emp_roleCountryID     VARCHAR(3)   NOT NULL,
+    emp_notificationToken VARCHAR(64),
+    emp_enabled           BIT          NOT NULL DEFAULT B'1',
     PRIMARY KEY (emp_username),
     FOREIGN KEY (emp_roleName, emp_roleInstitutionID, emp_roleCountryID) REFERENCES Roles (rol_name, rol_institutionID, rol_countryID)
 );
@@ -54,7 +55,7 @@ DROP TABLE IF EXISTS Warnings CASCADE;
 CREATE TABLE Warnings
 (
     war_id                  SERIAL UNIQUE,
-    war_name                VARCHAR(128)  NOT NULL,
+    war_name                VARCHAR(128) NOT NULL,
     war_shortName           VARCHAR(64)  NOT NULL,
     war_description         VARCHAR(512) NOT NULL,
     war_URI                 VARCHAR(256) NOT NULL,
@@ -63,10 +64,10 @@ CREATE TABLE Warnings
     war_yellowValue         FLOAT        NOT NULL,
     war_redValue            FLOAT        NOT NULL,
     war_lastValue           FLOAT        NOT NULL,
-    war_refreshRate         INTEGER        NOT NULL,
-    war_roleName            VARCHAR(16) NOT NULL,
-    war_roleInstitutionID   INTEGER NOT NULL,
-    war_roleCountryID       VARCHAR(3) NOT NULL,
+    war_refreshRate         INTEGER      NOT NULL,
+    war_roleName            VARCHAR(16)  NOT NULL,
+    war_roleInstitutionID   INTEGER      NOT NULL,
+    war_roleCountryID       VARCHAR(3)   NOT NULL,
     PRIMARY KEY (war_id),
     FOREIGN KEY (war_roleName, war_roleInstitutionID, war_roleCountryID) REFERENCES Roles (rol_name, rol_institutionID, rol_countryID)
 );
@@ -590,6 +591,9 @@ VALUES ('ZMB', 'Republic of Zambia', 'AF');
 INSERT INTO Countries
 VALUES ('ZWE', 'Republic of Zimbabwe', 'AF');
 
-INSERT INTO HealthcareInstitutions VALUES (0,'ESP','Website Control','-','-','-');
-INSERT INTO Roles VALUES ('WEB-ADMIN',0,'ESP','');
-INSERT INTO Employees VALUES ('admin','$2a$10$HrUzY9CGnmeUQoQn6X9VBuuqCs6sqe/eIdPFxZFaK9XEzvs.qXFfW','admin','god','WEB-ADMIN',0,'ESP');
+INSERT INTO HealthcareInstitutions
+VALUES (0, 'ESP', 'Website Control', '-', '-', '-');
+INSERT INTO Roles
+VALUES ('WEB-ADMIN', 0, 'ESP', '');
+INSERT INTO Employees
+VALUES ('admin', '$2a$10$HrUzY9CGnmeUQoQn6X9VBuuqCs6sqe/eIdPFxZFaK9XEzvs.qXFfW', 'admin', 'god', 'WEB-ADMIN', 0, 'ESP');

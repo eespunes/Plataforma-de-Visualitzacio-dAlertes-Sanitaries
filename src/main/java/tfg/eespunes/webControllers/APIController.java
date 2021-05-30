@@ -1,5 +1,6 @@
 package tfg.eespunes.webControllers;
 
+import io.github.jav.exposerversdk.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,9 @@ import tfg.eespunes.persistance.DatabaseController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/")
@@ -54,19 +58,45 @@ public class APIController {
         return databaseController.changePassword(username, newPassword);
     }
 
-    @GetMapping("/login/{username}/{password}/{registrationToken}")
-    public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String registrationToken) {
+    @GetMapping("/login/{username}/{password}/{notificationToken}")
+    public Employee login(@PathVariable String username, @PathVariable String password, @PathVariable String notificationToken) {
+
         Employee employee = databaseController.getEmployee(username);
-        startThreads();
-        stopThreads();
-//        List<Warning> warnings = databaseController.getAllWarnings();
-//        for (Warning warning : warnings) {
-//            FirebaseMessaging.getInstance().unsubscribeToTopic(registrationTokens, warning.getId());
-//        }
-//        warnings = databaseController.getAllWarningsOfRole(employee.getRole().getName(), employee.getRole().getHealthInstitutionID(), employee.getRole().getCountryId());
-//        for (Warning warning : warnings) {
-//            FirebaseMessaging.getInstance().subscribeToTopic(registrationTokens, warning.getId());
-//        }
+        if (!PushClient.isExponentPushToken(notificationToken)) {
+            if (passwordEncoder.matches(password, employee.getPassword())) {
+                return employee;
+            } else {
+                return null;
+            }
+        }
+
+        databaseController.updateNotificationToken(username, notificationToken);
+        employee = databaseController.getEmployee(username);
+
+        String title = "HELLO FROM SERVER!!";
+        String message = "Hello " + employee.getUsername() + " with token " + employee.getNotificationToken() + "!";
+
+        ExpoPushMessage expoPushMessage = new ExpoPushMessage();
+        expoPushMessage.getTo().add(notificationToken);
+        expoPushMessage.setTitle(title);
+        expoPushMessage.setBody(message);
+
+        List<ExpoPushMessage> expoPushMessages = new ArrayList<>();
+        expoPushMessages.add(expoPushMessage);
+
+        PushClient client = null;
+        try {
+            client = new PushClient();
+        } catch (PushClientException e) {
+            e.printStackTrace();
+        }
+        List<List<ExpoPushMessage>> chunks = client.chunkPushNotifications(expoPushMessages);
+
+        List<CompletableFuture<List<ExpoPushTicket>>> messageRepliesFutures = new ArrayList<>();
+
+        for (List<ExpoPushMessage> chunk : chunks) {
+            messageRepliesFutures.add(client.sendPushNotificationsAsync(chunk));
+        }
 
         if (passwordEncoder.matches(password, employee.getPassword())) {
             return employee;
@@ -109,7 +139,7 @@ public class APIController {
         List<Warning> warnings = databaseController.getAllWarnings();
 
         for (WarningThread thread : threads) {
-            if (!threadIsInWarning(thread.getWarning().getId(),warnings)) {
+            if (!threadIsInWarning(thread.getWarning().getId(), warnings)) {
                 thread.stop();
                 threads.remove(thread);
             }
