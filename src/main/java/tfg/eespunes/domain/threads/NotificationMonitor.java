@@ -24,9 +24,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class NotificationMonitor {
 
-    private final int GREEN = 0;
-    private final int YELLOW = 1;
-    private final int RED = 2;
+    public final int GREEN = 0;
+    public final int YELLOW = 1;
+    public final int RED = 2;
 
     private Lock lock = new ReentrantLock();
     ObjectMapper oMapper = new ObjectMapper();
@@ -93,17 +93,5 @@ public class NotificationMonitor {
         for (List<ExpoPushMessage> chunk : chunks) {
             client.sendPushNotificationsAsync(chunk);
         }
-    }
-
-    public int getGREEN() {
-        return GREEN;
-    }
-
-    public int getYELLOW() {
-        return YELLOW;
-    }
-
-    public int getRED() {
-        return RED;
     }
 }
