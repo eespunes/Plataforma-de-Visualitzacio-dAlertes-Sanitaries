@@ -89,9 +89,7 @@ public class APIController {
     @GetMapping("/logout/{username}/{notificationToken}")
     public boolean logout(@PathVariable String username, @PathVariable String notificationToken) {
 
-        Employee employee = databaseController.getEmployee(username);
         databaseController.updateNotificationToken(username, "");
-        employee.setNotificationToken(notificationToken);
 
         return true;
     }
