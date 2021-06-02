@@ -73,7 +73,7 @@ public class NotificationMonitor {
                 title = "ALERTA VERMELLA!";
                 break;
         }
-
+        title += " (" + warning.getLastValue() + ")";
         String message = warning.getNotificationMessage();
 
         List<ExpoPushMessage> notificationMessages = new ArrayList<>();

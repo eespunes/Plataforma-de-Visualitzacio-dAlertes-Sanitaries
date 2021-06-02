@@ -18,9 +18,11 @@
             <table class="shw-table">
                 <tr>
                     <td>
+                        <p align="center">Nom</p>
                         <h2 align="center" th:text="${role.name}" th:id="${role.name}">Nom</h2>
                     </td>
                     <td>
+                        <p align="center">Institució mèdica</p>
                         <h2 align="center" th:text="${role.healthcareInstitution.name}"
                             th:id="${role.healthcareInstitution.name}">Institució
                             mèdica</h2>
@@ -28,6 +30,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
+                        <p align="center">Descripció</p>
                         <h2 align="center" th:text="${role.description}" th:id="${role.description}">Descripció</h2>
                     </td>
                 </tr>

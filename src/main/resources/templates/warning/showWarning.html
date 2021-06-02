@@ -21,39 +21,48 @@
     <table class="shw-table">
         <tr>
             <td colspan="2">
+                <p align="center">Nom</p>
                 <h2 align="center" th:text="${warning.name}" th:id="${warning.name}">NAME</h2>
             </td>
             <td colspan="2">
+                <p align="center">Nom Curt</p>
                 <h2 align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</h2>
             </td>
         </tr>
         <tr>
             <td colspan="2">
+                <p align="center">Rol</p>
                 <h2 align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</h2>
             </td>
             <td colspan="2">
+                <p align="center">URI</p>
                 <h2 align="center" th:text="${warning.uri}" th:id="${warning.uri}">URI</h2>
             </td>
         </tr>
         <tr>
             <td>
+                <p align="center">Actualització</p>
                 <h2 align="center" th:text="${warning.refreshRate}" th:id="${warning.refreshRate}">Actualització</h2>
             </td>
             <td style="background-image: linear-gradient(to top, rgba(0, 255, 0, 1), rgba(32, 168, 182, 1));">
+                <p align="center">Alerta Verda</p>
                 <h2 align="center" th:text="${warning.greenValue}" th:id="${warning.greenValue}">Valor
                     Verd</h2>
             </td>
             <td style="background-image: linear-gradient(to top, rgba(255, 255, 0, 1), rgba(0, 248, 255, 1));">
+                <p align="center">Alerta Groga</p>
                 <h2 align="center" th:text="${warning.yellowValue}" th:id="${warning.yellowValue}">Valor
                     Groc</h2>
             </td>
             <td style="background-image: linear-gradient(to top, rgba(255, 0, 0, 1), rgba(0, 248, 255, 1));">
+                <p align="center">Alerta Vermella</p>
                 <h2 align="center" th:text="${warning.redValue}" th:id="${warning.redValue}">Valor
                     Vermell</h2>
             </td>
         </tr>
         <tr>
             <td colspan="4">
+                <p align="center">Descripció</p>
                 <h2 align="center" th:text="${warning.description}" th:id="${warning.description}">Descripció</h2>
             </td>
         </tr>
