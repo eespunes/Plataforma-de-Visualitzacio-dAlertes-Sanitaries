@@ -25,6 +25,7 @@ function LoginScreen({navigation}) {
                 setLoading(false);
                 if (response.data !== '') {
                     savedData.user = response.data
+                    savedData.loggedIn=true
                     navigation.navigate("List")
                 } else {
                     alert('El nom d\'usuari o la contrasenya no són correctes.')

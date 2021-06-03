@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     safeAreaFullscreen: {
         paddingTop: '7.5%',
         flex: 1,
-        justifyContent: "center",
+        // justifyContent: "center",
         alignItems: "center"
     },
     // CARDS
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     fullscreenCard: {
         width: '95%',
-        height: '95%',
+        height: '90%',
         textAlign: 'center',
         alignItems: 'center',
         backgroundColor: '#00F8FF',
@@ -155,17 +155,24 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     aboutSubheader: {
-        fontSize: 40,
+        fontSize: 50,
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center'
     },
     aboutText: {
         width: '95%',
-        fontSize: 25,
+        fontSize: 30,
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center'
+    },
+    returnButtonText: {
+        color: 'white',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: '.5%',
     },
     // INPUTS
     input: {
@@ -213,6 +220,12 @@ const styles = StyleSheet.create({
         width: '95%',
         alignSelf: 'center',
         marginBottom: '2.5%'
+    },
+    returnButton: {
+        backgroundColor: '#00F8FF',
+        borderRadius: 10,
+        alignSelf: 'flex-start',
+        margin: '2.5%'
     },
     loginButton: {
         width: '95%',
@@ -270,9 +283,10 @@ const styles = StyleSheet.create({
     // EXTRA
     image: {
         width: '95%',
-        resizeMode: "contain",
+        height: '15%',
+        resizeMode: 'contain',
         alignSelf: 'center',
-        backgroundColor: 'white',
+        justifyContent:'center',
     },
     separator: {
         marginVertical: 8,

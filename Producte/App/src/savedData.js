@@ -3,6 +3,7 @@ export default class savedData {
     static warning;
     static URL = "https://tfg-informatica.herokuapp.com/api/";
     static token;
+    static loggedIn;
 
     static checkWarningColor = function (warning) {
         if (warning.greenValue < warning.yellowValue) {
@@ -22,5 +23,12 @@ export default class savedData {
                 return 2;
             }
         }
+    }
+
+    static return(navigation, profile) {
+        if (this.loggedIn)
+            navigation.navigate(profile)
+        else
+            navigation.navigate('Login')
     }
 }

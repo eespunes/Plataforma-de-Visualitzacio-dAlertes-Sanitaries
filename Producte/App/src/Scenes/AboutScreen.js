@@ -3,13 +3,19 @@ import {
     Text,
     SafeAreaView,
     View,
-    Image
+    Image, TouchableOpacity
 } from "react-native";
 import styles from "../Style";
+import savedData from "../savedData";
 
-function AboutScreen() {
+function AboutScreen({navigation}) {
     return (
         <SafeAreaView style={[styles.safeAreaFullscreen]}>
+            <TouchableOpacity
+                style={[styles.returnButton]}
+                onPress={() => savedData.return(navigation,'Profile')}>
+                <Text style={[styles.returnButtonText]}>TORNAR</Text>
+            </TouchableOpacity>
             <View style={[styles.fullscreenCard]}>
                 <Text style={[styles.aboutSubheader]}>TREBALL DE FINAL DE GRAU</Text>
                 <View style={styles.separator}/>

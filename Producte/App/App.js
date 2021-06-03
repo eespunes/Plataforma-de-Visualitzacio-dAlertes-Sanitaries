@@ -1,9 +1,8 @@
 // import React from "react";
 import Constants from 'expo-constants';
 import React, {useState, useEffect, useRef} from 'react';
-import {Text, View, Button, Platform} from 'react-native';
-
-import {NavigationContainer} from "@react-navigation/native";
+import {Platform, BackHandler} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from "@react-navigation/stack";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 
@@ -15,32 +14,34 @@ import AboutScreen from "./src/Scenes/AboutScreen";
 import * as Notifications from 'expo-notifications';
 import savedData from "./src/savedData";
 
+import {NavigationActions} from 'react-navigation';
+
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,
-        shouldPlaySound: false,
+        shouldPlaySound: true,
         shouldSetBadge: false,
     }),
 });
 
 export default function App() {
-    const [expoPushToken, setExpoPushToken] = useState('');
     const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
     const responseListener = useRef();
 
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => savedData.token=token.replace("[","_").replace("]",""));
+        registerForPushNotificationsAsync().then(token => savedData.token = token.replace("[", "_").replace("]", ""));
 
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             setNotification(notification);
         });
 
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log(response.data);
+            savedData.warning = response.notification.request.content.data;
+            NavigationActions.navigate({routeName: 'Warning'})
         });
 
         return () => {
@@ -48,6 +49,17 @@ export default function App() {
             Notifications.removeNotificationSubscription(responseListener.current);
         };
     }, []);
+
+    useEffect(() => {
+        const backAction = () => {
+            return true;
+        };
+
+        BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+    });
 
     return (
         <NavigationContainer>
@@ -71,7 +83,7 @@ export default function App() {
                                 },
                                 inactiveTintColor: 'white',
                                 activeTintColor: '#00F8FF',
-                                labelStyle: {fontWeight: 'bold'},
+                                labelStyle: {fontWeight: 'bold', fontSize: 25},
                                 indicatorStyle: {
                                     height: '60%',
                                     backgroundColor: 'white',
@@ -102,7 +114,6 @@ async function registerForPushNotificationsAsync() {
             return;
         }
         token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log(token);
     } else {
         alert('Must use physical device for Push Notifications');
     }

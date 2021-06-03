@@ -18,18 +18,19 @@ function ProfileScreen({navigation}) {
 
     const logout = async () => {
         axios
-            .get(savedData.URL + 'logout/000')
+            .get(savedData.URL + 'logout/'+savedData.user.username+'/'+savedData.token)
             .then(function (response) {
                 console.log(response.data)
                 if (response.data !== '') {
                     alert('Sessió tancada')
+                    savedData.user = null
+                    savedData.loggedIn=false
                     navigation.navigate("Login")
                 } else {
                     alert('No s\'ha pogut tancar la sessió')
                 }
             })
             .catch(function (error) {
-                alert(error.message)
                 alert('S\'ha produit un error al servidor.')
             })
     };
