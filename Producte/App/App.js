@@ -1,4 +1,3 @@
-// import React from "react";
 import Constants from 'expo-constants';
 import React, {useState, useEffect, useRef} from 'react';
 import {Platform, BackHandler} from 'react-native';
@@ -13,8 +12,6 @@ import ProfileScreen from "./src/Scenes/ProfileScreen";
 import AboutScreen from "./src/Scenes/AboutScreen";
 import * as Notifications from 'expo-notifications';
 import savedData from "./src/savedData";
-
-import {NavigationActions} from 'react-navigation';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -39,14 +36,8 @@ export default function App() {
             setNotification(notification);
         });
 
-        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            savedData.warning = response.notification.request.content.data;
-            NavigationActions.navigate({routeName: 'Warning'})
-        });
-
         return () => {
             Notifications.removeNotificationSubscription(notificationListener.current);
-            Notifications.removeNotificationSubscription(responseListener.current);
         };
     }, []);
 

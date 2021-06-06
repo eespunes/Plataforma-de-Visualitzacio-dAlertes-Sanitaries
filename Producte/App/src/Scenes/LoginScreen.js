@@ -1,42 +1,54 @@
-import React from "react";
+import React, {useEffect, useRef} from "react"
 import {
     Text,
     SafeAreaView,
     View,
     TextInput,
     TouchableOpacity
-} from "react-native";
-import axios from "axios";
-import savedData from "../savedData";
-import Spinner from 'react-native-loading-spinner-overlay';
-import styles from "../Style";
+} from "react-native"
+import axios from "axios"
+import savedData from "../savedData"
+import Spinner from 'react-native-loading-spinner-overlay'
+import styles from "../Style"
+import * as Notifications from "expo-notifications";
 
 function LoginScreen({navigation}) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loading, setLoading] = React.useState(false);
+    const responseListener = useRef();
 
+    useEffect(() => {
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            savedData.warning = response.notification.request.content.data;
+            navigation.navigate('Warning')
+        });
+
+        return () => {
+            Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, []);
 
     const login = async () => {
         setLoading(true);
         axios
-            .get(savedData.URL + 'login/' + username + '/' + password + '/'+savedData.token)
+            .get(savedData.URL + 'login/' + username + '/' + password + '/' + savedData.token)
             .then(function (response) {
                 setLoading(false);
                 if (response.data !== '') {
                     savedData.user = response.data
-                    savedData.loggedIn=true
+                    savedData.loggedIn = true
                     navigation.navigate("List")
                 } else {
                     alert('El nom d\'usuari o la contrasenya no són correctes.')
                 }
             })
             .catch(function (error) {
-                setLoading(false);
+                setLoading(false)
                 console.log(error)
                 alert('S\'ha produit un error al servidor')
             })
-    };
+    }
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -73,7 +85,7 @@ function LoginScreen({navigation}) {
                 <Text style={[styles.subheader]}>Inicia Sessió</Text>
             </TouchableOpacity>
         </SafeAreaView>
-    );
-};
+    )
+}
 
-export default LoginScreen;
+export default LoginScreen

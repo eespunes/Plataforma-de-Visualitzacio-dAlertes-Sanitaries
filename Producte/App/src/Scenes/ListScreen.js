@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react"
 import {
     Text,
     View,
@@ -8,25 +8,37 @@ import {
     StyleSheet,
     ScrollView,
     RefreshControl
-} from "react-native";
-import axios from 'axios';
+} from "react-native"
+import axios from 'axios'
 import {encode as btoa} from 'base-64'
-import savedData from "../savedData";
-import styles from "../Style";
+import savedData from "../savedData"
+import styles from "../Style"
 
 function ListScreen({navigation}) {
     let [data, setData] = React.useState('')
-    const [refreshing, setRefreshing] = React.useState(false);
+    const [refreshing, setRefreshing] = React.useState(false)
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            onRefresh()
+        })
+        return unsubscribe
+    }, [])
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true)
+        warningListData().then(() => setRefreshing(false))
+    }, [])
 
     const warningListData = async () => {
         axios
             .get(savedData.URL + 'warning/all/' + savedData.user.role.name + '/' + savedData.user.role.healthcareInstitution.id + '/' + savedData.user.role.healthcareInstitution.country.id)
             .then(async function (response) {
-                setData(response.data);
+                setData(response.data)
                 setRefreshing(true)
-                const dataArray = Object.values(response.data);
+                const dataArray = Object.values(response.data)
                 for (let i = 0; i < dataArray.length; i++) {
-                    const warning = dataArray[i];
+                    const warning = dataArray[i]
                     try {
                         let response = await fetch(warning.role.healthcareInstitution.url + warning.uri, {
                             method: 'GET',
@@ -37,38 +49,25 @@ function ListScreen({navigation}) {
                                 'Connection': 'keep-alive',
                                 'Authorization': 'Basic ' + btoa(warning.role.healthcareInstitution.username + ':' + warning.role.healthcareInstitution.password)
                             }
-                        });
-                        let json = await response.json();
+                        })
+                        let json = await response.json()
                         warning.lastValue = json.value
                     } catch (error) {
                         console.log(error.response.data)
                     }
                 }
                 setRefreshing(false)
-                setData(dataArray);
+                setData(dataArray)
             })
             .catch(function (error) {
                 alert('S\'ha produit un error al servidor.')
             })
-    };
-
-    React.useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            onRefresh();
-        });
-        return unsubscribe;
-    }, [])
-
-    function changeToWarning(item) {
-        savedData.warning = item;
-        navigation.navigate("Warning")
     }
 
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true)
-        warningListData().then(() => setRefreshing(false))
-    }, []);
-
+    function changeToWarning(item) {
+        savedData.warning = item
+        navigation.navigate("Warning")
+    }
 
     if (data.length !== 0) {
         return (
@@ -104,17 +103,15 @@ function ListScreen({navigation}) {
                     </View>
                 </ScrollView>
             </SafeAreaView>
-        );
+        )
     } else {
         return (
             <SafeAreaView>
                 <Text style={styles.header}>LLISTA D'ALERTES</Text>
                 <Text style={styles.noWarnings}>No s'ha trobat cap alerta!</Text>
             </SafeAreaView>
-        );
+        )
     }
 }
 
-const caca = StyleSheet.create({});
-
-export default ListScreen;
+export default ListScreen

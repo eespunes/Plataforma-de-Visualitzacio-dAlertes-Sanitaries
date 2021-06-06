@@ -7,14 +7,14 @@ import {
     TouchableOpacity,
     Modal,
     TextInput
-} from 'react-native';
-import savedData from "../savedData";
-import axios from "axios";
-import styles from "../Style";
+} from 'react-native'
+import savedData from "../savedData"
+import axios from "axios"
+import styles from "../Style"
 
 function ProfileScreen({navigation}) {
     let [password, setPassword] = React.useState('')
-    const [modalVisible, setModalVisible] = React.useState(false);
+    const [modalVisible, setModalVisible] = React.useState(false)
 
     const logout = async () => {
         axios
@@ -33,7 +33,7 @@ function ProfileScreen({navigation}) {
             .catch(function (error) {
                 alert('S\'ha produit un error al servidor.')
             })
-    };
+    }
     const changePassword = async () => {
         if (password.length >= 3)
             axios
@@ -50,7 +50,7 @@ function ProfileScreen({navigation}) {
         else
             alert('La nova contrasenya ha de tenir entre 3 i 32 caracters')
         setModalVisible(false)
-    };
+    }
     return (
         <SafeAreaView style={[styles.safeAreaTab]}>
             <Modal
@@ -58,7 +58,7 @@ function ProfileScreen({navigation}) {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                    setModalVisible(false);
+                    setModalVisible(false)
                 }}
             >
                 <View style={styles.changePassword}>
@@ -115,6 +115,6 @@ function ProfileScreen({navigation}) {
                 <Text style={[styles.aboutButtonText]}>Sobre l'aplicació</Text>
             </TouchableOpacity>
         </SafeAreaView>
-    );
+    )
 }
-export default ProfileScreen;
+export default ProfileScreen
