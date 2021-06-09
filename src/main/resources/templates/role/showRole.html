@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ROL</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
+    <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/list :: listStyle"></style>
+    <style th:replace="fragment/show :: showStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<div class="main">
+    <table class="shw-main">
+        <td>
+            <table class="shw-table">
+                <tr>
+                    <td>
+                        <p align="center">Nom</p>
+                        <h2 align="center" th:text="${role.name}" th:id="${role.name}">Nom</h2>
+                    </td>
+                    <td>
+                        <p align="center">Institució mèdica</p>
+                        <h2 align="center" th:text="${role.healthcareInstitution.name}"
+                            th:id="${role.healthcareInstitution.name}">Institució
+                            mèdica</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="center">Descripció</p>
+                        <h2 align="center" th:text="${role.description}" th:id="${role.description}">Descripció</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a class="shw-edit"
+                           th:href="@{'/role/edit/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}">EDITAR</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a class="shw-delete"
+                           th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}"
+                           onclick="return confirm('Estas segur que vols eliminar aquest rol?\n(També s\'eliminaran les alertes i empleats associats a aquest rol)')">ELIMINAR</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table class="lst-table" id="table">
+                <tr>
+                    <h1 CLASS="shw-tableHeader" align="center" th:text="'ALERTES DE '+${role.name}">ALERTES DE
+                        {NOM}</h1>
+                </tr>
+
+                <tr>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            ID
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            NOM CURT
+                        </h2>
+                    </th>
+                </tr>
+                <tr
+                        class="trClickable"
+                        th:each="warning : ${warnings}"
+                        th:onclick="'javascript:rowClicked(\'/warning/' + ${warning.id}+'\');'">
+                    <td>
+                        <p align="center" th:text="${warning.id}" th:id="${warning.id}">ID</p>
+                    </td>
+                    <td>
+                        <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA PER AQUEST ROL.</p>
+                    </td>
+                </tr>
+            </table>
+            <p></p>
+            <table class="lst-table" id="table2">
+                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'EMPLEATS DE '+${role.name}">EMPLEATS DE
+                    {NOM}</h1></tr>
+                <tr>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            NOM
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            COGNOMS
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            USUARI
+                        </h2>
+
+                    </th>
+                </tr>
+                <tr class="trClickable"
+                    th:each="employee : ${employees}"
+                    th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
+                    <td>
+                        <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>
+                    </td>
+                    <td>
+                        <p align="center" th:text="${employee.surname}" th:id="${employee.surname}">Cognoms</p>
+                    </td>
+                    <td>
+                        <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT PER AQUEST ROL.</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </table>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
+</body>
+</html>

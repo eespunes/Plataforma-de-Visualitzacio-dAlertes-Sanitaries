@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>INSTITUCIÓ MÈDICA</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
+    <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/list :: listStyle"></style>
+    <style th:replace="fragment/show :: showStyle"></style>
+
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<div class="main">
+    <table class="shw-main">
+        <td>
+            <table class="shw-table">
+                <tr>
+                    <td>
+                        <p align="center">Nom</p>
+                        <h2 align="center" th:text="${healthcareInstitution.name}"
+                            th:id="${healthcareInstitution.name}">
+                            Nom</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p align="center">URL</p>
+                        <h2 align="center" th:text="${healthcareInstitution.url}" th:id="${healthcareInstitution.url}">
+                            URL</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p align="center">Nom d'usuari</p>
+                        <h2 align="center" th:text="${healthcareInstitution.username}"
+                            th:id="${healthcareInstitution.username}">
+                            Nom
+                            d'Usuari</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p align="center">País</p>
+                        <h2 align="center" th:text="${healthcareInstitution.country.name}"
+                            th:id="${healthcareInstitution.country.id}">
+                            País</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="shw-edit"
+                           th:href="@{'/institution/edit/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}">EDITAR</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="shw-delete"
+                           th:href="@{'/institution/delete/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}"
+                           onclick="return confirm('Estas segur que vols eliminar aquesta institució mèdica?\n(També s\'eliminaran els rols, alertes i empleats associats a aquesta institució mèdica)')">ELIMINAR</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table class="lst-table" id="table">
+                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'ROLS DE '+${healthcareInstitution.name}">ROLS
+                    DE {NOM}</h1></tr>
+                <tr>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            NOM
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            INSTITUCIÓ MÈDICA
+                        </h2>
+                    </th>
+                    <th class="lst-th">
+                        <h2 align="center">
+                            PAÍS
+                        </h2>
+
+                    </th>
+                </tr>
+                <tr
+                        class="trClickable"
+                        th:each="role : ${roles}"
+                        th:onclick="'javascript:rowClicked(\'/role/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}+'\');'">
+                    <td>
+                        <p align="center" th:text="${role.name}" th:id="${role.name}">Nom</p>
+                    </td>
+                    <td>
+                        <p align="center" th:text="${role.healthcareInstitution.name}"
+                           th:id="${role.healthcareInstitution.id}">
+                            Institució Mèdica</p>
+                    </td>
+                    <td>
+                        <p align="center" th:text="${role.healthcareInstitution.country.name}"
+                           th:id="${role.healthcareInstitution.country.id}">País</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </table>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
+</body>
+</html>
