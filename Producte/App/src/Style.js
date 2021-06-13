@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     viewList: {
+        backgroundColor: '#ffffff',
         maxHeight: "100%",
         width: '100%',
         alignItems: 'center'
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     safeAreaFullscreen: {
         paddingTop: '7.5%',
         flex: 1,
-        // justifyContent: "center",
+        backgroundColor: '#ffffff',
         alignItems: "center"
     },
     // CARDS

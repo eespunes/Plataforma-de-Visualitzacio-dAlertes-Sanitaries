@@ -8,7 +8,7 @@ import {
     Modal,
     TextInput
 } from 'react-native'
-import savedData from "../savedData"
+import savedData from "../SavedData";
 import axios from "axios"
 import styles from "../Style"
 

@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from "react-native"
 import axios from "axios"
-import savedData from "../savedData"
+import savedData from "../SavedData";
 import Spinner from 'react-native-loading-spinner-overlay'
 import styles from "../Style"
 import * as Notifications from "expo-notifications";

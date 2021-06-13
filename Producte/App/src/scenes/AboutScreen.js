@@ -6,7 +6,7 @@ import {
     Image, TouchableOpacity
 } from "react-native";
 import styles from "../Style";
-import savedData from "../savedData";
+import savedData from "../SavedData";
 
 function AboutScreen({navigation}) {
     return (

@@ -11,7 +11,7 @@ import {
 } from "react-native"
 import axios from 'axios'
 import {encode as btoa} from 'base-64'
-import savedData from "../savedData"
+import savedData from "../SavedData";
 import styles from "../Style"
 
 function ListScreen({navigation}) {

@@ -4,8 +4,8 @@ import {
     SafeAreaView,
     View, TouchableOpacity
 } from "react-native";
-import savedData from "../savedData";
 import styles from "../Style";
+import savedData from "../SavedData";
 
 function WarningScreen({navigation}) {
     return (

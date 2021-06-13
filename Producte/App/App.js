@@ -4,14 +4,15 @@ import {Platform, BackHandler} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from "@react-navigation/stack";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-
-import LoginScreen from "./src/Scenes/LoginScreen";
-import WarningScreen from "./src/Scenes/WarningScreen";
-import ListScreen from "./src/Scenes/ListScreen";
-import ProfileScreen from "./src/Scenes/ProfileScreen";
-import AboutScreen from "./src/Scenes/AboutScreen";
 import * as Notifications from 'expo-notifications';
-import savedData from "./src/savedData";
+
+
+import LoginScreen from "./src/scenes/LoginScreen";
+import WarningScreen from "./src/scenes/WarningScreen";
+import AboutScreen from "./src/scenes/AboutScreen";
+import ListScreen from "./src/scenes/ListScreen";
+import ProfileScreen from "./src/scenes/ProfileScreen";
+import savedData from "./src/SavedData";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
