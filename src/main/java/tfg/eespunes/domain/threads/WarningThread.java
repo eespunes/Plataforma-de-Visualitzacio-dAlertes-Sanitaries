@@ -28,7 +28,12 @@ public class WarningThread extends Thread {
             int newWarningColor = knowWarningColor(newLastValue);
             if (newWarningColor != notificationMonitor.GREEN && newWarningColor != knowWarningColor(this.warning.getLastValue())) {
                 try {
-                    notificationMonitor.sendNotifications(databaseController.getAllEmployeesOfRole(warning.getRole().getName(), warning.getRole().getHealthcareInstitution().getId(), warning.getRole().getHealthcareInstitution().getCountry().getId()), newWarningColor, warning);
+                    notificationMonitor.sendNotifications(
+                            databaseController.getAllEmployeesOfRole(warning.getRole().getName(),
+                                    warning.getRole().getHealthcareInstitution().getId(),
+                                    warning.getRole().getHealthcareInstitution().getCountry().getId()),
+                            newWarningColor,
+                            warning);
                 } catch (PushClientException e) {
                 }
             }

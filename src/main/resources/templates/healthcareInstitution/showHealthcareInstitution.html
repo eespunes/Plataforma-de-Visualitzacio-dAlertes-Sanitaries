@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>INSTITUCIÓ MÈDICA</title>
+    <title>SISTEMA EXTERN</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
     <style th:replace="fragment/header :: headerStyle"></style>
@@ -59,7 +59,7 @@
                     <td>
                         <a class="shw-delete"
                            th:href="@{'/institution/delete/' +${healthcareInstitution.id}+'/'+${healthcareInstitution.country.id}}"
-                           onclick="return confirm('Estas segur que vols eliminar aquesta institució mèdica?\n(També s\'eliminaran els rols, alertes i empleats associats a aquesta institució mèdica)')">ELIMINAR</a>
+                           onclick="return confirm('Estas segur que vols eliminar aquest sistema extern?\n(També s\'eliminaran els rols, alertes i usuaris associats a aquest sistema extern)')">ELIMINAR</a>
                     </td>
                 </tr>
             </table>
@@ -76,7 +76,7 @@
                     </th>
                     <th class="lst-th">
                         <h2 align="center">
-                            INSTITUCIÓ MÈDICA
+                            SISTEMA EXTERN
                         </h2>
                     </th>
                     <th class="lst-th">

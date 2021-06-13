@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>LLISTA D'INSTITUCIONS MÈDIQUES</title>
+    <title>LLISTA DE SISTEMES EXTERNS</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
     <style th:replace="fragment/header :: headerStyle"></style>
@@ -12,15 +12,15 @@
 <body>
 <div th:replace="fragment/header :: header"></div>
 <div class="main">
-    <h1 align="center">LLISTA D'INSTITUCIONS MÈDIQUES</h1>
+    <h1 align="center">LLISTA DE SISTEMES EXTERNS</h1>
     <table class="lst-table" id="table">
         <tr>
             <th class="lst-th">
                 <h2 align="center">
                     NOM
                     <br>
-                    <input type="text" id="s0" onkeyup="search(0)" onfocusout="disappear(0)" placeholder="Busca un nom d'una institució mèdica..."
-                           title="Busca un nom d'una institució mèdica..."
+                    <input type="text" id="s0" onkeyup="search(0)" onfocusout="disappear(0)" placeholder="Busca un nom d'un sistema extern..."
+                           title="Busca un nom d'un sistema extern..."
                            hidden="true">
                     <button class="lst-btn" id="b0" onclick="appear(0)"><i class="fas fa-search"></i></button>
                     <button class="lst-btn" id="a0" onclick="asc(0)"><i class="fas fa-chevron-up"></i></button>
@@ -52,7 +52,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <p align="center" th:if="${healthcareInstitutions.size()==0}">NO S'HA TROBAT CAP INSTITUCIÓ MÈDICA</p>
+                <p align="center" th:if="${healthcareInstitutions.size()==0}">NO S'HA TROBAT CAP SISTEMA EXTERN</p>
             </td>
         </tr>
     </table>

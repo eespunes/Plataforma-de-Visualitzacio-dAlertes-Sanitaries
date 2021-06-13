@@ -22,7 +22,7 @@
                         <h2 align="center" th:text="${role.name}" th:id="${role.name}">Nom</h2>
                     </td>
                     <td>
-                        <p align="center">Institució mèdica</p>
+                        <p align="center">Sistema Extern</p>
                         <h2 align="center" th:text="${role.healthcareInstitution.name}"
                             th:id="${role.healthcareInstitution.name}">Institució
                             mèdica</h2>
@@ -44,7 +44,7 @@
                     <td colspan="2">
                         <a class="shw-delete"
                            th:href="@{'/role/delete/' + ${role.name}+'/'+${role.healthcareInstitution.id}+'/'+${role.healthcareInstitution.country.id}}"
-                           onclick="return confirm('Estas segur que vols eliminar aquest rol?\n(També s\'eliminaran les alertes i empleats associats a aquest rol)')">ELIMINAR</a>
+                           onclick="return confirm('Estas segur que vols eliminar aquest rol?\n(També s\'eliminaran les alertes i usuaris associats a aquest rol)')">ELIMINAR</a>
                     </td>
                 </tr>
             </table>
@@ -87,7 +87,7 @@
             </table>
             <p></p>
             <table class="lst-table" id="table2">
-                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'EMPLEATS DE '+${role.name}">EMPLEATS DE
+                <tr><h1 CLASS="shw-tableHeader" align="center" th:text="'EMPLEATS DE '+${role.name}">USUARIS DE
                     {NOM}</h1></tr>
                 <tr>
                     <th class="lst-th">
@@ -122,7 +122,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT PER AQUEST ROL.</p>
+                        <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP USUARI PER AQUEST ROL.</p>
                     </td>
                 </tr>
             </table>

@@ -48,6 +48,7 @@ public class Warning{
 
     public Warning() {
     }
+//    GETS I SETS
 
     public int getId() {
         return id;
