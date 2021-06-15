@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>LLISTA D'USUARIS</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
+    <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/list :: listStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<div class="main">
+    <h1 align="center">LLISTA D'USUARIS</h1>
+    <table class="lst-table" id="table">
+        <tr>
+            <th class="lst-th">
+                <h2 align="center">
+                    NOM
+                    <br>
+                    <input type="text" id="s0" onkeyup="search(0)" onfocusout="disappear(0)"
+                           placeholder="Busca un nom d'un empleat..."
+                           title="Type in a name"
+                           hidden="true">
+                    <button class="lst-btn" id="b0" onclick="appear(0)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a0" onclick="asc(0)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d0" onclick="desc(0)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    COGNOMS
+                    <br>
+                    <input type="text" id="s1" onkeyup="search(1)" onfocusout="disappear(1)"
+                           placeholder="Busca un cognom d'un empleat..."
+                           title="Type in a name"
+                           hidden="true">
+                    <button class="lst-btn" id="b1" onclick="appear(1)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a1" onclick="asc(1)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d1" onclick="desc(1)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    USUARI
+                    <br>
+                    <input type="text" id="s2" onkeyup="search(2)" onfocusout="disappear(2)"
+                           placeholder="Busca un nom d'usuari d'un empleat..."
+                           title="Type in a name"
+                           hidden="true">
+                    <button class="lst-btn" id="b2" onclick="appear(2)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a2" onclick="asc(2)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d2" onclick="desc(2)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    ROL
+                    <br>
+                    <input type="text" id="s3" onkeyup="search(3)" onfocusout="disappear(3)"
+                           placeholder="Busca un nom d'un rol..."
+                           title="Busca un nom d'un rol..." hidden="true"
+                    >
+                    <button class="lst-btn" id="b3" onclick="appear(3)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a3" onclick="asc(3)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d3" onclick="desc(3)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    SISTEMA EXTERN
+                    <br>
+                    <input type="text" id="s4" onkeyup="search(4)" onfocusout="disappear(4)"
+                           placeholder="Busca un nom d'un sistema extern..."
+                           title="Busca un nom d'una institució mèdicad'un sistema extern..."
+                           hidden="true">
+                    <button class="lst-btn" id="b4" onclick="appear(4)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a4" onclick="asc(4)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d4" onclick="desc(4)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+        </tr>
+        <tr class="trClickable"
+            th:each="employee : ${employees}"
+            th:onclick="'javascript:rowClicked(\'/employee/' + ${employee.username}+'\');'">
+            <td>
+                <p align="center" th:text="${employee.name}" th:id="${employee.name}">Nom</p>
+            </td>
+            <td>
+                <p align="center" th:text="${employee.surname}" th:id="${employee.surname}">Cognoms</p>
+            </td>
+            <td>
+                <p align="center" th:text="${employee.username}" th:id="${employee.username}">Usuari</p>
+            </td>
+            <td>
+                <p align="center" th:text="${employee.role.name}" th:id="${employee.role.name}">Rol</p>
+            </td>
+            <td>
+                <p align="center" th:text="${employee.role.healthcareInstitution.name}"
+                   th:id="${employee.role.healthcareInstitution.name}">Institució Mèdica</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <p align="center" th:if="${employees.size()==0}">NO S'HA TROBAT CAP EMPLEAT</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+
+</script>
+<div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
+</body>
+</html>

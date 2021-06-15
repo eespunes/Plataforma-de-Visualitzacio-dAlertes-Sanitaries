@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>EDITAR ALERTA</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/create :: createStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<div class="main">
+    <form novalidate method="post" th:object="${warning}">
+        <h1>EDITAR ALERTA</h1>
+
+        <table class ="ct-table">
+            <tr>
+                <td>
+                    <h4 class="ct-h4" align="center">NOM</h4>
+                    <p align="center" th:text="${warning.name}" th:id="${warning.name}">Nom</p>
+                </td>
+                <td>
+                    <h4 class="ct-h4" align="center">URI</h4>
+                    <p th:if="${#fields.hasErrors('uri')}" th:errors="*{uri}" style="color: red">Error</p>
+                    <input align="center" type="text" maxlength="256" placeholder="Introdueix la URI..." th:field="*{uri}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="inner">
+                        <tr>
+                            <td>
+                                <h4 class="ct-h4" align="center">NOM CURT</h4>
+                                <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom
+                                    Curt</p>
+                            </td>
+                            <td>
+                                <h4 class="ct-h4" align="center">ROL</h4>
+                                <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="inner">
+                        <tr>
+                            <td>
+                                <h4  class="ct-h4" align="center">VALOR<br>VERD</h4>
+                                <input class="green" type="number" required th:field="*{greenValue}"/>
+                            </td>
+                            <td>
+                                <h4 class="ct-h4" align="center">VALOR<br>GROC</h4>
+                                <input class="yellow" type="number" required th:field="*{yellowValue}"/>
+                            </td>
+                            <td>
+                                <h4 class="ct-h4" align="center">VALOR<br>VERMELL</h4>
+                                <input class="red" type="number" required th:field="*{redValue}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 class="ct-h4" align="center">DESCRIPCIÓ</h4>
+                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red">Error</p>
+                    <textarea align="center" type="text" maxlength="512" rows="14"  placeholder="Introdueix la descripció.."
+                              th:field="*{description}"></textarea>
+                </td>
+                <td>
+                    <h4 class="ct-h4" align="center">ACTUALITZACIÓ</h4>
+                    <input align="center" type="number" required th:field="*{refreshRate}"/>
+                    <h4 class="ct-h4" align="center">NOTIFICACIÓ</h4>
+                    <p th:if="${#fields.hasErrors('notificationMessage')}" th:errors="*{notificationMessage}" style="color: red">Error</p>
+                    <textarea align="center" type="text" maxlength="256" ROWS="7" placeholder="Introdueix el text de notificació..."
+                              th:field="*{notificationMessage}"></textarea>
+                </td>
+            </tr>
+        </table>
+        <p></p>
+        <button class="ct-btn" type="submit" value="warning">EDITAR ALERTA</button>
+    </form>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
+</body>
+</html>

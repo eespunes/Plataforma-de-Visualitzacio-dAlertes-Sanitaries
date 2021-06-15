@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>LLISTA D'ALERTES</title>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/e9b81f5ff7.js" crossorigin="anonymous"></script>
+    <style th:replace="fragment/header :: headerStyle"></style>
+    <style th:replace="fragment/footer :: footerStyle"></style>
+    <style th:replace="fragment/list :: listStyle"></style>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<div class="main">
+    <h1 align="center">LLISTA D'ALERTES</h1>
+    <table class="lst-table" id="table">
+        <tr>
+            <th class="lst-th">
+                <h2 align="center">
+                    ID
+                    <br>
+                    <input type="text" id="s0" onkeyup="search(0)" onfocusout="disappear(0)" placeholder="Busca un ID d'una alerta..."
+                           title="Busca un ID d'una alerta..."
+                           hidden="true">
+                    <button class="lst-btn" id="b0" onclick="appear(0)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a0" onclick="asc(0)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d0" onclick="desc(0)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    NOM CURT
+                    <br>
+                    <input type="text" id="s1" onkeyup="search(1)" onfocusout="disappear(1)" placeholder="Busca un nom d'una alerta..."
+                           title="Busca un nom d'una alerta..."
+                           hidden="true">
+                    <button class="lst-btn" id="b1" onclick="appear(1)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a1" onclick="asc(1)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d1" onclick="desc(1)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    ROL
+                    <br>
+                    <input type="text" id="s2" onkeyup="search(2)" onfocusout="disappear(2)" placeholder="Busca un nom d'un rol..."
+                           title="Busca un rol..."
+                           hidden="true">
+                    <button class="lst-btn" id="b2" onclick="appear(2)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a2" onclick="asc(2)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d2" onclick="desc(2)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+
+            </th>
+            <th class="lst-th">
+                <h2 align="center">
+                    SISTEMA EXTERN
+                    <br>
+                    <input type="text" id="s3" onkeyup="search(3)" onfocusout="disappear(3)" placeholder="Busca un nom d'un sistema extern..."
+                           title="Busca un nom d'un sistema extern..." hidden="true"
+                    >
+                    <button class="lst-btn" id="b3" onclick="appear(3)"><i class="fas fa-search"></i></button>
+                    <button class="lst-btn" id="a3" onclick="asc(3)"><i class="fas fa-chevron-up"></i></button>
+                    <button class="lst-btn" id="d3" onclick="desc(3)"><i class="fas fa-chevron-down"></i></button>
+                </h2>
+            </th>
+        </tr>
+        <tr class="trClickable"
+                th:each="warning : ${warnings}" th:onclick="'javascript:rowClicked(\'/warning/' + ${warning.id}+'\');'">
+            <td>
+                <p align="center" th:text="${warning.id}" th:id="${warning.id}">ID</p>
+            </td>
+            <td>
+                <p align="center" th:text="${warning.shortName}" th:id="${warning.shortName}">Nom Curt</p>
+            </td>
+            <td>
+                <p align="center" th:text="${warning.role.name}" th:id="${warning.role.name}">Rol</p>
+            </td>
+            <td>
+                <p align="center" th:text="${warning.role.healthcareInstitution.name}"
+                   th:id="${warning.role.healthcareInstitution.name}">Institució Mèdica</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <p align="center" th:if="${warnings.size()==0}">NO S'HA TROBAT CAP ALERTA</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:replace="fragment/footer :: footer"></div>
+<script src="/js/table.js"></script>
+</body>
+</html>
