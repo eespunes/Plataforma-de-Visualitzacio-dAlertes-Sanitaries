@@ -50,8 +50,6 @@ public class DatabaseDAO {
     private final String FIND_ALL_WARNINGS_OF_ROLE = "SELECT * FROM Warnings WHERE war_rolename=? and war_roleinstitutionid=? and war_rolecountryid=?";
     private final String FIND_ALL_EMPLOYEES_OF_ROLE = "SELECT * FROM Employees WHERE emp_rolename=? and emp_roleinstitutionid=? and emp_rolecountryid=?";
 
-    private final String COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY = "SELECT COUNT(ins_id) FROM HealthcareInstitutions WHERE ins_countryid=?";
-    private final String COUNT_WARNINGS = "SELECT COUNT(war_id) FROM Warnings";
     private final String UPDATE_PASSWORD = "UPDATE Employees SET emp_password=? WHERE emp_username=?";
     private final String UPDATE_WARNING_LAST_VALUE = "UPDATE Warnings SET war_lastvalue=? WHERE war_id=?";
     private final String UPDATE_NOTIFICATION_TOKEN = "UPDATE Employees SET emp_notificationToken=? WHERE emp_username=?";
@@ -125,7 +123,7 @@ public class DatabaseDAO {
 
     //CREATE
     public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountry().getId());
+        int id = getMaxHealthcareID(findAllHealthcareInstitutions());
         healthcareInstitution.setId(id);
         jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountry().getId(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
         Role role = new Role("WEB-ADMIN", "The web administrator of this healthcare institution", healthcareInstitution);
@@ -143,12 +141,27 @@ public class DatabaseDAO {
         jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRole().getName(), employee.getRole().getHealthcareInstitution().getId(), employee.getRole().getHealthcareInstitution().getCountry().getId(), "");
     }
 
-    private int getHealthcareInstitutionCountByCountry(String countryID) {
-        return jdbcTemplate.queryForObject(COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY, new Object[]{countryID}, Integer.class);
+    private int getMaxHealthcareID(List<HealthcareInstitution> insititutions) {
+        int id = 0;
+        for (HealthcareInstitution healthcareInstitution : insititutions) {
+            if (healthcareInstitution != null && healthcareInstitution.getId() > id)
+                id = healthcareInstitution.getId();
+
+        }
+        return id + 1;
+    }
+    private int getMaxWarningID(List<Warning> warnings) {
+        int id = 0;
+        for (Warning warning : warnings) {
+            if (warning != null && warning.getId() > id)
+                id = warning.getId();
+
+        }
+        return id + 1;
     }
 
     public int insertWarning(Warning warning) {
-        int id = jdbcTemplate.queryForObject(COUNT_WARNINGS, new Object[]{}, Integer.class);
+        int id = getMaxWarningID(findAllWarnings());
         jdbcTemplate.update(INSERT_WARNING, id, warning.getName(), warning.getShortName(), warning.getDescription(), warning.getUri(), warning.getNotificationMessage(), warning.getGreenValue(), warning.getYellowValue(), warning.getRedValue(), 0, warning.getRefreshRate(), warning.getRole().getName(), warning.getRole().getHealthcareInstitution().getId(), warning.getRole().getHealthcareInstitution().getCountry().getId());
         return id;
     }
@@ -265,6 +278,6 @@ public class DatabaseDAO {
     }
 
     public void updateNotificationToken(String username, String notificationToken) {
-        jdbcTemplate.update(UPDATE_NOTIFICATION_TOKEN,notificationToken,username);
+        jdbcTemplate.update(UPDATE_NOTIFICATION_TOKEN, notificationToken, username);
     }
 }
