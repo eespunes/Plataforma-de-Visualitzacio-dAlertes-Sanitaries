@@ -125,7 +125,7 @@ public class DatabaseDAO {
 
     //CREATE
     public int insertHealthcareInstitution(HealthcareInstitution healthcareInstitution) {
-        int id = getHealthcareInstitutionCountByCountry(healthcareInstitution.getCountry().getId());
+        int id = getHighestID(findAllHealthcareInstitutions());
         healthcareInstitution.setId(id);
         jdbcTemplate.update(INSERT_HEALTHCARE_INSTITUTION, id, healthcareInstitution.getCountry().getId(), healthcareInstitution.getName(), healthcareInstitution.getUrl(), healthcareInstitution.getUsername(), healthcareInstitution.getPassword());
         Role role = new Role("WEB-ADMIN", "The web administrator of this healthcare institution", healthcareInstitution);
@@ -143,7 +143,7 @@ public class DatabaseDAO {
         jdbcTemplate.update(INSERT_EMPLOYEE, employee.getUsername(), employee.getPassword(), employee.getName(), employee.getSurname(), employee.getRole().getName(), employee.getRole().getHealthcareInstitution().getId(), employee.getRole().getHealthcareInstitution().getCountry().getId(), "");
     }
 
-    private int getHealthcareInstitutionCountByCountry(String countryID) {
+    private int getHighestID(String countryID) {
         return jdbcTemplate.queryForObject(COUNT_HEALTHCARE_INSTITUTION_BY_COUNTRY, new Object[]{countryID}, Integer.class);
     }
 
